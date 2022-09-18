@@ -21,6 +21,17 @@ dependencies {
 kotlin {
     js(IR) {
         binaries.executable()
+        browser {
+            commonWebpackConfig {
+                
+            }
+        }
         nodejs {}
+    }
+}
+
+plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin> {
+    configure<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension> {
+        nodeVersion = "15.11.0"
     }
 }

@@ -18,4 +18,9 @@ $ npm i -g npm@6.14.11
 
 $ npm i -g opencv-build
 $ npm i -g opencv4nodejs
+
+# this is workaround
+# should find a way to make npm prebuilt work 
+$ cd build/js/packages/ology-kt
+$ npm install
 ```
