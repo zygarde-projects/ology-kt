@@ -20,7 +20,17 @@ dependencies {
 kotlin {
     js(IR) {
         binaries.executable()
-        nodejs {}
+        nodejs {
+            useCommonJs()
+            runTask {
+                args("foo", "bar")
+            }
+        }
+        compilations["main"].packageJson {
+            customField("bin", mapOf("ology" to "kotlin/ology-kt.js"))
+            customField("types", "kotlin/ology-kt.d.ts")
+            customField("scripts", mapOf("ology" to "chmod 755 kotlin/ology-kt.js && node kotlin/ology-kt.js")) // for testing
+        }
     }
 }
 
