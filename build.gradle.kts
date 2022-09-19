@@ -15,15 +15,16 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-nodejs:0.0.7")
     implementation(npm("@nut-tree/nut-js", "next"))
     implementation(npm("@nut-tree/template-matcher", "next"))
+    implementation(npm("yargs", "17.5.1"))
+    implementation(npm("@types/yargs", "17.0.2", generateExternals = false))
 }
 
 kotlin {
     js(IR) {
         binaries.executable()
         nodejs {
-            useCommonJs()
             runTask {
-                args("foo", "bar")
+                args("-h")
             }
         }
         compilations["main"].packageJson {
