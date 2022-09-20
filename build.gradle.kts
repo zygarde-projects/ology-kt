@@ -24,7 +24,7 @@ kotlin {
         binaries.executable()
         nodejs {
             runTask {
-                args("-h")
+                args("host", "-f=abc")
             }
         }
         compilations["main"].packageJson {
