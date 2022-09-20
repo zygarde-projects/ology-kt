@@ -15,12 +15,23 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-nodejs:0.0.7")
     implementation(npm("@nut-tree/nut-js", "next"))
     implementation(npm("@nut-tree/template-matcher", "next"))
+    implementation(npm("yargs", "17.5.1"))
+    implementation(npm("@types/yargs", "17.0.2", generateExternals = false))
 }
 
 kotlin {
     js(IR) {
         binaries.executable()
-        nodejs {}
+        nodejs {
+            runTask {
+                args("-h")
+            }
+        }
+        compilations["main"].packageJson {
+            customField("bin", mapOf("ology" to "kotlin/ology-kt.js"))
+            customField("types", "kotlin/ology-kt.d.ts")
+            customField("scripts", mapOf("ology" to "chmod 755 kotlin/ology-kt.js && node kotlin/ology-kt.js")) // for testing
+        }
     }
 }
 
