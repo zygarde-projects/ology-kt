@@ -22,7 +22,7 @@ dependencies {
 }
 
 kotlin {
-    js(LEGACY) { // IR will be broken the serialization
+    js(LEGACY) { // The serialization will be broken by IR
         binaries.executable()
         nodejs {
             runTask {
