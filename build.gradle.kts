@@ -43,3 +43,22 @@ kotlin {
 plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin> {
     the<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension>().ignoreScripts = false
 }
+
+task("prepareBinJs") {
+    doLast {
+        val projectName = project.name
+        val binText = "#!/usr/bin/env node"
+        File(project.buildDir, "js/packages/$projectName/kotlin/$projectName.js")
+            .also {
+                val content = it.readText()
+                if (!content.startsWith(binText)) {
+                    it.writeText(
+                        """$binText
+${it.readText()}"""
+                    )
+                }
+            }
+    }
+}
+
+tasks.getByName("mainClasses").finalizedBy("prepareBinJs")

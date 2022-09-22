@@ -1,0 +1,33 @@
+name: snapshot build
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v3
+      - name: setup java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 17
+          cache: 'gradle'
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 15
+          cache: 'yarn'
+          cache-dependency-path: |
+            kotlin-js-store/yarn.lock
+      - name: build
+        run: ./gradlew build
+      - name: publish
+        run: ./publish-snapshot.sh
+        env:
+          PUNI_NPM_USER: ${{ secrets.PUNI_NPM_USER }}
+          PUNI_NPM_PASS: ${{ secrets.PUNI_NPM_PASS }}
+          PUNI_NPM_EMAIL: ${{ secrets.PUNI_NPM_EMAIL }}
