@@ -1,5 +1,6 @@
 plugins {
     kotlin("js") version "1.6.21"
+    kotlin("plugin.serialization") version "1.6.21"
 }
 
 group = "ology"
@@ -13,6 +14,7 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     implementation("org.jetbrains.kotlinx:kotlinx-nodejs:0.0.7")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
     implementation(npm("@nut-tree/nut-js", "next"))
     implementation(npm("@nut-tree/template-matcher", "next"))
     implementation(npm("yargs", "17.5.1"))
@@ -20,11 +22,11 @@ dependencies {
 }
 
 kotlin {
-    js(IR) {
+    js(LEGACY) { // The serialization will be broken by IR
         binaries.executable()
         nodejs {
             runTask {
-                args("-h")
+                args("host", "-f=abc")
             }
         }
         compilations["main"].packageJson {
