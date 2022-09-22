@@ -26,7 +26,7 @@ jobs:
       - name: build
         run: ./gradlew build
       - name: publish
-        run: ./publish-snapshot.sh
+        run: ./scripts/publish-snapshot.sh
         env:
           PUNI_NPM_USER: ${{ secrets.PUNI_NPM_USER }}
           PUNI_NPM_PASS: ${{ secrets.PUNI_NPM_PASS }}
