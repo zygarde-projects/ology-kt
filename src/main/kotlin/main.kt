@@ -1,9 +1,5 @@
 import command.HostCommand
 import external.yargs.yargs
-import kotlinx.serialization.ExperimentalSerializationApi
-
-fun greeting(name: String) =
-    "Hello, $name"
 
 fun main() {
     println(greeting("ology-kt"))
@@ -16,3 +12,6 @@ fun main() {
         .alias("h", "help")
         .argv
 }
+
+fun greeting(name: String) =
+    "Hello, $name"
