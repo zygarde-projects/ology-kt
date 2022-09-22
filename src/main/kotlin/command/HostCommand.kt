@@ -1,16 +1,18 @@
 package command
 
+import external.ws.WebSocketServer
+import external.ws.WebSocketServerConfig
 import external.yargs.Argv
 import external.yargs.CommandModule
 import external.yargs.Options
-import kotlinx.serialization.*
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromDynamic
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class HostCommandArgs(
     val foo: String
 )
+
+const val httpPort = 16667
 
 class HostCommand : CommandModule<dynamic, dynamic> {
     override var command = "host"
@@ -22,9 +24,15 @@ class HostCommand : CommandModule<dynamic, dynamic> {
         })
     }
 
-    @ExperimentalSerializationApi
-    override var handler: (args: dynamic) -> Unit = {
-        val args = Json.decodeFromDynamic<HostCommandArgs>(it)
-        println("args foo is ${args.foo}")
+    override var handler: (args: HostCommandArgs) -> Unit = {
+        println("args foo is ${it.foo}") // TODO
+
+        val wssConfig = WebSocketServerConfig(port = httpPort)
+        val wss = WebSocketServer(wssConfig)
+        wss.on("connection") { client ->
+            client.send("hello ology client")
+            println("client connected")
+            println("client count: ${wss.clients.size}")
+        }
     }
 }
