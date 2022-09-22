@@ -28,7 +28,8 @@ kotlin {
         binaries.executable()
         nodejs {
             runTask {
-                args("host", "-f=abc")
+                args("host", "-f=abc") // host command
+//                args("client", "-h=localhost") // client command
             }
         }
         compilations["main"].packageJson {

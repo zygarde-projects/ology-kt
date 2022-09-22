@@ -14,10 +14,10 @@ data class HostCommandArgs(
 
 const val httpPort = 16667
 
-class HostCommand : CommandModule<dynamic, dynamic> {
+class HostCommand : CommandModule<dynamic, HostCommandArgs> {
     override var command = "host"
 
-    override var builder: (args: Argv<dynamic>) -> dynamic = {
+    override var builder: (args: Argv<HostCommandArgs>) -> dynamic = {
         it.options("foo", object : Options {
             override var alias = "f"
             override var demandOption = true
@@ -25,7 +25,7 @@ class HostCommand : CommandModule<dynamic, dynamic> {
     }
 
     override var handler: (args: HostCommandArgs) -> Unit = {
-        println("args foo is ${it.foo}") // TODO
+        println("args foo is ${it.foo}")
 
         val wssConfig = WebSocketServerConfig(port = httpPort)
         val wss = WebSocketServer(wssConfig)
