@@ -1,4 +1,5 @@
 import command.ClientCommand
+import command.GenerateDefaultConfigCommand
 import command.HostCommand
 import external.yargs.yargs
 
@@ -7,6 +8,7 @@ fun main() {
     yargs.usage("Usage: $0 <command> [options]")
         .command(HostCommand())
         .command(ClientCommand())
+        .command(GenerateDefaultConfigCommand())
         .recommendCommands()
         .demandCommand(1)
         .strict()

@@ -31,7 +31,8 @@ kotlin {
         binaries.executable()
         nodejs {
             runTask {
-                args("host", "-c=${rootProject.file("config").absolutePath}/config.json") // host command
+                args("config-gen")
+//                args("host", "-c=${rootProject.file("config").absolutePath}/config.json") // host command
 //                args("client", "-c=${rootProject.file("config").absolutePath}/config.json") // client command
             }
         }
@@ -65,3 +66,7 @@ ${it.readText()}"""
 }
 
 tasks.getByName("mainClasses").finalizedBy("prepareBinJs")
+
+task("packResources", Exec::class) {
+    commandLine = listOf("cp", "-r", "src/main/resources", "build/js/packages/ology-kt/resources")
+}
