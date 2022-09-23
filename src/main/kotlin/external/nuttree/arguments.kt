@@ -7,6 +7,11 @@ data class Region(
     val height: Int
 )
 
+data class Point(
+    val left: Int,
+    val top: Int
+)
+
 data class OptionalSearchParameters(
     val searchRegion: Region? = null,
     val confidence: Int? = null,
