@@ -18,9 +18,10 @@ dependencies {
 
     implementation(npm("@nut-tree/nut-js", "next"))
     implementation(npm("@nut-tree/template-matcher", "next"))
+    implementation(npm("nconf", "0.12.0"))
     implementation(npm("ws", "8.8.1"))
     implementation(npm("yargs", "17.5.1"))
-    implementation(npm("@types/yargs", "17.0.2", generateExternals = false))
+    implementation(npm("@types/nconf", "0.10.3", generateExternals = true))
 }
 
 kotlin {
@@ -28,8 +29,8 @@ kotlin {
         binaries.executable()
         nodejs {
             runTask {
-                args("host", "-f=abc") // host command
-//                args("client", "-h=localhost") // client command
+                args("host", "-c=../../../../config/test.json") // host command
+//                args("client", "-c=../../../../config/test.json") // client command
             }
         }
         compilations["main"].packageJson {
