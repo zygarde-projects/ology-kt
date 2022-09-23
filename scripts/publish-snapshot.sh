@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 VERSION_ARG=$1
-BUILD_TIME=$(date +"%Y%m%d%H%M%S")
+BUILD_TIME=$(date -u +"%Y%m%d%H%M%S")
 BUILD_VERSION=${VERSION_ARG:-"0.0.0-$BUILD_TIME"}
 NPM_USER="$PUNI_NPM_USER" \
 NPM_PASS="$PUNI_NPM_PASS" \
@@ -13,8 +13,12 @@ DIST_TARGET="$ABS_PATH/../build/js"
 MAJOR_PACKAGE="packages/ology-kt"
 
 function publishLib() {
-  (cd "$DIST_TARGET/$1" && npm version "$BUILD_VERSION" --no-git-tag-version && npm publish --registry=https://npm.puni.tw)
   package=$(cd "$DIST_TARGET/$1" && cat package.json | jq -r '.name')
+  if [[ "$package" == kotlin-test* ]]; then
+    echo "Skip $package"
+    return 0
+  fi
+  (cd "$DIST_TARGET/$1" && npm version "$BUILD_VERSION" --no-git-tag-version && npm publish --registry=https://npm.puni.tw)
   (cd "$DIST_TARGET/$MAJOR_PACKAGE" && npm install add-dependencies "$package@$BUILD_VERSION" --ignore-scripts --registry=https://npm.puni.tw)
 }
 
