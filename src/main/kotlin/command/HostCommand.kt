@@ -1,37 +1,24 @@
 package command
 
-import external.nconf.nconf
+import command.base.BaseCommand
+import command.base.BaseCommandArgs
+import command.base.BaseLoadingConfigFileConfigArgs
+import conf.Config
 import external.ws.WebSocketServer
 import external.ws.WebSocketServerConfig
-import external.yargs.Argv
-import external.yargs.CommandModule
-import external.yargs.Options
-import kotlinx.serialization.Serializable
 
-@Serializable
-data class HostCommandArgs(
-    val config: String
-)
+class HostCommand : BaseCommand<BaseLoadingConfigFileConfigArgs>("host") {
 
-const val httpPort = 16667
-
-class HostCommand : CommandModule<dynamic, HostCommandArgs> {
-    override var command = "host"
-
-    override var builder: (args: Argv<HostCommandArgs>) -> dynamic = {
-        it.options("config", object : Options {
-            override var alias = "c"
-            override var demandOption = false
-        })
+    init {
+        argOptions.add(BaseCommandArgs.CONFIG)
     }
 
-    override var handler: (args: HostCommandArgs) -> Unit = {
-        println("config path is ${it.config}")
-        nconf.file(it.config)
-        val gameName = "${nconf.get("prefix")}${nconf.get("index")}"
+    override fun handle(args: BaseLoadingConfigFileConfigArgs) {
+        val config = Config(args.config, "host")
+        val gameName = "${config.get("game:prefix")}${config.get("game:counter")}"
         println("game name: $gameName")
 
-        val wssConfig = WebSocketServerConfig(port = httpPort)
+        val wssConfig = WebSocketServerConfig(port = config.get("port").toInt())
         val wss = WebSocketServer(wssConfig)
         wss.on("connection") { client ->
             client.send("hello ology client, current game is $gameName")

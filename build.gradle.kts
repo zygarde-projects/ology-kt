@@ -31,8 +31,8 @@ kotlin {
         binaries.executable()
         nodejs {
             runTask {
-                args("host", "-c=../../../../config/test.json") // host command
-//                args("client", "-c=../../../../config/test.json") // client command
+                args("host", "-c=${rootProject.file("config").absolutePath}/config.json") // host command
+//                args("client", "-c=${rootProject.file("config").absolutePath}/config.json") // client command
             }
         }
         compilations["main"].packageJson {

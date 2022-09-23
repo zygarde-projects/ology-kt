@@ -1,30 +1,21 @@
 package command
 
-import external.nconf.nconf
+import command.base.BaseCommand
+import command.base.BaseCommandArgs
+import command.base.BaseLoadingConfigFileConfigArgs
+import conf.Config
 import external.ws.WebSocket
-import external.yargs.Argv
-import external.yargs.CommandModule
-import external.yargs.Options
-import kotlinx.serialization.Serializable
 
-@Serializable
-data class ClientCommandArgs(
-    val config: String
-)
 
-class ClientCommand : CommandModule<dynamic, ClientCommandArgs> {
-    override var command = "client"
+class ClientCommand : BaseCommand<BaseLoadingConfigFileConfigArgs>("client") {
 
-    override var builder: (args: Argv<ClientCommandArgs>) -> dynamic = {
-        it.options("config", object : Options {
-            override var alias = "c"
-            override var demandOption = true
-        })
+    init {
+        argOptions.add(BaseCommandArgs.CONFIG)
     }
 
-    override var handler: (args: ClientCommandArgs) -> Unit = {
-        nconf.file(it.config)
-        val host = "ws://${nconf.get("ip")}:$httpPort"
+    override fun handle(args: BaseLoadingConfigFileConfigArgs) {
+        val config = Config(args.config, "client")
+        val host = "ws://${config.get("server_ip")}:${config.get("server_port")}"
         val ws = WebSocket(host)
         ws.on("open") { println("Connected to $host") }
         ws.on("message") { msg ->
