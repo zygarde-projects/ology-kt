@@ -19,7 +19,6 @@ dependencies {
 
     implementation(npm("@nut-tree/nut-js", "next"))
     implementation(npm("@nut-tree/template-matcher", "next"))
-    implementation(optionalNpm("@zygarde-projects/win-control", "0.3.1"))
     implementation(npm("nconf", "0.12.0"))
     implementation(npm("ws", "8.8.1"))
     implementation(npm("yargs", "17.5.1"))
