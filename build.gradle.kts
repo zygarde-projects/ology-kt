@@ -44,8 +44,11 @@ kotlin {
     }
 }
 
+val runningWindows = System.getProperty("os.name").startsWith("Windows")
+val runningCI = System.getenv("CI") != null
+
 plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin> {
-    the<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension>().ignoreScripts = false
+    the<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension>().ignoreScripts = runningCI
 }
 
 task("prepareBinJs") {
@@ -70,7 +73,6 @@ task("packResources", Copy::class) {
     into("build/js/packages/ology-kt/resources")
 }
 
-val runningWindows = System.getProperty("os.name").startsWith("Windows")
 task("prepareDevNodeModules", Copy::class) {
     from("dev-assets/${if(runningWindows) "windows" else "non-windows"}/node_modules")
     into("node_modules")
