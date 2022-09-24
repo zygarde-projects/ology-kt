@@ -372,6 +372,16 @@
   resolved "https://registry.yarnpkg.com/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz#aa58042711d6e3275dd37dc597e5d31e8c290a44"
   integrity sha512-sL/cEvJWAnClXw0wHk85/2L0G6Sj8UB0Ctc1TEMbKSsmpRosqhwj9gWgFRZSrBr2f9tiXISwNhCPmlfqUqyb9Q==
 
+"@zygarde-projects/win-control@0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@zygarde-projects/win-control/-/win-control-0.3.1.tgz#1996db036365d59eb8efedc55db595061b2f6732"
+  integrity sha512-A8bn11PsWkJHDOCOT8/YtQalI83ilhdBWs/1YeJv55H8FlkDBOv4IBlyNiEZtT/pWki+oWcB2rzapo99hzPSZw==
+  dependencies:
+    node-addon-api "^3.0.0"
+    node-pre-gyp "^0.12.0"
+  optionalDependencies:
+    node-gyp "7.x"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -2467,16 +2477,6 @@ wide-align@^1.1.0:
   integrity sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==
   dependencies:
     string-width "^1.0.2 || 2 || 3 || 4"
-
-win-control@0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/win-control/-/win-control-0.3.1.tgz#20511c798a84be5d5defb30e3688247ec2066e39"
-  integrity sha512-c1aqCI3rrxAbRjhRsvKvQ+vMkRpwzas8u72u1YHT48awmwkIicpAvN0K+lbjb4nN6fLvtxLQ6bqHijnKXYo+hA==
-  dependencies:
-    node-addon-api "^3.0.0"
-    node-pre-gyp "^0.12.0"
-  optionalDependencies:
-    node-gyp "7.x"
 
 window-size@^0.1.4:
   version "0.1.4"
