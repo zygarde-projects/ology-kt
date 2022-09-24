@@ -4,3 +4,5 @@
 out
 *.iml
 build/
+/node_modules
+dev-assets/windows/node_modules

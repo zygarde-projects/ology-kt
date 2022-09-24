@@ -30,7 +30,8 @@ kotlin {
         binaries.executable()
         nodejs {
             runTask {
-                args("config-gen")
+                args("test")
+//                args("config-gen")
 //                args("host", "-c=${rootProject.file("config").absolutePath}/config.json") // host command
 //                args("client", "-c=${rootProject.file("config").absolutePath}/config.json") // client command
             }
@@ -64,8 +65,20 @@ ${it.readText()}"""
     }
 }
 
-task("packResources", Exec::class) {
-    commandLine = listOf("cp", "-r", "src/main/resources", "build/js/packages/ology-kt/resources")
+task("packResources", Copy::class) {
+    from("src/main/resources")
+    into("build/js/packages/ology-kt/resources")
 }
 
-tasks.getByName("compileKotlinJs").finalizedBy("prepareBinJs", "packResources")
+val runningWindows = System.getProperty("os.name").startsWith("Windows")
+task("prepareDevNodeModules", Copy::class) {
+    from("dev-assets/${if(runningWindows) "windows" else "non-windows"}/node_modules")
+    into("node_modules")
+}
+
+tasks.getByName("compileKotlinJs")
+    .finalizedBy(
+        "prepareBinJs",
+        "packResources",
+        "prepareDevNodeModules",
+    )
