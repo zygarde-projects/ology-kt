@@ -7,7 +7,7 @@ import conf.Config
 import external.ws.WebSocketServer
 import external.ws.WebSocketServerConfig
 
-class HostCommand : BaseCommand<BaseLoadingConfigFileConfigArgs>("host") {
+object HostCommand : BaseCommand<BaseLoadingConfigFileConfigArgs>("host") {
 
     init {
         argOptions.add(BaseCommandArgs.CONFIG)

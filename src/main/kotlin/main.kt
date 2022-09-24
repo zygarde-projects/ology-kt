@@ -1,14 +1,16 @@
 import command.ClientCommand
 import command.GenerateDefaultConfigCommand
 import command.HostCommand
+import command.TestCommand
 import external.yargs.yargs
 
 fun main() {
     println(greeting("ology-kt"))
     yargs.usage("Usage: $0 <command> [options]")
-        .command(HostCommand())
-        .command(ClientCommand())
-        .command(GenerateDefaultConfigCommand())
+        .command(HostCommand)
+        .command(ClientCommand)
+        .command(GenerateDefaultConfigCommand)
+        .command(TestCommand)
         .recommendCommands()
         .demandCommand(1)
         .strict()

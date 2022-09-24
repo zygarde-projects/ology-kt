@@ -7,7 +7,7 @@ import conf.Config
 import external.ws.WebSocket
 
 
-class ClientCommand : BaseCommand<BaseLoadingConfigFileConfigArgs>("client") {
+object ClientCommand : BaseCommand<BaseLoadingConfigFileConfigArgs>("client") {
 
     init {
         argOptions.add(BaseCommandArgs.CONFIG)

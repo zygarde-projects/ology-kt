@@ -2,7 +2,7 @@ package d2r
 
 import external.wincontrol.Window
 
-class D2RController {
+object D2RController {
     private val gameWindowTitle = "Diablo II: Resurrected"
 
     fun isGameRunning(switchToForegroundWhenRunning: Boolean = false): Boolean {
