@@ -14,17 +14,14 @@ MAJOR_PACKAGE="packages/ology-kt"
 
 function publishLib() {
   package=$(cd "$DIST_TARGET/$1" && cat package.json | jq -r '.name')
-  lib_version=$(cd "$DIST_TARGET/$1" && cat package.json | jq -r '.version')
   if [[ "$package" == kotlin-test* ]]; then
     echo "Skip $package"
     return 0
   fi
-  (cd "$DIST_TARGET/$1" && npm publish --registry=https://npm.puni.tw)
-  cp -r "$DIST_TARGET/$1" "$DIST_TARGET/$MAJOR_PACKAGE/node_modules/$package"
-  (cd "$DIST_TARGET/$MAJOR_PACKAGE" && yarn add "$package@$lib_version" --ignore-scripts)
+  (cd "$DIST_TARGET/$1" && npm version "$BUILD_VERSION" --no-git-tag-version && npm publish --registry=https://npm.puni.tw)
+  (cd "$DIST_TARGET/$MAJOR_PACKAGE" && npm install add-dependencies "$package@$BUILD_VERSION" --ignore-scripts --registry=https://npm.puni.tw)
 }
 
-cp -r kotlin-js-store/yarn.lock "$DIST_TARGET/$MAJOR_PACKAGE"
 (cd "$DIST_TARGET" && cat package.json | jq -r '.workspaces[] | select(startswith("packages_imported"))' | while read -r package; do publishLib "$package"; done )
 
 # add win-control to dist target
