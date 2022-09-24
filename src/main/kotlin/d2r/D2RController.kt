@@ -1,6 +1,6 @@
 package d2r
 
-import external.wincontrol.Window
+import external.wincontrol.WinControl.Window
 
 object D2RController {
     private val gameWindowTitle = "Diablo II: Resurrected"
