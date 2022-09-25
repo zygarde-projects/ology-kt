@@ -16,4 +16,18 @@ object KeyboardController {
             keyboard.releaseKey(Key.Backspace).await()
         }
     }
+
+    suspend fun inputGameNameAndPassword(name: String, password: String) {
+        cleanInput(name.length)
+        keyboard.type(name).await()
+        delay(100)
+        keyboard.pressKey(Key.Tab).await()
+        keyboard.releaseKey(Key.Tab).await()
+        cleanInput(password.length)
+    }
+
+    suspend fun submitGameForm() {
+        keyboard.pressKey(Key.Return).await()
+        keyboard.releaseKey(Key.Return).await()
+    }
 }
