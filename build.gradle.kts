@@ -71,6 +71,10 @@ ${it.readText()}"""
 task("packResources", Copy::class) {
     from("src/main/resources")
     into("build/js/packages/ology-kt/resources")
+
+    // for test
+    from("src/main/resources")
+    into("build/js/packages/ology-kt-test/resources")
 }
 
 task("prepareDevNodeModules", Copy::class) {
