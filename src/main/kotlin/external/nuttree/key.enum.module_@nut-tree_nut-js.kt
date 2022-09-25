@@ -1,7 +1,7 @@
-@file:Suppress("INTERFACE_WITH_SUPERCLASS", "OVERRIDING_FINAL_MEMBER", "RETURN_TYPE_MISMATCH_ON_OVERRIDE", "CONFLICTING_OVERLOADS")
-
 package external.nuttree
 
+@JsModule("@nut-tree/nut-js")
+@JsNonModule
 external enum class Key {
     Space /* = 0 */,
     Escape /* = 1 */,
