@@ -9,7 +9,6 @@ import kotlin.js.Promise
 
 object ScreenController {
     suspend fun checkImage(templateImageName: String, currentRetry: Int = 1, maxRetry: Int = 4): Region? {
-        println("checkImage $templateImageName")
         screen.config.confidence = 0.9 // TODO: to config
         val region = screen
             .waitFor(
