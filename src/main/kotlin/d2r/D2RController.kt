@@ -7,8 +7,6 @@ import kotlinx.coroutines.await
 import kotlinx.coroutines.delay
 
 object D2RController {
-    private val gameWindowTitle = "Diablo II: Resurrected"
-
     fun isGameRunning(switchToForegroundWhenRunning: Boolean = false): Boolean {
         val d2r = Window.getByTitle(gameWindowTitle)
         if (switchToForegroundWhenRunning && d2r != null) {
