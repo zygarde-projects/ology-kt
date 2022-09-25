@@ -33,7 +33,6 @@ object D2RController {
 
     suspend fun makeGame(name: String, password: String) {
         if (isGameRunning(switchToForegroundWhenRunning = true)) {
-            delay(1000)
             MouseController.clickRelativeXY(exitGameX, exitGameY).wait(500)
             isInGame()
                 .takeIf { it }
