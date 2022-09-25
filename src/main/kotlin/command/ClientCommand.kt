@@ -17,7 +17,9 @@ object ClientCommand : BaseCommand<BaseLoadingConfigFileConfigArgs>("client") {
         val config = Config(args.config, "client")
         val host = "ws://${config.get("server_ip")}:${config.get("server_port")}"
         val ws = WebSocket(host)
-        ws.on("open") { println("Connected to $host") }
+        ws.on("open") { _ ->
+            println("Connected to $host")
+        }
         ws.on("message") { msg ->
             println("Received: $msg")
         }
