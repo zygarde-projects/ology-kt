@@ -29,7 +29,7 @@ object ScreenController {
         }
     }
 
-    suspend fun oneOfImagesIn(templateImageNames: List<String>, maxRetry: Int = 1): Region? {
+    suspend fun oneOfImagesIn(templateImageNames: List<String>, maxRetry: Int = 4): Region? {
         val list = templateImageNames
             .map {
                 Promise<Region?> { resolve, _ ->
