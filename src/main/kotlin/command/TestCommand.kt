@@ -9,7 +9,7 @@ object TestCommand : BaseCommand<Unit>("test") {
         launch {
             println("D2R Running: ${D2RController.isGameRunning()}")
             val isInGame = D2RController.isInGame()
-            println("D2R In Game: $isInGame}")
+            println("D2R In Game: $isInGame")
             if (isInGame) {
                 println("D2R Exit Game")
                 D2RController.exitGame()
