@@ -9,8 +9,6 @@ import external.nuttree.straightTo
 import external.wincontrol.WinControl.Window
 
 object MouseController {
-    private const val gameWindowTitle = "Diablo II: Resurrected"
-
     suspend fun clickOnRegionCenter(region: Region) {
         mouse.move(straightTo(centerOf(region))).await()
         mouse.leftClick().await()
