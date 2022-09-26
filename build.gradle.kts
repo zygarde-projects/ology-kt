@@ -84,5 +84,5 @@ task("prepareDevNodeModules", Copy::class) {
 }
 
 tasks.getByName("compileKotlinJs").finalizedBy("packResources")
+tasks.getByName("build").finalizedBy("prepareBinJs")
 tasks.getByName("nodeTest").dependsOn("packTestResources")
-tasks.getByName("build").dependsOn("prepareBinJs")
