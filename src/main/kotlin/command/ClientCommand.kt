@@ -1,21 +1,14 @@
 package command
 
 import Buffer
-import command.base.BaseCommand
-import command.base.BaseCommandArgs
-import command.base.BaseLoadingConfigFileConfigArgs
-import conf.Config
+import command.base.NoArgCommand
+import conf.ClientConfig
 import external.ws.WebSocket
 
-object ClientCommand : BaseCommand<BaseLoadingConfigFileConfigArgs>("client") {
+object ClientCommand : NoArgCommand("client") {
 
-    init {
-        argOptions.add(BaseCommandArgs.CONFIG)
-    }
-
-    override fun handle(args: BaseLoadingConfigFileConfigArgs) {
-        val config = Config(args.config, "client")
-        val host = "ws://${config.get("server_ip")}:${config.get("server_port")}"
+    override fun handle() {
+        val host = "ws://${ClientConfig.get("server_ip")}:${ClientConfig.get("server_port")}"
         val ws = WebSocket(host)
         ws.on("open") { _: WebSocket ->
             println("Connected to $host")

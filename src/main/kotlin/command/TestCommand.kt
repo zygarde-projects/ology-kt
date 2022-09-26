@@ -1,11 +1,11 @@
 package command
 
-import command.base.BaseCommand
+import command.base.NoArgCommand
 import d2r.D2RController
 import extension.launch
 
-object TestCommand : BaseCommand<Unit>("test") {
-    override fun handle(args: Unit) {
+object TestCommand : NoArgCommand("test") {
+    override fun handle() {
         launch {
             println("D2R Running: ${D2RController.d2rRunning()}")
             val isInGame = D2RController.isInGame()

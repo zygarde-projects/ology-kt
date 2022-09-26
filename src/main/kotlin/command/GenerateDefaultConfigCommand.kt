@@ -1,11 +1,11 @@
 package command
 
-import command.base.BaseCommand
+import command.base.NoArgCommand
 import external.node.process
 import res.ResourceLoader
 
-object GenerateDefaultConfigCommand : BaseCommand<Unit>("config-gen") {
-    override fun handle(args: Unit) {
+object GenerateDefaultConfigCommand : NoArgCommand("config-gen") {
+    override fun handle() {
         val defaultConfig = ResourceLoader.loadResource("config/default-config.json")
         val generateTarget = process.cwd() + "/config.json"
         fs.writeFileSync(generateTarget, defaultConfig, "utf8")

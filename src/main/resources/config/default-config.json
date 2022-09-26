@@ -3,6 +3,7 @@
     "port": 16667,
     "game": {
       "prefix": "dory",
+      "pwd": "pwd",
       "counter": 1
     }
   },

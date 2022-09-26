@@ -1,16 +1,36 @@
 package conf
 
 import Provider
+import command.GenerateDefaultConfigCommand
 import external.nconf.nconf
+import external.node.process
 
-open class Config(path: String, val prefix: String) {
+enum class ConfigPrefix(val prefix: String) {
+    HOST("host"),
+    CLIENT("client"),
+}
+
+open class Config(val prefix: ConfigPrefix) {
+    private val configPath = "${process.cwd()}/config.json"
+
     init {
-        println("loading path from $path")
+        if (!fs.existsSync(configPath)) {
+            GenerateDefaultConfigCommand.handle()
+        }
     }
 
-    val config: Provider = nconf.file(path)
+    fun get(key: String): String = withConfig {
+        "${it.get(prefix.prefix + ":" + key)}"
+    }
 
-    fun get(key: String): String {
-        return "${config.get(prefix + ":" + key)}"
+    fun set(key: String, value: Any) = withConfig {
+        it.set(prefix.prefix + ":" + key, value)
+    }
+
+    private fun <T> withConfig(block: (config: Provider) -> T): T {
+        return block(nconf.file(configPath))
     }
 }
+
+object HostConfig : Config(ConfigPrefix.HOST)
+object ClientConfig : Config(ConfigPrefix.CLIENT)

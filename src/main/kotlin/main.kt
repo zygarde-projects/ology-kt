@@ -1,7 +1,4 @@
-import command.ClientCommand
-import command.GenerateDefaultConfigCommand
-import command.HostCommand
-import command.TestCommand
+import command.*
 import external.nuttree.LoadMatcher
 import external.yargs.yargs
 
@@ -13,6 +10,7 @@ fun main() {
         .command(ClientCommand)
         .command(GenerateDefaultConfigCommand)
         .command(TestCommand)
+        .command(NgCommand)
         .recommendCommands()
         .demandCommand(1)
         .strict()
