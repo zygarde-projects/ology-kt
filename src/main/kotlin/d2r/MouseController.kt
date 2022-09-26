@@ -23,6 +23,7 @@ object MouseController {
             .run {
                 val point = this!!.toPoint(x, y, baseScreenW, baseScreenH)
                 mouse.move(arrayOf(point)).await()
+                mouse.leftClick().await()
             }
     }
 }

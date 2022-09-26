@@ -11,6 +11,7 @@ fun main() {
         .command(GenerateDefaultConfigCommand)
         .command(TestCommand)
         .command(NgCommand)
+        .command(ExitGameCommand)
         .recommendCommands()
         .demandCommand(1)
         .strict()
