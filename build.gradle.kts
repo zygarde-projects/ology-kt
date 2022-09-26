@@ -71,20 +71,18 @@ ${it.readText()}"""
 task("packResources", Copy::class) {
     from("src/main/resources")
     into("build/js/packages/ology-kt/resources")
+}
 
-    // for test
+task("packTestResources", Copy::class) {
     from("src/main/resources")
     into("build/js/packages/ology-kt-test/resources")
 }
 
 task("prepareDevNodeModules", Copy::class) {
-    from("dev-assets/${if(runningWindows) "windows" else "non-windows"}/node_modules")
+    from("dev-assets/${if (runningWindows) "windows" else "non-windows"}/node_modules")
     into("node_modules")
 }
 
-tasks.getByName("compileKotlinJs")
-    .finalizedBy(
-        "prepareBinJs",
-        "packResources",
-        "prepareDevNodeModules",
-    )
+tasks.getByName("compileKotlinJs").finalizedBy("packResources")
+tasks.getByName("nodeTest").dependsOn("packTestResources")
+tasks.getByName("build").dependsOn("prepareBinJs")

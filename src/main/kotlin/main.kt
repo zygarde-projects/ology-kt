@@ -2,9 +2,11 @@ import command.ClientCommand
 import command.GenerateDefaultConfigCommand
 import command.HostCommand
 import command.TestCommand
+import external.nuttree.LoadMatcher
 import external.yargs.yargs
 
 fun main() {
+    LoadMatcher
     println(greeting("ology-kt"))
     yargs.usage("Usage: $0 <command> [options]")
         .command(HostCommand)

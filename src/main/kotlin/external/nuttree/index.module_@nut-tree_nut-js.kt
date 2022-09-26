@@ -23,6 +23,6 @@ external var loadImage: (parameters: String) -> Promise<Any>
 
 external var saveImage: (parameters: Any) -> Promise<Unit>
 
-external var imageResource: (fileName: String) -> Promise<Any>
+external var imageResource: (fileName: String) -> Promise<Image>
 
 external var centerOf: (region: Region) -> Promise<Any>
