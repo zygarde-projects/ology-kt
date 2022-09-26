@@ -95,10 +95,10 @@ open external class WebSocket {
     open fun removeEventListener(method: String /* "close" */, cb: (event: CloseEvent) -> Unit)
     open fun removeEventListener(method: String /* "error" */, cb: (event: ErrorEvent) -> Unit)
     open fun removeEventListener(method: String /* "open" */, cb: (event: Event) -> Unit)
-    open fun on(event: String /* "close" */, listener: (self: WebSocket, code: Number, reason: Buffer) -> Unit): WebSocket /* this */
-    open fun on(event: String /* "error" */, listener: (self: WebSocket, err: Error) -> Unit): WebSocket /* this */
-    open fun on(event: String /* "upgrade" */, listener: (self: WebSocket, request: IncomingMessage) -> Unit): WebSocket /* this */
-    open fun on(event: String /* "message" */, listener: (self: WebSocket, data: Any /* Buffer | ArrayBuffer | Array<Buffer> */, isBinary: Boolean) -> Unit): WebSocket /* this */
+    open fun on(event: String /* "close" */, listener: (code: Number, reason: Buffer) -> Unit): WebSocket /* this */
+    open fun on(event: String /* "error" */, listener: (err: Error) -> Unit): WebSocket /* this */
+    open fun on(event: String /* "upgrade" */, listener: (request: IncomingMessage) -> Unit): WebSocket /* this */
+    open fun on(event: String /* "message" */, listener: (message: Buffer /* Buffer | ArrayBuffer | Array<Buffer> */, isBinary: Boolean) -> Unit): WebSocket /* this */
     open fun on(event: String /* "open" */, listener: (self: WebSocket) -> Unit): WebSocket /* this */
     open fun on(event: String /* "ping" | "pong" */, listener: (self: WebSocket, data: Buffer) -> Unit): WebSocket /* this */
     open fun on(event: String /* "unexpected-response" */, listener: (self: WebSocket, request: ClientRequest, response: IncomingMessage) -> Unit): WebSocket /* this */

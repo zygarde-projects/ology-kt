@@ -15,3 +15,8 @@ const val joinGameNameInputX = 2556
 const val joinGameNameInputY = 300
 const val refreshBtnX = 3412
 const val refreshBtnY = 412
+
+enum class CommandMessageType {
+    CREATE_GAME,
+    UNKNOWN
+}
