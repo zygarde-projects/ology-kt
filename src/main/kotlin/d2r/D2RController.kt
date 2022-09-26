@@ -26,8 +26,7 @@ object D2RController {
 
     suspend fun exitGame() {
         // TODO switch out controller mode
-        keyboard.pressKey(Key.Escape).await()
-        keyboard.releaseKey(Key.Escape).await().wait(100)
+        keyboard.type(Key.Escape).await().wait(100)
         MouseController.clickRelativeXY(x = exitGameX, y = exitGameY)
     }
 

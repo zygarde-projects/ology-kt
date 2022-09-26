@@ -12,7 +12,7 @@ external open class KeyboardClass(providerRegistry: ProviderRegistry) {
     open var providerRegistry: Any
     open var config: `T$9`
     open fun type(vararg input: String): Promise<KeyboardClass>
-    open fun type(vararg input: Key): Promise<KeyboardClass>
-    open fun pressKey(vararg keys: Key): Promise<KeyboardClass>
-    open fun releaseKey(vararg keys: Key): Promise<KeyboardClass>
+    open fun type(vararg input: KeyBtn): Promise<KeyboardClass>
+    open fun pressKey(vararg keys: KeyBtn): Promise<KeyboardClass>
+    open fun releaseKey(vararg keys: KeyBtn): Promise<KeyboardClass>
 }
