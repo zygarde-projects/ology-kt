@@ -1,6 +1,5 @@
 package external.nconf
 
-import Provider
 
 @JsModule("nconf")
 @JsNonModule

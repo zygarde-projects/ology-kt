@@ -1,8 +1,8 @@
 package conf
 
-import Provider
 import __dirname
 import command.GenerateDefaultConfigCommand
+import external.nconf.Provider
 import external.nconf.nconf
 import external.node.process
 

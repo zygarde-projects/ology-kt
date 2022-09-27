@@ -22,7 +22,7 @@ dependencies {
     implementation(npm("nconf", "0.12.0"))
     implementation(npm("ws", "8.8.1"))
     implementation(npm("yargs", "17.5.1"))
-    implementation(npm("@types/nconf", "0.10.3", generateExternals = true))
+    implementation(npm("@types/nconf", "0.10.3"))
 }
 
 kotlin {
