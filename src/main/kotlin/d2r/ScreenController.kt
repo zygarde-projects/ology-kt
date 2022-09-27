@@ -15,7 +15,7 @@ import kotlin.time.measureTimedValue
 
 @OptIn(ExperimentalTime::class)
 object ScreenController : WindowActor {
-    suspend fun matchImage(imageName: String, req: MatchingImageRequest): Region? {
+    suspend fun matchImage(imageName: String, req: MatchingImageRequest = ImageMatching.DEFAULT): Region? {
         val image = imageName.toImageResource().await() ?: throw IllegalArgumentException("image $imageName not found")
         val region = req.detectInRegion?.let { dir -> withTranslatedRegion(dir) { it } }
         return measureTimedValue {
