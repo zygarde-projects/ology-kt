@@ -23,9 +23,9 @@ object HostCommand : NoArgCommand("host") {
         val gameName = "${HostConfig.get("game:prefix")}${HostConfig.get("game:counter")}"
         println("game name: $gameName")
 
-        val wssOptions = WebSocketServerOptions(port = HostConfig.get("port").toInt())
-        val wss = WebSocketServer(wssOptions)
         val wsPort = HostConfig.get("port").toInt()
+        val wssOptions = WebSocketServerOptions(port = wsPort)
+        val wss = WebSocketServer(wssOptions)
         wss
             .on("connection") { socket: WebSocket, _: IncomingMessage ->
                 socket.send("hello ology client, current game is $gameName")
