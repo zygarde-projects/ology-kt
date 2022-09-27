@@ -1,6 +1,7 @@
 package conf
 
 import Provider
+import __dirname
 import command.GenerateDefaultConfigCommand
 import external.nconf.nconf
 import external.node.process
@@ -11,6 +12,7 @@ enum class ConfigPrefix(val prefix: String) {
 }
 
 open class Config(val prefix: ConfigPrefix) {
+    private val defaultConfig = nconf.file("$__dirname/../resources/config/default-config.json")
     private val configPath = "${process.cwd()}/config.json"
 
     init {
@@ -19,12 +21,15 @@ open class Config(val prefix: ConfigPrefix) {
         }
     }
 
-    fun get(key: String): String = withConfig {
-        "${it.get(prefix.prefix + ":" + key)}"
+    fun get(key: String): String = withConfig { config ->
+        val configKey = prefix.prefix + ":" + key
+        val v = config.get(configKey)
+            ?: defaultConfig.get(configKey)?.also { config.set(key, it) }
+        "$v"
     }
 
-    fun set(key: String, value: Any) = withConfig {
-        it.set(prefix.prefix + ":" + key, value)
+    fun set(key: String, value: Any) = withConfig { config ->
+        config.set(prefix.prefix + ":" + key, value)
     }
 
     private fun <T> withConfig(block: (config: Provider) -> T): T {
