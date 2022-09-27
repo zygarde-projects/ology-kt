@@ -1,5 +1,9 @@
 package d2r
 
+import d2r.constants.GeneralConstants.gameWindowTitle
+import d2r.constants.ImageMatching
+import d2r.constants.MouseLocations.InGame.btnExitGame
+import d2r.constants.MouseLocations.Lobby
 import extension.log
 import extension.wait
 import external.nuttree.Key
@@ -17,21 +21,15 @@ object D2RController {
         return d2r != null
     }
 
-    suspend fun isInGame() = ScreenController.oneOfImagesIn(
-        listOf(
-            "in_game_menu_bar.png",
-            "left_blood_ball.png",
-            "right_mana_ball.png"
-        )
-    ) != null
+    suspend fun isInGame() = ScreenController.oneOfImagesIn(ImageMatching.inGame) != null
 
     suspend fun exitGame() {
         keyboard.pressKey(Key.LeftShift).await()
-        MouseController.clickRelativeXY(x = exitGameX, y = exitGameY)
+        MouseController.clickOn(btnExitGame)
         keyboard.releaseKey(Key.LeftShift).await()
 
         keyboard.type(Key.Escape).await().wait(1000)
-        MouseController.clickRelativeXY(x = exitGameX, y = exitGameY)
+        MouseController.clickOn(btnExitGame)
     }
 
     suspend fun makeGame(
@@ -39,7 +37,7 @@ object D2RController {
         password: String,
         difficulty: GameDifficulty = GameDifficulty.HELL,
     ) = withD2rRunning(true) {
-        MouseController.clickRelativeXY(exitGameX, exitGameY).wait(500)
+        MouseController.clickOn(btnExitGame).wait(500)
 
         val inGame = isInGame()
         if (inGame) {
@@ -47,11 +45,11 @@ object D2RController {
             exitGame().wait(1500)
         }
 
-        MouseController.clickRelativeXY(MouseLocations.Lobby.joinGameTab).wait(1000).log("game name=$name, password=$password")
-        MouseController.clickRelativeXY(x = hostGameNameInputX, y = hostGameNameInputY)
+        MouseController.clickOn(Lobby.makeGameTab).wait(1000).log("game name=$name, password=$password")
+        MouseController.clickOn(Lobby.makeGameInputName)
         KeyboardController.inputGameNameAndPassword(name = name, password = password).wait(1000)
 
-        MouseController.clickRelativeXY(difficulty.btnPoint).wait(200)
+        MouseController.clickOn(difficulty.btnPoint).wait(200)
 
         KeyboardController.submitGameForm().wait(3000)
         if (inGame) {
@@ -62,10 +60,17 @@ object D2RController {
 
     }
 
-    suspend fun joinGame(name: String, password: String) = withD2rRunning {
-        MouseController.clickRelativeXY(x = joinGameNameInputX, y = joinGameNameInputY).wait(100)
+    suspend fun joinGame(name: String, password: String) = withD2rRunning(true) {
+        val inGame = isInGame()
+        if (inGame) {
+            println("inGame, exiting game")
+            exitGame().wait(1500)
+        }
+
+        MouseController.clickOn(Lobby.joinGameTab).wait(100)
+        MouseController.clickOn(Lobby.joinGameInputName).wait(100)
         KeyboardController.inputGameNameAndPassword(name = name, password = password).wait(100)
-        MouseController.clickRelativeXY(x = refreshBtnX, y = refreshBtnY).wait(1000)
+        MouseController.clickOn(Lobby.joinGameRefresh).wait(1000)
         KeyboardController.submitGameForm().wait(3000)
         if (isInGame()) {
             log("Game $name joined")

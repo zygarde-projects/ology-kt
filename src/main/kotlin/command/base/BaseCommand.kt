@@ -13,7 +13,7 @@ abstract class BaseCommand<ARGS>(override var command: String) : CommandModule<d
         }
     }
 
-    override var handler: (args: ARGS) -> Unit = this::handle
+    override var handler: (args: ARGS) -> Unit = ::handle
 
     protected abstract fun handle(args: ARGS)
 

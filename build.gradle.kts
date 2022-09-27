@@ -26,11 +26,15 @@ dependencies {
 }
 
 kotlin {
+
     js(LEGACY) { // The serialization will be broken by IR
         binaries.executable()
         nodejs {
             runTask {
-                args("dev", "mouse-tracking")
+//                args("ng")
+                args("test")
+//                args("join", "-n=sally01", "-p=a")
+//                args("dev", "mouse-tracking")
 //                args("config-gen")
 //                args("host", "-c=${rootProject.file("config").absolutePath}/config.json") // host command
 //                args("client", "-c=${rootProject.file("config").absolutePath}/config.json") // client command
@@ -44,6 +48,11 @@ kotlin {
     }
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+    }
+}
 val runningWindows = System.getProperty("os.name").startsWith("Windows")
 val runningCI = System.getenv("CI") != null
 

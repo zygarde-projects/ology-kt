@@ -28,7 +28,6 @@ object KeyboardController {
     }
 
     suspend fun submitGameForm() {
-        keyboard.pressKey(Key.Return).await()
-        keyboard.releaseKey(Key.Return).await()
+        keyboard.type(Key.Return).await()
     }
 }

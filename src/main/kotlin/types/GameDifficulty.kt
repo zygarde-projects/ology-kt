@@ -1,10 +1,9 @@
 package types
 
-import d2r.MouseLocations.Lobby
-import external.nuttree.Point
+import d2r.constants.MouseLocations.Lobby
 
 enum class GameDifficulty(
-    val btnPoint: Point,
+    val btnPoint: PredefinedPoint,
     val allowConfigValues: List<String>
 ) {
     NORMAL(

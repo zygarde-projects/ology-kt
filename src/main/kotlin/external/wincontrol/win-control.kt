@@ -9,5 +9,5 @@ data class Dimensions(
 
 external class WindowInstance {
     fun setForeground()
-    fun getDimensions(): Dimensions
+    fun getDimensions(): Dimensions?
 }

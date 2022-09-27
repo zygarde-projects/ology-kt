@@ -1,8 +1,8 @@
 package command.dev
 
 import command.base.NoArgCommand
-import d2r.baseScreenH
-import d2r.baseScreenW
+import d2r.constants.DimensionConstants.baseScreenH
+import d2r.constants.DimensionConstants.baseScreenW
 import extension.await
 import extension.launch
 import external.nuttree.mouse
