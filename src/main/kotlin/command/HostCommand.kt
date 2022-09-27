@@ -45,9 +45,9 @@ object HostCommand : NoArgCommand("host") {
         express()
             .apply {
                 get("/ng") { request, res ->
-                    log("hello request")
                     val name = request.query.name as String
                     val password = request.query.password as String
+                    log("make new game $name///$password")
                     launch { D2RController.makeGame(name = name, password = password) }
                     res.status = 200
                     res.send("$name///$password")
