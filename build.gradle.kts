@@ -30,7 +30,7 @@ kotlin {
         binaries.executable()
         nodejs {
             runTask {
-                args("test")
+                args("dev", "mouse-tracking")
 //                args("config-gen")
 //                args("host", "-c=${rootProject.file("config").absolutePath}/config.json") // host command
 //                args("client", "-c=${rootProject.file("config").absolutePath}/config.json") // client command

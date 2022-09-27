@@ -12,6 +12,7 @@ fun main() {
         .command(TestCommand)
         .command(NgCommand)
         .command(ExitGameCommand)
+        .command(DevCommand)
         .recommendCommands()
         .demandCommand(1)
         .strict()
