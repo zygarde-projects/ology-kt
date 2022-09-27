@@ -1,11 +1,14 @@
 package command.dev
 
 import command.base.NoArgCommand
+import d2r.baseScreenH
+import d2r.baseScreenW
 import extension.await
 import extension.launch
 import external.nuttree.mouse
 import external.nuttree.screen
 import timers.setInterval
+import utils.PointTranslator
 
 object MouseTrackingCommand : NoArgCommand("mouse-tracking") {
     override fun handle() {
@@ -13,14 +16,17 @@ object MouseTrackingCommand : NoArgCommand("mouse-tracking") {
             val width = screen.width().await()
             val height = screen.height().await()
             println("screen $width x $height")
+
+            val pointTranslator = PointTranslator(width!!.toInt(), height!!.toInt(), baseScreenW, baseScreenH)
+            println("start mouse tracking")
+            setInterval({
+                mouse.getPosition().then {
+                    println("position: $it -> ${pointTranslator.translate(it)}")
+                }
+            }, 1000)
         }
 
 
-        println("start mouse tracking")
-        setInterval({
-            mouse.getPosition().then {
-                println("position: $it")
-            }
-        }, 1000)
+
     }
 }

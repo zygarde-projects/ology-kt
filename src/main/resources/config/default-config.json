@@ -4,7 +4,8 @@
     "game": {
       "prefix": "dory",
       "pwd": "pwd",
-      "counter": 1
+      "counter": 1,
+      "difficulty": "N"
     }
   },
   "client": {

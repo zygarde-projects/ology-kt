@@ -2,10 +2,7 @@ package d2r
 
 import extension.await
 import extension.toPoint
-import external.nuttree.Region
-import external.nuttree.centerOf
-import external.nuttree.mouse
-import external.nuttree.straightTo
+import external.nuttree.*
 import external.wincontrol.WinControl.Window
 
 object MouseController {
@@ -14,9 +11,10 @@ object MouseController {
         mouse.leftClick().await()
     }
 
-    /**
-     * base screen 3840 x 2160
-     */
+    suspend fun clickRelativeXY(p: Point) {
+        clickRelativeXY(p.x, p.y)
+    }
+
     suspend fun clickRelativeXY(x: Int, y: Int) {
         Window.getByTitle(gameWindowTitle)?.getDimensions()
             .takeIf { it != null }

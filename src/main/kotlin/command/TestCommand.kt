@@ -7,13 +7,9 @@ import extension.launch
 object TestCommand : NoArgCommand("test") {
     override fun handle() {
         launch {
-            println("D2R Running: ${D2RController.d2rRunning()}")
+            println("D2R Running: ${D2RController.d2rRunning(true)}")
             val isInGame = D2RController.isInGame()
             println("D2R In Game: $isInGame")
-            if (isInGame) {
-                println("D2R Exit Game")
-                D2RController.exitGame()
-            }
         }
     }
 }

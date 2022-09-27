@@ -6,6 +6,7 @@ import external.nuttree.Key
 import external.nuttree.keyboard
 import external.wincontrol.WinControl.Window
 import kotlinx.coroutines.await
+import types.GameDifficulty
 
 object D2RController {
     fun d2rRunning(switchToForegroundWhenRunning: Boolean = false): Boolean {
@@ -33,17 +34,27 @@ object D2RController {
         MouseController.clickRelativeXY(x = exitGameX, y = exitGameY)
     }
 
-    suspend fun makeGame(name: String, password: String) = withD2rRunning(true) {
+    suspend fun makeGame(
+        name: String,
+        password: String,
+        difficulty: GameDifficulty = GameDifficulty.HELL,
+    ) = withD2rRunning(true) {
         MouseController.clickRelativeXY(exitGameX, exitGameY).wait(500)
-        isInGame()
-            .takeIf { it }
-            .run { exitGame().wait(1500).log("inGame, exiting game") }
 
-        MouseController.clickRelativeXY(makeGameTabX, makeGameTabY).wait(1000).log("game name=$name, password=$password")
+        val inGame = isInGame()
+        if (inGame) {
+            println("inGame, exiting game")
+            exitGame().wait(1500)
+        }
+
+        MouseController.clickRelativeXY(MouseLocations.Lobby.joinGameTab).wait(1000).log("game name=$name, password=$password")
         MouseController.clickRelativeXY(x = hostGameNameInputX, y = hostGameNameInputY)
         KeyboardController.inputGameNameAndPassword(name = name, password = password).wait(1000)
+
+        MouseController.clickRelativeXY(difficulty.btnPoint).wait(200)
+
         KeyboardController.submitGameForm().wait(3000)
-        if (isInGame()) {
+        if (inGame) {
             log("Game $name created")
         } else {
             log("Failed to create game, something wrong...")

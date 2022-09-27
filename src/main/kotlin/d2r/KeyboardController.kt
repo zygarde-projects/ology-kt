@@ -21,9 +21,10 @@ object KeyboardController {
         cleanInput(name.length)
         keyboard.type(name).await()
         delay(100)
-        keyboard.pressKey(Key.Tab).await()
-        keyboard.releaseKey(Key.Tab).await()
+        keyboard.type(Key.Tab).await()
         cleanInput(password.length)
+        keyboard.type(password).await()
+        delay(100)
     }
 
     suspend fun submitGameForm() {
