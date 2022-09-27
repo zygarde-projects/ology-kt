@@ -30,6 +30,7 @@ open class Config(val prefix: ConfigPrefix) {
 
     fun set(key: String, value: Any) = withConfig { config ->
         config.set(prefix.prefix + ":" + key, value)
+        config.save("")
     }
 
     private fun <T> withConfig(block: (config: Provider) -> T): T {
