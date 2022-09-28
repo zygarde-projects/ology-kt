@@ -32,7 +32,7 @@ object HostCommand : NoArgCommand("host") {
             .apply {
                 use(cors())
                 get("/ng") { _, res ->
-//                    NgCommand.handle()
+                    NgCommand.handle()
                     val gamePrefix = HostConfig.get("game:prefix")
                     val counter = HostConfig.get("game:counter")
                     val pwd = HostConfig.get("game:pwd")
