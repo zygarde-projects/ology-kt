@@ -39,7 +39,7 @@ jobs:
     needs: build
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: zygarde-projects.github.io
     steps:
       - name: Setup Pages
         uses: actions/configure-pages@v2
