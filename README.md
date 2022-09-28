@@ -6,6 +6,9 @@
 npm install --registry=https://npm.puni.tw --global ology-kt
 ```
 
+## WEB
+https://zygarde-projects.github.io/ology-kt
+
 ## API
 
 #### make a new game
