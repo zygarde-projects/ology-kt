@@ -32,6 +32,7 @@ jobs:
           cd web
           npm install
           npm run build
+          cd ..
   # Single deploy job since we're just deploying
   deploy:
     runs-on: ubuntu-latest
