@@ -4,7 +4,9 @@ name: Deploy static content to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["master", "web"]
+    branches:
+      - "master"
+      - "web"
     paths:
       - "web/**"
       - ".github/workflows/pages.yml"
