@@ -5,21 +5,23 @@ import MakeGame from './components/MakeGame.vue'
 </script>
 
 <template>
-  <div class="app flex flex-col">
-    <div class="flex-1 flex items-center">
-      <a href="https://github.com/zygarde-projects/ology-kt" target="_blank">
-        <img src="/diablo2-logo-lg.png" class="logo" alt="ology kt" />
-      </a>
-    </div>
-    <div class="flex-1 flex flex-col justify-end">
-      <MakeGame msg="ology kt" />
-    </div>
+  <div class="app flex justify-center">
+      <div class="flex flex-col">
+          <div class="flex-1 flex items-center max-w-screen-lg">
+              <a href="https://github.com/zygarde-projects/ology-kt" target="_blank">
+                  <img src="/diablo2-logo-lg.png" class="logo" alt="ology kt" />
+              </a>
+          </div>
+          <div class="flex-1 flex flex-col justify-end">
+              <MakeGame msg="ology kt" />
+          </div>
+      </div>
   </div>
 </template>
 
 <style scoped>
 .app {
-    max-width: 100vw;
+    min-width: 100vw;
     min-height: 100vh;
 }
 .logo {
