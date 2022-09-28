@@ -19,6 +19,7 @@ dependencies {
 
     implementation(npm("@nut-tree/nut-js", "next"))
     implementation(npm("@nut-tree/template-matcher", "next"))
+    implementation(npm("express", "4.18.1"))
     implementation(npm("nconf", "0.12.0"))
     implementation(npm("ws", "8.8.1"))
     implementation(npm("yargs", "17.5.1"))
@@ -36,7 +37,7 @@ kotlin {
 //                args("join", "-n=sally01", "-p=a")
 //                args("dev", "mouse-tracking")
 //                args("config-gen")
-//                args("host", "-c=${rootProject.file("config").absolutePath}/config.json") // host command
+//                args("host") // host command
 //                args("client", "-c=${rootProject.file("config").absolutePath}/config.json") // client command
             }
         }

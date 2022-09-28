@@ -6,6 +6,12 @@
 npm install --registry=https://npm.puni.tw --global ology-kt
 ```
 
+## API
+
+#### make a new game
+```
+[GET] localhost:16668/ng?name=foo&password=abc
+```
 
 ## development setup
 ```

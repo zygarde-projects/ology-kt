@@ -5,7 +5,13 @@ import command.base.NoArgCommand
 import conf.HostConfig
 import d2r.CommandMessageType
 import d2r.D2RController
-import extension.*
+import extension.CommandMessage
+import extension.gameName
+import extension.launch
+import extension.log
+import extension.password
+import extension.type
+import external.express.express
 import external.ws.WebSocket
 import external.ws.WebSocketServer
 import external.ws.WebSocketServerOptions
@@ -17,7 +23,8 @@ object HostCommand : NoArgCommand("host") {
         val gameName = "${HostConfig.get("game:prefix")}${HostConfig.get("game:counter")}"
         println("game name: $gameName")
 
-        val wssOptions = WebSocketServerOptions(port = HostConfig.get("port").toInt())
+        val wsPort = HostConfig.get("port").toInt()
+        val wssOptions = WebSocketServerOptions(port = wsPort)
         val wss = WebSocketServer(wssOptions)
         wss
             .on("connection") { socket: WebSocket, _: IncomingMessage ->
@@ -32,6 +39,22 @@ object HostCommand : NoArgCommand("host") {
 
                 println("client connected")
                 println("client count: ${wss.clients.size}")
+            }
+
+        val httpPort = wsPort + 1
+        express()
+            .apply {
+                get("/ng") { _, res ->
+                    NgCommand.handle()
+                    val gamePrefix = HostConfig.get("game:prefix")
+                    val pwd = HostConfig.get("game:pwd")
+                    val counter = HostConfig.get("game:counter")
+                    res.status = 200
+                    res.send("$gamePrefix$counter///$pwd")
+                }
+            }
+            .listen(port = httpPort) {
+                log("http server started localhost:$httpPort")
             }
     }
 }
