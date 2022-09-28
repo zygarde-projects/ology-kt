@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import MakeGame from './components/MakeGame.vue'
 </script>
 
 <template>
@@ -10,7 +10,7 @@ import HelloWorld from './components/HelloWorld.vue'
       <img src="/diablo2-logo-lg.png" class="logo" alt="ology kt" />
     </a>
   </div>
-  <HelloWorld msg="ology kt" />
+  <MakeGame msg="ology kt" />
 </template>
 
 <style scoped>
