@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -33,18 +33,13 @@ jobs:
           npm install
           npm run build
           cd ..
-  # Single deploy job since we're just deploying
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: './web/dist'
+          path: 'web/dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
