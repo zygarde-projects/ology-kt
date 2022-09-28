@@ -1,16 +1,10 @@
 package command
 
-import Buffer
 import command.base.NoArgCommand
 import conf.HostConfig
 import d2r.CommandMessageType
-import d2r.D2RController
-import extension.CommandMessage
-import extension.gameName
-import extension.launch
 import extension.log
-import extension.password
-import extension.type
+import external.cors.cors
 import external.express.express
 import external.ws.WebSocket
 import external.ws.WebSocketServer
@@ -29,14 +23,6 @@ object HostCommand : NoArgCommand("host") {
         wss
             .on("connection") { socket: WebSocket, _: IncomingMessage ->
                 socket.send("hello ology client, current game is $gameName")
-                socket.on("message") { message: Buffer, _ ->
-                    val commandMessage: CommandMessage = message.toString()
-                    when (commandMessage.type()) {
-                        CommandMessageType.CREATE_GAME -> launch { D2RController.makeGame(commandMessage.gameName(), commandMessage.password()) }
-                        CommandMessageType.UNKNOWN -> log("UNKNOWN message: $message")
-                    }
-                }
-
                 println("client connected")
                 println("client count: ${wss.clients.size}")
             }
@@ -44,13 +30,18 @@ object HostCommand : NoArgCommand("host") {
         val httpPort = wsPort + 1
         express()
             .apply {
+                use(cors())
                 get("/ng") { _, res ->
                     NgCommand.handle()
                     val gamePrefix = HostConfig.get("game:prefix")
-                    val pwd = HostConfig.get("game:pwd")
                     val counter = HostConfig.get("game:counter")
+                    val pwd = HostConfig.get("game:pwd")
+                    val gamePayload = "$gamePrefix$counter|$pwd"
+                    wss.clients.forEach({ client, _, _ ->
+                        client.send("${CommandMessageType.NEXT_GAME}|$gamePayload")
+                    })
                     res.status = 200
-                    res.send("$gamePrefix$counter///$pwd")
+                    res.send(gamePayload)
                 }
             }
             .listen(port = httpPort) {

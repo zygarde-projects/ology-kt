@@ -2,7 +2,7 @@ package d2r
 
 
 enum class CommandMessageType {
-    CREATE_GAME,
+    NEXT_GAME,
     UNKNOWN
 }
 
