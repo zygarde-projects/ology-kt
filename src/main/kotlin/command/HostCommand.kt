@@ -45,12 +45,12 @@ object HostCommand : NoArgCommand("host") {
         express()
             .apply {
                 get("/ng") { _, res ->
-                    val name = HostConfig.get("game:name")
-                    val password = HostConfig.get("game:password")
-                    log("make new game $name///$password")
                     NgCommand.handle()
+                    val gamePrefix = HostConfig.get("game:prefix")
+                    val pwd = HostConfig.get("game:pwd")
+                    val counter = HostConfig.get("game:counter")
                     res.status = 200
-                    res.send("$name///$password")
+                    res.send("$gamePrefix$counter///$pwd")
                 }
             }
             .listen(port = httpPort) {

@@ -5,9 +5,7 @@
       "prefix": "dory",
       "pwd": "pwd",
       "counter": 1,
-      "difficulty": "N",
-      "name": "ology",
-      "password": "ology"
+      "difficulty": "N"
     }
   },
   "client": {
