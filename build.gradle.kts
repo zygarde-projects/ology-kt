@@ -14,7 +14,6 @@ dependencies {
   testImplementation(kotlin("test"))
   implementation("org.jetbrains.kotlinx:kotlinx-nodejs:0.0.7")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.6.4")
-  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
 
   implementation(npm("@nut-tree/nut-js", "next"))
   implementation(npm("@nut-tree/template-matcher", "next"))
@@ -35,12 +34,13 @@ kotlin {
     nodejs {
       runTask {
 //        args("test")
-                args("dev", "detect-all")
+//                args("dev", "detect-all")
 //                args("dev", "mouse-tracking")
 //                args("bo")
+//                args("ip")
 //                args("join", "-n=sally01", "-p=a")
 //                args("config-gen")
-//                args("host") // host command
+                args("host") // host command
 //                args("client") // client command
       }
     }

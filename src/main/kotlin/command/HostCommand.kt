@@ -4,7 +4,6 @@ import command.base.NoArgCommand
 import conf.HostConfig
 import d2r.CommandMessageType
 import extension.log
-import extension.primitiveHashMap
 import external.cors.cors
 import external.express.express
 import external.os.OS
@@ -12,14 +11,13 @@ import external.ws.WebSocket
 import external.ws.WebSocketServer
 import external.ws.WebSocketServerOptions
 import http.IncomingMessage
-import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.jsonObject
 
 object HostCommand : NoArgCommand("host") {
 
   override fun handle() {
     val gameName = "${HostConfig.get("game:prefix")}${HostConfig.get("game:counter")}"
     log("game name: $gameName")
+    IPCommand.handle()
 
     val wsPort = HostConfig.get("port").toInt()
     val wssOptions = WebSocketServerOptions(port = wsPort)
@@ -49,14 +47,7 @@ object HostCommand : NoArgCommand("host") {
         }
       }
       .listen(port = httpPort) {
-        log("http server started ${getHostIp().joinToString()}:$httpPort")
+        log("http server started localhost:$httpPort")
       }
   }
-
-  private fun getHostIp() = primitiveHashMap(OS.networkInterfaces()).values
-    .map { net: JsonArray ->
-      net.filter { it.jsonObject["family"].toString() == "\"IPv4\"" && it.jsonObject["internal"].toString() == "false" }
-    }
-    .flatten()
-    .map { it.jsonObject["address"].toString().replace("\"", "") }
 }
