@@ -13,3 +13,5 @@ fun CommandMessage.type(): CommandMessageType = runCatching {
 
 fun CommandMessage.gameName() = split("|")[1]
 fun CommandMessage.password() = split("|")[2]
+
+fun CommandMessage.action() = split("|")[1]

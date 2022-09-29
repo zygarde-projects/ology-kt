@@ -3,7 +3,7 @@ package command
 import command.base.NoArgCommand
 import d2r.D2RController
 import d2r.WindowActor
-import d2r.action.Act1WaitTpAction
+import d2r.action.Act1WaitTp
 import extension.launch
 
 object TestCommand : NoArgCommand("test"), WindowActor {
@@ -14,7 +14,7 @@ object TestCommand : NoArgCommand("test"), WindowActor {
         val gameStatus = D2RController.detectGameStatus()
         println("D2R In Game: $gameStatus")
         if (gameStatus?.isInGame() == true) {
-          Act1WaitTpAction.exec()
+          Act1WaitTp.exec()
         }
       } catch (e: Throwable) {
         println(e)

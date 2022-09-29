@@ -1,10 +1,14 @@
 package d2r
 
+import d2r.action.Act1WaitTp
+import d2r.action.FindAndEnterTp
+import d2r.action.base.InGameAction
 import d2r.constants.GeneralConstants.gameWindowTitle
 import d2r.constants.ImageMatching
 import d2r.constants.ImageMatching.IN_GAME_ALL
 import d2r.constants.MouseLocations.InGame.btnExitGame
 import d2r.constants.MouseLocations.Lobby
+import extension.launch
 import extension.log
 import extension.wait
 import external.nuttree.Key
@@ -15,6 +19,11 @@ import types.GameDifficulty
 import types.InGameStatus
 
 object D2RController {
+
+  private val actionMap: Map<String, InGameAction> = listOf(
+    FindAndEnterTp,
+    Act1WaitTp,
+  ).associateBy { it::class.simpleName.orEmpty() }
 
   fun d2rRunning(switchToForegroundWhenRunning: Boolean = false): Boolean {
     val d2r = Window.getByTitle(gameWindowTitle)
@@ -115,6 +124,16 @@ object D2RController {
   suspend fun startBo() {
     BoController.stop()
     BoController.start()
+  }
+
+  fun allActionNames() = actionMap.keys
+
+  fun execute(actionName: String) {
+    actionMap[actionName]
+      ?.let {
+        launch { it.exec() }
+      }
+      ?: throw IllegalArgumentException("action $actionName not found")
   }
 
   private suspend fun withD2rRunning(switchToForegroundWhenRunning: Boolean = false, block: suspend () -> Unit) {

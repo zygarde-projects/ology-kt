@@ -22,6 +22,7 @@ fun main() {
     .command(JoinGameCommand)
     .command(BoCommand)
     .command(IPCommand)
+    .command(DoActionCommand)
     .recommendCommands()
     .demandCommand(1)
     .strict()

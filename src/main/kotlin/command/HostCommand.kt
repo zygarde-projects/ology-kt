@@ -6,7 +6,6 @@ import d2r.CommandMessageType
 import extension.log
 import external.cors.cors
 import external.express.express
-import external.os.OS
 import external.ws.WebSocket
 import external.ws.WebSocketServer
 import external.ws.WebSocketServerOptions
@@ -44,6 +43,14 @@ object HostCommand : NoArgCommand("host") {
           })
           res.status = 200
           res.send(gamePayload)
+        }
+
+        get("/clientAction/:action") { req, res ->
+          wss.clients.forEach({ client, _, _ ->
+            client.send("${CommandMessageType.DO_ACTION}|${req.param.action}")
+          })
+          res.status = 200
+          res.send("ok")
         }
       }
       .listen(port = httpPort) {

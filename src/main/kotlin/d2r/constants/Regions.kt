@@ -7,6 +7,11 @@ object Regions {
   object InGameDetection {
     val menu = PredefinedRegion(520, 1730, 3300 - 520, 2160 - 1730)
     val menuLegacy = PredefinedRegion(482, 1768, 3364 - 482, 2160 - 1768)
+
+    val tpLegacy = pointToRegion(
+      PredefinedPoint(800, 350),
+      PredefinedPoint(2950, 1950),
+    )
   }
 
   object LobbyDetection {

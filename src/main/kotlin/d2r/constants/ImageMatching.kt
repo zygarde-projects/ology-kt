@@ -24,6 +24,11 @@ object ImageMatching {
     "lobby/left-bottom.png" to DEFAULT.copy(detectInRegion = Regions.LobbyDetection.leftBottom),
   )
 
+  val tpLegacy = mapOf(
+    "in-game/tp_legacy_1.png" to DEFAULT.copy(detectInRegion = InGameDetection.tpLegacy),
+    "in-game/tp_legacy_2.png" to DEFAULT.copy(detectInRegion = InGameDetection.tpLegacy),
+  )
+
   val IN_GAME_ALL = inGame
     .plus(inGameLegacy)
     .plus(inLobby)

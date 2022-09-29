@@ -5,6 +5,7 @@ import command.base.NoArgCommand
 import d2r.D2RController
 import d2r.WindowActor
 import d2r.constants.ImageMatching
+import d2r.constants.ImageMatching.tpLegacy
 import extension.DimensionExtensions.translateRegion
 import extension.launch
 import extension.toImageResource
@@ -17,6 +18,9 @@ object DetectAllImageCommand : NoArgCommand("detect-all"), WindowActor {
   override fun handle() {
     suspend fun detect() = withWindowDimension { dimensions ->
       ImageMatching.IN_GAME_ALL
+        .plus(
+          tpLegacy
+        )
         .map { e ->
           screen
             .find(

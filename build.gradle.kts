@@ -33,14 +33,15 @@ kotlin {
     binaries.executable()
     nodejs {
       runTask {
-        args("test")
+//        args("test")
+        args("action", "-a=FindAndEnterTp")
 //        args("dev", "detect-all")
 //        args("dev", "mouse-tracking")
 //        args("bo")
 //        args("ip")
 //args("join", "-n=sally01", "-p=a")
 //        args("config-gen")
-        args("host") // host command
+//        args("host") // host command
 //        args("client") // client command
       }
     }

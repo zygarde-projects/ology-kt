@@ -26,6 +26,11 @@ object ClientCommand : NoArgCommand("client") {
             .takeIf { it.toBoolean() }
             .run { D2RController.startBo() }
         }
+
+        CommandMessageType.DO_ACTION -> {
+          D2RController.execute(command.action())
+        }
+
         else -> log("unknown command: $command")
       }
     }
