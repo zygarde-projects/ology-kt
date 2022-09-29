@@ -3,8 +3,8 @@
 package external.nuttree
 
 external interface ImageWriterParameters {
-    var image: Image
-    var path: String
+  var image: Image
+  var path: String
 }
 
 typealias ImageWriter = DataSinkInterface<ImageWriterParameters, Unit>

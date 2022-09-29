@@ -5,28 +5,24 @@ import command.base.NoArgCommand
 import conf.ClientConfig
 import d2r.CommandMessageType
 import d2r.D2RController
-import extension.gameName
-import extension.launch
-import extension.log
-import extension.password
-import extension.type
+import extension.*
 import external.ws.WebSocket
 
 object ClientCommand : NoArgCommand("client") {
 
-    override fun handle() {
-        val host = "ws://${ClientConfig.get("server_ip")}:${ClientConfig.get("server_port")}"
-        val ws = WebSocket(host)
-        ws.on("open") { _: WebSocket ->
-            log("Connected to $host")
-        }
-        ws.on("message") { msg: Buffer, _ ->
-            log("Received: $msg")
-            val command = msg.toString()
-            when (command.type()) {
-                CommandMessageType.NEXT_GAME -> launch { D2RController.joinGame(name = command.gameName(), password = command.password()) }
-                else -> log("unknown command: $command")
-            }
-        }
+  override fun handle() {
+    val host = "ws://${ClientConfig.get("server_ip")}:${ClientConfig.get("server_port")}"
+    val ws = WebSocket(host)
+    ws.on("open") { _: WebSocket ->
+      log("Connected to $host")
     }
+    ws.on("message") { msg: Buffer, _ ->
+      log("Received: $msg")
+      val command = msg.toString()
+      when (command.type()) {
+        CommandMessageType.NEXT_GAME -> launch { D2RController.joinGame(name = command.gameName(), password = command.password()) }
+        else -> log("unknown command: $command")
+      }
+    }
+  }
 }

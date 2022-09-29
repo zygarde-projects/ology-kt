@@ -3,13 +3,13 @@ package external.wincontrol
 @JsModule("@zygarde-projects/win-control")  // only for windows
 @JsNonModule
 external object WinControl {
-    val Window: Window
+  val Window: Window
 }
 
 external interface Window {
-    fun getByTitle(title: String): WindowInstance?
+  fun getByTitle(title: String): WindowInstance?
 
-    fun getForeground(): Window?
+  fun getForeground(): Window?
 
-    fun getTitle(): String
+  fun getTitle(): String
 }

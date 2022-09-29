@@ -3,6 +3,6 @@
 package external.nuttree
 
 external interface EasingFunction {
-    @nativeInvoke
-    operator fun invoke(progressPercentage: Number): Number
+  @nativeInvoke
+  operator fun invoke(progressPercentage: Number): Number
 }

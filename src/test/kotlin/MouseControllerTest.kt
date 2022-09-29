@@ -7,10 +7,10 @@ import kotlin.test.Test
 
 @DelicateCoroutinesApi
 class MouseControllerTest {
-    @Test
-    fun clickOnRegionCenterTest() {
-        GlobalScope.launch {
-            MouseController.clickOnRegionCenter(Region(left = 0, top = 0, width = 1200, height = 1200))
-        }
+  @Test
+  fun clickOnRegionCenterTest() {
+    GlobalScope.launch {
+      MouseController.clickOnRegionCenter(Region(left = 0, top = 0, width = 1200, height = 1200))
     }
+  }
 }

@@ -3,8 +3,8 @@
 package external.nuttree
 
 data class OptionalSearchParameters(
-   val searchRegion: Region? = null,
-   val confidence: Number? = null,
-   val searchMultipleScales: Boolean? = null,
+  val searchRegion: Region? = null,
+  val confidence: Number? = null,
+  val searchMultipleScales: Boolean? = null,
 //   val abort: dynamic = definedExternally
 )

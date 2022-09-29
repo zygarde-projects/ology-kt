@@ -5,6 +5,6 @@ package external.nuttree
 import kotlin.js.Promise
 
 external interface ImageFinderInterface {
-    fun findMatch(matchRequest: MatchRequest): Promise<MatchResult>
-    fun findMatches(matchRequest: MatchRequest): Promise<Array<MatchResult>>
+  fun findMatch(matchRequest: MatchRequest): Promise<MatchResult>
+  fun findMatches(matchRequest: MatchRequest): Promise<Array<MatchResult>>
 }

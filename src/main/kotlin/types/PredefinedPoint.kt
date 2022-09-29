@@ -1,6 +1,6 @@
 package types
 
 data class PredefinedPoint(
-    val x: Int,
-    val y: Int,
+  val x: Int,
+  val y: Int,
 )

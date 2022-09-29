@@ -5,7 +5,7 @@ package external.nuttree
 import kotlin.js.Promise
 
 external open class ClipboardClass(providerRegistry: ProviderRegistry) {
-    open var providerRegistry: Any
-    open fun copy(text: String): Promise<Unit>
-    open fun paste(): Promise<String>
+  open var providerRegistry: Any
+  open fun copy(text: String): Promise<Unit>
+  open fun paste(): Promise<String>
 }

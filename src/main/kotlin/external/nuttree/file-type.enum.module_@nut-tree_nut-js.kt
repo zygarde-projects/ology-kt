@@ -3,6 +3,6 @@
 package external.nuttree
 
 external enum class FileType {
-    PNG /* = ".png" */,
-    JPG /* = ".jpg" */
+  PNG /* = ".png" */,
+  JPG /* = ".jpg" */
 }

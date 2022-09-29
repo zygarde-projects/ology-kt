@@ -11,22 +11,21 @@ import timers.setInterval
 import utils.PointTranslator
 
 object MouseTrackingCommand : NoArgCommand("mouse-tracking") {
-    override fun handle() {
-        launch {
-            val width = screen.width().await()
-            val height = screen.height().await()
-            println("screen $width x $height")
+  override fun handle() {
+    launch {
+      val width = screen.width().await()
+      val height = screen.height().await()
+      println("screen $width x $height")
 
-            val pointTranslator = PointTranslator(width!!.toInt(), height!!.toInt(), baseScreenW, baseScreenH)
-            println("start mouse tracking")
-            setInterval({
-                mouse.getPosition().then {
-                    println("position: $it -> ${pointTranslator.translate(it)}")
-                }
-            }, 1000)
+      val pointTranslator = PointTranslator(width!!.toInt(), height!!.toInt(), baseScreenW, baseScreenH)
+      println("start mouse tracking")
+      setInterval({
+        mouse.getPosition().then {
+          println("position: $it -> ${pointTranslator.translate(it)}")
         }
-
-
-
+      }, 1000)
     }
+
+
+  }
 }

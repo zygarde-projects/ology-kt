@@ -5,8 +5,8 @@ package external.nuttree
 import kotlin.js.Promise
 
 external interface ClipboardProviderInterface {
-    fun hasText(): Promise<Boolean>
-    fun clear(): Promise<Boolean>
-    fun copy(text: String): Promise<Unit>
-    fun paste(): Promise<String>
+  fun hasText(): Promise<Boolean>
+  fun clear(): Promise<Boolean>
+  fun copy(text: String): Promise<Unit>
+  fun paste(): Promise<String>
 }

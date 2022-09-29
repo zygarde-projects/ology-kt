@@ -6,8 +6,8 @@ import d2r.D2RController
 import extension.launch
 
 data class JoinGameCommandArg(
-    val name: String,
-    val pwd: String,
+        val name: String,
+        val pwd: String,
 )
 
 object JoinGameCommand : BaseCommand<JoinGameCommandArg>("join") {

@@ -3,8 +3,8 @@
 package external.nuttree
 
 external open class MatchRequest(haystack: Image, needle: Image, confidence: Number, searchMultipleScales: Boolean = definedExternally) {
-    open var haystack: Image
-    open var needle: Image
-    open var confidence: Number
-    open var searchMultipleScales: Boolean
+  open var haystack: Image
+  open var needle: Image
+  open var confidence: Number
+  open var searchMultipleScales: Boolean
 }

@@ -2,23 +2,11 @@
 
 package external.nuttree
 
-import kotlin.js.*
-import org.khronos.webgl.*
-import org.w3c.dom.*
-import org.w3c.dom.events.*
-import org.w3c.dom.parsing.*
-import org.w3c.dom.svg.*
-import org.w3c.dom.url.*
-import org.w3c.fetch.*
-import org.w3c.files.*
-import org.w3c.notifications.*
-import org.w3c.performance.*
-import org.w3c.workers.*
-import org.w3c.xhr.*
+import kotlin.js.Promise
 
 external interface WindowProviderInterface {
-    fun getWindows(): Promise<Array<Number>>
-    fun getActiveWindow(): Promise<Number>
-    fun getWindowTitle(windowHandle: Number): Promise<String>
-    fun getWindowRegion(windowHandle: Number): Promise<Region>
+  fun getWindows(): Promise<Array<Number>>
+  fun getActiveWindow(): Promise<Number>
+  fun getWindowTitle(windowHandle: Number): Promise<String>
+  fun getWindowRegion(windowHandle: Number): Promise<Region>
 }

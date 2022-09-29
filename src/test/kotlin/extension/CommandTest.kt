@@ -5,8 +5,8 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class CommandTest {
-    @Test
-    fun typeTest() {
-        assertEquals("NEXT_GAME|foo".type(), CommandMessageType.NEXT_GAME)
-    }
+  @Test
+  fun typeTest() {
+    assertEquals("NEXT_GAME|foo".type(), CommandMessageType.NEXT_GAME)
+  }
 }

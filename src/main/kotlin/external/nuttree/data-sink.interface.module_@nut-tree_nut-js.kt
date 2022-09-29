@@ -5,5 +5,5 @@ package external.nuttree
 import kotlin.js.Promise
 
 external interface DataSinkInterface<PARAMETER_TYPE, RETURN_TYPE> {
-    fun store(parameters: PARAMETER_TYPE): Promise<RETURN_TYPE>
+  fun store(parameters: PARAMETER_TYPE): Promise<RETURN_TYPE>
 }

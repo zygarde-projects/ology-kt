@@ -5,5 +5,5 @@ package external.nuttree
 import kotlin.js.Promise
 
 external interface DataSourceInterface<PARAMETER_TYPE, RESULT_TYPE> {
-    fun load(parameters: PARAMETER_TYPE): Promise<RESULT_TYPE>
+  fun load(parameters: PARAMETER_TYPE): Promise<RESULT_TYPE>
 }

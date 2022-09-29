@@ -5,7 +5,7 @@ package external.nuttree
 import kotlin.js.Promise
 
 external open class AssertClass(screen: ScreenClass) {
-    open var screen: Any
-    open fun isVisible(needle: FirstArgumentType<Any>, searchRegion: Region = definedExternally, confidence: Number = definedExternally): Promise<Unit>
-    open fun notVisible(needle: FirstArgumentType<Any>, searchRegion: Region = definedExternally, confidence: Number = definedExternally): Promise<Unit>
+  open var screen: Any
+  open fun isVisible(needle: FirstArgumentType<Any>, searchRegion: Region = definedExternally, confidence: Number = definedExternally): Promise<Unit>
+  open fun notVisible(needle: FirstArgumentType<Any>, searchRegion: Region = definedExternally, confidence: Number = definedExternally): Promise<Unit>
 }

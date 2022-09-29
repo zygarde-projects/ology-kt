@@ -5,9 +5,9 @@ package external.nuttree
 import kotlin.js.Promise
 
 external interface KeyboardProviderInterface {
-    fun setKeyboardDelay(delay: Number)
-    fun type(input: String): Promise<Unit>
-    fun click(vararg keys: Key): Promise<Unit>
-    fun pressKey(vararg keys: Key): Promise<Unit>
-    fun releaseKey(vararg keys: Key): Promise<Unit>
+  fun setKeyboardDelay(delay: Number)
+  fun type(input: String): Promise<Unit>
+  fun click(vararg keys: Key): Promise<Unit>
+  fun pressKey(vararg keys: Key): Promise<Unit>
+  fun releaseKey(vararg keys: Key): Promise<Unit>
 }

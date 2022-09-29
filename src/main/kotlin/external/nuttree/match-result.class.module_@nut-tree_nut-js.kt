@@ -3,7 +3,7 @@
 package external.nuttree
 
 external open class MatchResult(confidence: Number, location: Region, error: Error? = definedExternally) {
-    open var confidence: Number
-    open var location: Region
-    open var error: Error?
+  open var confidence: Number
+  open var location: Region
+  open var error: Error?
 }

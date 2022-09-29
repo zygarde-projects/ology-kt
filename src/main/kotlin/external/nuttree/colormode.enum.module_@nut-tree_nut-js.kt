@@ -3,6 +3,6 @@
 package external.nuttree
 
 external enum class ColorMode {
-    BGR /* = 0 */,
-    RGB /* = 1 */
+  BGR /* = 0 */,
+  RGB /* = 1 */
 }

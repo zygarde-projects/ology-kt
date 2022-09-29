@@ -3,7 +3,7 @@
 package external.nuttree
 
 external enum class Button {
-    LEFT /* = 0 */,
-    MIDDLE /* = 1 */,
-    RIGHT /* = 2 */
+  LEFT /* = 0 */,
+  MIDDLE /* = 1 */,
+  RIGHT /* = 2 */
 }

@@ -1,32 +1,27 @@
 package extension
 
 import kotlinx.coroutines.delay
-import kotlin.coroutines.Continuation
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
-import kotlin.coroutines.resume
-import kotlin.coroutines.startCoroutine
-import kotlin.coroutines.suspendCoroutine
+import kotlin.coroutines.*
 import kotlin.js.Promise
 import kotlin.random.Random
 
 fun launch(block: suspend () -> Unit) {
-    block.startCoroutine(object : Continuation<Unit> {
-        override val context: CoroutineContext get() = EmptyCoroutineContext
-        override fun resumeWith(result: Result<Unit>) {}
-    })
+  block.startCoroutine(object : Continuation<Unit> {
+    override val context: CoroutineContext get() = EmptyCoroutineContext
+    override fun resumeWith(result: Result<Unit>) {}
+  })
 }
 
 suspend fun <T> Promise<T>.await() = suspendCoroutine<T?> { cont ->
-    then { cont.resume(it) }.catch { cont.resume(null) }
+  then { cont.resume(it) }.catch { cont.resume(null) }
 }
 
 suspend fun <T> T.wait(ms: Long): T {
-    delay(ms)
-    return this
+  delay(ms)
+  return this
 }
 
 suspend fun <T> T.waitRandomly(): T {
-    delay(50 + Random.nextLong(0, 50))
-    return this
+  delay(50 + Random.nextLong(0, 50))
+  return this
 }

@@ -5,8 +5,8 @@ package external.nuttree
 import kotlin.js.Promise
 
 external interface ImageProcessor {
-    fun colorAt(image: Image, location: Point): Promise<RGBA>
-    fun colorAt(image: Image, location: Promise<Point>): Promise<RGBA>
-    fun colorAt(image: Promise<Image>, location: Point): Promise<RGBA>
-    fun colorAt(image: Promise<Image>, location: Promise<Point>): Promise<RGBA>
+  fun colorAt(image: Image, location: Point): Promise<RGBA>
+  fun colorAt(image: Image, location: Promise<Point>): Promise<RGBA>
+  fun colorAt(image: Promise<Image>, location: Point): Promise<RGBA>
+  fun colorAt(image: Promise<Image>, location: Promise<Point>): Promise<RGBA>
 }
