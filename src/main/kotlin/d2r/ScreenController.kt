@@ -10,28 +10,21 @@ import external.nuttree.Region
 import external.nuttree.screen
 import types.MatchingImageRequest
 import kotlin.js.Promise
-import kotlin.time.ExperimentalTime
-import kotlin.time.measureTimedValue
 
-@OptIn(ExperimentalTime::class)
 object ScreenController : WindowActor {
   suspend fun matchImage(imageName: String, req: MatchingImageRequest = ImageMatching.DEFAULT): Region? {
     val image = imageName.toImageResource().await() ?: throw IllegalArgumentException("image $imageName not found")
     val region = req.detectInRegion?.let { dir -> withTranslatedRegion(dir) { it } }
-    return measureTimedValue {
-      matchImageInternal(
-        image = image,
-        currentRetry = 1,
-        maxRetry = req.maxRetry,
-        confidence = req.baseConfidence,
-        lowerConfidenceWhenFail = req.lowerConfidenceWhenFail,
-        timeoutMs = req.timeoutMs,
-        intervalMs = req.intervalMs,
-        searchRegion = region
-      )
-    }
-      .also { println("match $imageName at ${it.value} cost ${it.duration}") }
-      .value
+    return matchImageInternal(
+      image = image,
+      currentRetry = 1,
+      maxRetry = req.maxRetry,
+      confidence = req.baseConfidence,
+      lowerConfidenceWhenFail = req.lowerConfidenceWhenFail,
+      timeoutMs = req.timeoutMs,
+      intervalMs = req.intervalMs,
+      searchRegion = region
+    )
   }
 
   suspend fun oneOfImagesIn(

@@ -48,11 +48,6 @@ kotlin {
   }
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-  kotlinOptions {
-    freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
-  }
-}
 val runningWindows = System.getProperty("os.name").startsWith("Windows")
 val runningCI = System.getenv("CI") != null
 
