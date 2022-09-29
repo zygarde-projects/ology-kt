@@ -1,10 +1,12 @@
 import command.*
+import external.nconf.nconf
 import external.nuttree.LoadMatcher
 import external.yargs.yargs
 
 fun main() {
+  val version = nconf.file("$__dirname/../package.json").get("version")
+  println("Ology verison:$version")
   LoadMatcher
-  println(greeting("ology-kt"))
   yargs.usage("Usage: $0 <command> [options]")
     .command(HostCommand)
     .command(ClientCommand)
@@ -20,6 +22,3 @@ fun main() {
     .strict()
     .argv
 }
-
-fun greeting(name: String) =
-  "Hello, $name"
