@@ -1,6 +1,5 @@
 plugins {
     kotlin("js") version "1.6.21"
-    kotlin("plugin.serialization") version "1.6.21"
 }
 
 group = "ology"
@@ -14,7 +13,6 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     implementation("org.jetbrains.kotlinx:kotlinx-nodejs:0.0.7")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.6.4")
 
     implementation(npm("@nut-tree/nut-js", "next"))
@@ -33,8 +31,8 @@ kotlin {
         binaries.executable()
         nodejs {
             runTask {
-//                args("ng")
-                args("bo")
+                args("ng")
+//                args("bo")
 //                args("join", "-n=sally01", "-p=a")
 //                args("dev", "mouse-tracking")
 //                args("config-gen")
