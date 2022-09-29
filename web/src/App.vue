@@ -7,7 +7,7 @@ import MakeGame from './components/MakeGame.vue'
 <template>
   <div class="app flex justify-center">
       <div class="flex flex-col">
-          <div class="flex-1 flex items-center max-w-screen-lg">
+          <div class="flex-1 flex items-center">
               <a href="https://github.com/zygarde-projects/ology-kt" target="_blank">
                   <img src="/diablo2-logo-lg.png" class="logo" alt="ology kt" />
               </a>
