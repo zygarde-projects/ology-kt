@@ -36,7 +36,7 @@ object D2RController {
   suspend fun makeGame(
     name: String,
     password: String,
-    difficulty: GameDifficulty = GameDifficulty.HELL,
+    difficulty: GameDifficulty = GameDifficulty.HELL
   ) = withD2rRunning(true) {
     MouseController.clickOn(btnExitGame).wait(500)
 
@@ -83,11 +83,7 @@ object D2RController {
 
   suspend fun startBo() {
     BoController.stop()
-    if (Window.getForeground()?.getTitle() != gameWindowTitle) {
-      log("D2R not active, skipping BO")
-    } else {
-      BoController.start()
-    }
+    BoController.start()
   }
 
   private suspend fun withD2rRunning(switchToForegroundWhenRunning: Boolean = false, block: suspend () -> Unit) {

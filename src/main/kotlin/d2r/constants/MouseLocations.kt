@@ -4,8 +4,12 @@ import types.PredefinedPoint
 
 object MouseLocations {
   object Lobby {
+
     val makeGameTab = PredefinedPoint(2556, 156)
     val makeGameInputName = PredefinedPoint(2800, 336)
+
+    val moveWhenInFireRiver = PredefinedPoint(2000, 1050)
+    val fireRiver = PredefinedPoint(666, 777)
 
     val joinGameTab = PredefinedPoint(2938, 156)
     val joinGameInputName = PredefinedPoint(2556, 300)
