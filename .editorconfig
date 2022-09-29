@@ -1,0 +1,8 @@
+root = true
+[*.{kt,kts}]
+ij_kotlin_code_style_defaults=KOTLIN_OFFICIAL
+indent_style=space
+indent_size=2
+# true (recommended) / false
+insert_final_newline=true
+disabled_rules=filename,enum-entry-name-case
