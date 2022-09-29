@@ -20,6 +20,11 @@ object ClientCommand : NoArgCommand("client") {
       log("Received: $msg")
       val command = msg.toString()
       when (command.type()) {
+        CommandMessageType.GRETTING -> {
+          val clientName = ClientConfig.get("name")
+          ws.send(CommandMessageType.CLIENT_REG.args(clientName))
+        }
+
         CommandMessageType.NEXT_GAME -> launch {
           D2RController.joinGame(name = command.gameName(), password = command.password())
           ClientConfig.get("bo:enable")

@@ -12,7 +12,7 @@ enum class ConfigPrefix(val prefix: String) {
 }
 
 open class Config(val prefix: ConfigPrefix) {
-  private val defaultConfig = nconf.file("$__dirname/../resources/config/default-config.json")
+  private val defaultConfigPath = "$__dirname/../resources/config/default-config.json"
   private val configPath = "${process.cwd()}/config.json"
 
   init {
@@ -23,8 +23,10 @@ open class Config(val prefix: ConfigPrefix) {
 
   fun get(key: String): String = withConfig { config ->
     val configKey = prefix.prefix + ":" + key
-    val v = config.get(configKey)
-      ?: defaultConfig.get(configKey)?.also { config.set(key, it) }
+    var v = config.get(configKey)
+    if (v == null) {
+      v = nconf.file(defaultConfigPath).get(configKey)?.also { set(key, "$it") }
+    }
     "$v"
   }
 

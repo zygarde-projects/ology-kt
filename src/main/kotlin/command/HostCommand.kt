@@ -1,9 +1,12 @@
 package command
 
+import Buffer
 import command.base.NoArgCommand
 import conf.HostConfig
 import d2r.CommandMessageType
+import extension.arg0
 import extension.log
+import extension.type
 import external.cors.cors
 import external.express.express
 import external.ws.WebSocket
@@ -23,10 +26,23 @@ object HostCommand : NoArgCommand("host") {
     val wss = WebSocketServer(wssOptions)
     wss
       .on("connection") { socket: WebSocket, _: IncomingMessage ->
-        socket.send("hello ology client, current game is $gameName")
         log("client connected")
         log("client count: ${wss.clients.size}")
+        socket.on("message") { msg: Buffer, _ ->
+          val command = msg.toString()
+          println("received $command")
+          when (command.type()) {
+            CommandMessageType.CLIENT_REG -> {
+              val clientName = command.arg0()
+              println("client:${clientName}")
+              socket.asDynamic().clientName = clientName
+            }
+          }
+        }
+        socket.send("${CommandMessageType.GRETTING}|hello ology client, current game is $gameName")
+
       }
+
 
     val httpPort = wsPort + 1
     express()

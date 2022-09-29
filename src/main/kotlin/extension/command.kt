@@ -11,7 +11,9 @@ fun CommandMessage.type(): CommandMessageType = runCatching {
 }
   .getOrElse { CommandMessageType.UNKNOWN }
 
-fun CommandMessage.gameName() = split("|")[1]
-fun CommandMessage.password() = split("|")[2]
+fun CommandMessage.arg0() = split("|")[1]
+fun CommandMessage.arg1() = split("|")[1]
+fun CommandMessage.gameName() = arg0()
+fun CommandMessage.password() = arg1()
 
-fun CommandMessage.action() = split("|")[1]
+fun CommandMessage.action() = arg0()

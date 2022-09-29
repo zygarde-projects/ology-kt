@@ -9,10 +9,11 @@
     }
   },
   "client": {
+    "name": "client1",
     "server_ip": "localhost",
     "server_port": 16667,
     "bo": {
-      "enable": true,
+      "enable": false,
       "keys": "11|12|13"
     }
   }
