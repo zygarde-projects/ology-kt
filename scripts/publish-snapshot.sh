@@ -29,6 +29,7 @@ publishLib "packages_imported/kotlinx-atomicfu/0.17.3"
 (cd "$DIST_TARGET/$MAJOR_PACKAGE" && yarn add \
   kotlin@1.6.21 \
   kotlinx-coroutines-core@1.6.4 \
+  kotlinx-serialization-json@1.4.0 \
   @zygarde-projects/win-control \
   -f --ignore-scripts --ignore-engines --ignore-platform)
 
