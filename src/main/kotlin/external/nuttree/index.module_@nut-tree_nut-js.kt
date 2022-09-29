@@ -26,3 +26,5 @@ external var saveImage: (parameters: Any) -> Promise<Unit>
 external var imageResource: (fileName: String) -> Promise<Image>
 
 external var centerOf: (region: Region) -> Promise<Any>
+
+external fun sleep(ms: Number): Promise<Any>

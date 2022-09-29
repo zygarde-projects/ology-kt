@@ -2,15 +2,20 @@ package command
 
 import command.base.NoArgCommand
 import d2r.D2RController
+import d2r.WindowActor
+import d2r.action.Act1WaitTpAction
 import extension.launch
 
-object TestCommand : NoArgCommand("test") {
+object TestCommand : NoArgCommand("test"), WindowActor {
   override fun handle() {
     launch {
       println("D2R Running: ${D2RController.d2rRunning(true)}")
       try {
-        val isInGame = D2RController.detectGameStatus()
-        println("D2R In Game: $isInGame")
+        val gameStatus = D2RController.detectGameStatus()
+        println("D2R In Game: $gameStatus")
+        if (gameStatus?.isInGame() == true) {
+          Act1WaitTpAction.exec()
+        }
       } catch (e: Throwable) {
         println(e)
       }

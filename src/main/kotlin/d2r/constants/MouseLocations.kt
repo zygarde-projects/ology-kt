@@ -22,5 +22,15 @@ object MouseLocations {
 
   object InGame {
     val btnExitGame = PredefinedPoint(1920, 950)
+
+    val charCenter = PredefinedPoint(1920, 1080)
+    val moveT = PredefinedPoint(1920, 100)
+    val moveB = PredefinedPoint(1920, 1800)
+    val moveL = PredefinedPoint(400, 1000)
+    val moveR = PredefinedPoint(3440, 1000)
+    val moveLT = PredefinedPoint(400, 100)
+    val moveRT = PredefinedPoint(3440, 100)
+    val moveLB = PredefinedPoint(400, 1800)
+    val moveRB = PredefinedPoint(3440, 1800)
   }
 }

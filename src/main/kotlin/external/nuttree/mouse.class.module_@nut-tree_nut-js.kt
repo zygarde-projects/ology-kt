@@ -26,8 +26,8 @@ external open class MouseClass(providerRegistry: ProviderRegistry) {
   open fun scrollRight(amount: Number): Promise<MouseClass>
   open fun drag(path: Array<Point>): Promise<MouseClass>
   open fun drag(path: Promise<Array<Point>>): Promise<MouseClass>
-  open fun pressButton(btn: Button): Promise<MouseClass>
-  open fun releaseButton(btn: Button): Promise<MouseClass>
-  open fun click(btn: Button): Promise<MouseClass>
-  open fun doubleClick(btn: Button): Promise<MouseClass>
+  open fun pressButton(btn: Int): Promise<MouseClass>
+  open fun releaseButton(btn: Int): Promise<MouseClass>
+  open fun click(btn: Int): Promise<MouseClass>
+  open fun doubleClick(btn: Int): Promise<MouseClass>
 }
