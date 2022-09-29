@@ -9,7 +9,7 @@ const ip = useLocalStorage("ip", "localhost")
 let game = useLocalStorage("game", "current game is unknown")
 
 const makeGame = async () => {
-  const res = await axios.get("http://localhost:16668/ng")
+  const res = await axios.get(`http://${ip.value}:16668/ng`)
   game = res.data
 }
 
