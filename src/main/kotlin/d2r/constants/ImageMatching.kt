@@ -20,6 +20,8 @@ object ImageMatching {
 
   val inLobby = mapOf(
     "lobby/lobby_gem.png" to DEFAULT.copy(detectInRegion = Regions.LobbyDetection.gem),
+    "lobby/friend-list-btn.png" to DEFAULT.copy(detectInRegion = Regions.LobbyDetection.leftBottom),
+    "lobby/left-bottom.png" to DEFAULT.copy(detectInRegion = Regions.LobbyDetection.leftBottom),
   )
 
   val IN_GAME_ALL = inGame

@@ -14,6 +14,10 @@ object Regions {
       PredefinedPoint(1473, 1257),
       PredefinedPoint(2310, 1728),
     )
+    val leftBottom = pointToRegion(
+      PredefinedPoint(0, 1350),
+      PredefinedPoint(450, 2160),
+    )
   }
 
   private fun pointToRegion(leftTop: PredefinedPoint, rightBottom: PredefinedPoint): PredefinedRegion {
