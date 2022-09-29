@@ -1,9 +1,13 @@
 package d2r
 
+import extension.wait
+import extension.waitRandomly
 import external.nuttree.Key
+import external.nuttree.KeyBtn
 import external.nuttree.keyboard
 import kotlinx.coroutines.await
 import kotlinx.coroutines.delay
+import kotlin.random.Random
 
 object KeyboardController {
     suspend fun cleanInput(size: Int) {
@@ -29,5 +33,10 @@ object KeyboardController {
 
     suspend fun submitGameForm() {
         keyboard.type(Key.Return).await()
+    }
+
+    suspend fun pressAndReleaseKey(key: KeyBtn) {
+        keyboard.pressKey(key).await().waitRandomly()
+        keyboard.releaseKey(key).await()
     }
 }

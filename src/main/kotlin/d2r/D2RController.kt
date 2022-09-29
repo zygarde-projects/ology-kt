@@ -1,18 +1,26 @@
 package d2r
 
+import NodeJS.Timeout
+import clearInterval
+import conf.ClientConfig
 import d2r.constants.GeneralConstants.gameWindowTitle
 import d2r.constants.ImageMatching
 import d2r.constants.MouseLocations.InGame.btnExitGame
 import d2r.constants.MouseLocations.Lobby
 import extension.log
 import extension.wait
+import extension.waitRandomly
 import external.nuttree.Key
+import external.nuttree.OptionalSearchParameters
+import external.nuttree.imageResource
 import external.nuttree.keyboard
+import external.nuttree.screen
 import external.wincontrol.WinControl.Window
 import kotlinx.coroutines.await
 import types.GameDifficulty
 
 object D2RController {
+
     fun d2rRunning(switchToForegroundWhenRunning: Boolean = false): Boolean {
         val d2r = Window.getByTitle(gameWindowTitle)
         if (switchToForegroundWhenRunning && d2r != null) {
@@ -76,6 +84,15 @@ object D2RController {
             log("Game $name joined")
         } else {
             log("Did not detect in game or not...")
+        }
+    }
+
+    suspend fun startBo() {
+        BoController.stop()
+        if (Window.getForeground()?.getTitle() != gameWindowTitle) {
+            log("D2R not active, skipping BO")
+        } else {
+            BoController.start()
         }
     }
 

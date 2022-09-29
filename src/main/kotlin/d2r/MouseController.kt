@@ -18,4 +18,6 @@ object MouseController : WindowActor {
         mouse.move(arrayOf(point)).await()
         mouse.leftClick().await()
     }
+
+    suspend fun rightClick() = mouse.rightClick().await()
 }

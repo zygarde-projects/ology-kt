@@ -8,6 +8,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.startCoroutine
 import kotlin.coroutines.suspendCoroutine
 import kotlin.js.Promise
+import kotlin.random.Random
 
 fun launch(block: suspend () -> Unit) {
     block.startCoroutine(object : Continuation<Unit> {
@@ -22,5 +23,10 @@ suspend fun <T> Promise<T>.await() = suspendCoroutine<T?> { cont ->
 
 suspend fun <T> T.wait(ms: Long): T {
     delay(ms)
+    return this
+}
+
+suspend fun <T> T.waitRandomly(): T {
+    delay(50 + Random.nextLong(0, 50))
     return this
 }

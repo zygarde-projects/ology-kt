@@ -14,6 +14,7 @@ fun main() {
         .command(ExitGameCommand)
         .command(DevCommand)
         .command(JoinGameCommand)
+        .command(BoCommand)
         .recommendCommands()
         .demandCommand(1)
         .strict()

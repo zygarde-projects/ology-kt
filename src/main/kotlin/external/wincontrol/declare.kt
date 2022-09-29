@@ -8,4 +8,8 @@ external object WinControl {
 
 external interface Window {
     fun getByTitle(title: String): WindowInstance?
+
+    fun getForeground(): Window?
+
+    fun getTitle(): String
 }

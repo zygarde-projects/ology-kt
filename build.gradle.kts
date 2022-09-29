@@ -34,7 +34,7 @@ kotlin {
         nodejs {
             runTask {
 //                args("ng")
-                args("test")
+                args("bo")
 //                args("join", "-n=sally01", "-p=a")
 //                args("dev", "mouse-tracking")
 //                args("config-gen")
