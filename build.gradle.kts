@@ -1,5 +1,6 @@
 plugins {
   kotlin("js") version "1.6.21"
+  kotlin("plugin.serialization") version "1.6.21"
 }
 
 group = "ology"
