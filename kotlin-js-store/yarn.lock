@@ -357,6 +357,11 @@
   resolved "https://registry.yarnpkg.com/@types/nconf/-/nconf-0.10.3.tgz#c4482389412ad534bcf11635c7e0a645ddac62d2"
   integrity sha512-leyIuBk/rMIp9114FlPRkc/cQG+/JzCz1Afx3BD+CwK2ep3ZRxoC843V1rqnE2pC/jRRjANWhuVBEn4clCwlug==
 
+"@types/node@16.11.7":
+  version "16.11.7"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.7.tgz#36820945061326978c42a01e56b61cd223dfdc42"
+  integrity sha512-QB5D2sqfSjCmTuWcBWyJ+/44bcjO7VbjSbOE0ucoVbAsSNQc4Lt6QkgkVXkTDwkL4z/beecZNDvVX15D4P8Jbw==
+
 "@types/node@16.9.1":
   version "16.9.1"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.9.1.tgz#0611b37db4246c937feef529ddcc018cf8e35708"

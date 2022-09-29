@@ -6,3 +6,4 @@ out
 build/
 /node_modules
 dev-assets/windows/node_modules
+/externals

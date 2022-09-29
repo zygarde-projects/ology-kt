@@ -4,6 +4,8 @@ import d2r.constants.ImageMatching
 import extension.await
 import extension.launch
 import extension.toImageResource
+import external.node.AbortController
+import external.node.AbortSignal
 import external.nuttree.Image
 import external.nuttree.OptionalSearchParameters
 import external.nuttree.Region
@@ -12,7 +14,11 @@ import types.MatchingImageRequest
 import kotlin.js.Promise
 
 object ScreenController : WindowActor {
-  suspend fun matchImage(imageName: String, req: MatchingImageRequest = ImageMatching.DEFAULT): Region? {
+  suspend fun matchImage(
+    imageName: String,
+    req: MatchingImageRequest = ImageMatching.DEFAULT,
+    abortSignal: AbortSignal? = null,
+  ): Region? {
     val image = imageName.toImageResource().await() ?: throw IllegalArgumentException("image $imageName not found")
     val region = req.detectInRegion?.let { dir -> withTranslatedRegion(dir) { it } }
     return matchImageInternal(
@@ -23,7 +29,8 @@ object ScreenController : WindowActor {
       lowerConfidenceWhenFail = req.lowerConfidenceWhenFail,
       timeoutMs = req.timeoutMs,
       intervalMs = req.intervalMs,
-      searchRegion = region
+      searchRegion = region,
+      abortSignal = abortSignal,
     )
   }
 
@@ -38,17 +45,22 @@ object ScreenController : WindowActor {
   suspend fun oneOfImagesIn(
     reqMap: Map<String, MatchingImageRequest>
   ): Region? {
+    val abortControllers = mutableListOf<AbortController>()
     val list = reqMap
       .map { e ->
+        val abortController = AbortController()
+        abortControllers.add(abortController)
         Promise<Region?> { resolve, _ ->
-          launch { resolve(matchImage(e.key, e.value)) }
+          launch { resolve(matchImage(e.key, e.value, abortController.signal)) }
         }
       }
       .toTypedArray()
     return Promise
       .race(list)
       .then {
-        println("race success $it")
+        for (abortController in abortControllers) {
+          abortController.abort()
+        }
         it
       }.await()
   }
@@ -58,11 +70,15 @@ object ScreenController : WindowActor {
     currentRetry: Int = 1,
     maxRetry: Int = 5,
     confidence: Double = 0.9,
-    lowerConfidenceWhenFail: Double = -0.025,
+    lowerConfidenceWhenFail: Double = 0.025,
     timeoutMs: Int = 2000,
     intervalMs: Int = 500,
     searchRegion: Region? = null,
+    abortSignal: AbortSignal? = null,
   ): Region? {
+    if (abortSignal?.aborted == true) {
+      return null
+    }
     val region = screen
       .waitFor(
         templateImage = image,
@@ -71,6 +87,7 @@ object ScreenController : WindowActor {
         OptionalSearchParameters(
           searchRegion = searchRegion,
           confidence = confidence,
+          abortSignal = abortSignal,
         )
       )
       .await()
@@ -84,7 +101,8 @@ object ScreenController : WindowActor {
         lowerConfidenceWhenFail = lowerConfidenceWhenFail,
         timeoutMs = timeoutMs,
         intervalMs = intervalMs,
-        searchRegion = searchRegion
+        searchRegion = searchRegion,
+        abortSignal = abortSignal,
       )
     } else {
       region

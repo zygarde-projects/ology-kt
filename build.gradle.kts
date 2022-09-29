@@ -23,6 +23,7 @@ dependencies {
   implementation(npm("ws", "8.8.1"))
   implementation(npm("yargs", "17.5.1"))
   implementation(npm("@types/nconf", "0.10.3"))
+  implementation(npm("@types/node", "16.11.7"))
 }
 
 kotlin {
