@@ -5,4 +5,4 @@ import external.nuttree.imageResource
 
 typealias TemplateImage = String
 
-fun TemplateImage.toImageResource() = imageResource("$__dirname/resources/template/$this")
+fun TemplateImage.toImageResource() = imageResource("$__dirname/../resources/template/$this")
