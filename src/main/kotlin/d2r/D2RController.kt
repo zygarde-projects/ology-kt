@@ -1,20 +1,13 @@
 package d2r
 
-import NodeJS.Timeout
-import clearInterval
-import conf.ClientConfig
 import d2r.constants.GeneralConstants.gameWindowTitle
 import d2r.constants.ImageMatching
 import d2r.constants.MouseLocations.InGame.btnExitGame
 import d2r.constants.MouseLocations.Lobby
 import extension.log
 import extension.wait
-import extension.waitRandomly
 import external.nuttree.Key
-import external.nuttree.OptionalSearchParameters
-import external.nuttree.imageResource
 import external.nuttree.keyboard
-import external.nuttree.screen
 import external.wincontrol.WinControl.Window
 import kotlinx.coroutines.await
 import types.GameDifficulty
@@ -60,12 +53,13 @@ object D2RController {
         MouseController.clickOn(difficulty.btnPoint).wait(200)
 
         KeyboardController.submitGameForm().wait(3000)
-        if (inGame) {
+
+        val inGameAfterJoinGame = isInGame()
+        if (inGameAfterJoinGame) {
             log("Game $name created")
         } else {
             log("Failed to create game, something wrong...")
         }
-
     }
 
     suspend fun joinGame(name: String, password: String) = withD2rRunning(true) {
