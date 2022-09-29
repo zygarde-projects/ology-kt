@@ -23,7 +23,7 @@ function publishLib() {
 }
 
 #(cd "$DIST_TARGET" && cat package.json | jq -r '.workspaces[] | select(startswith("packages_imported"))' | while read -r package; do publishLib "$package"; done )
-publishLib "packages_imported/kotlinx-atomicfu"
+publishLib "packages_imported/kotlinx-atomicfu/0.17.3"
 
 # add win-control to dist target
 (cd "$DIST_TARGET/$MAJOR_PACKAGE" && npm install add-dependencies @zygarde-projects/win-control -f --ignore-scripts)
