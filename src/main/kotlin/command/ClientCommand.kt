@@ -20,7 +20,12 @@ object ClientCommand : NoArgCommand("client") {
       log("Received: $msg")
       val command = msg.toString()
       when (command.type()) {
-        CommandMessageType.NEXT_GAME -> launch { D2RController.joinGame(name = command.gameName(), password = command.password()) }
+        CommandMessageType.NEXT_GAME -> launch {
+          D2RController.joinGame(name = command.gameName(), password = command.password())
+          ClientConfig.get("bo:enable")
+            .takeIf { it.toBoolean() }
+            .run { D2RController.startBo() }
+        }
         else -> log("unknown command: $command")
       }
     }

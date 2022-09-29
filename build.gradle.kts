@@ -32,13 +32,13 @@ kotlin {
     binaries.executable()
     nodejs {
       runTask {
-        args("test")
+//        args("test")
 //                args("bo")
 //                args("join", "-n=sally01", "-p=a")
 //                args("dev", "mouse-tracking")
 //                args("config-gen")
 //                args("host") // host command
-//                args("client", "-c=${rootProject.file("config").absolutePath}/config.json") // client command
+                args("client") // client command
       }
     }
     compilations["main"].packageJson {
