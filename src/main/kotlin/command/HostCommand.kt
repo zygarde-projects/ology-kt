@@ -47,7 +47,7 @@ object HostCommand : NoArgCommand("host") {
 
         get("/clientAction/:action") { req, res ->
           wss.clients.forEach({ client, _, _ ->
-            client.send("${CommandMessageType.DO_ACTION}|${req.param.action}")
+            client.send("${CommandMessageType.DO_ACTION}|${req.params.action}")
           })
           res.status = 200
           res.send("ok")
