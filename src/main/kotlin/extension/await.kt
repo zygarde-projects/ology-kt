@@ -13,7 +13,11 @@ fun launch(block: suspend () -> Unit) {
 }
 
 suspend fun <T> Promise<T>.await() = suspendCoroutine<T?> { cont ->
-  then { cont.resume(it) }.catch { cont.resume(null) }
+  then { cont.resume(it) }
+    .catch {
+      println(it)
+      cont.resume(null)
+    }
 }
 
 suspend fun <T> T.wait(ms: Long): T {
