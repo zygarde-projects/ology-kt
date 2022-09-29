@@ -28,5 +28,6 @@ function publishLib() {
 (cd "$DIST_TARGET/$MAJOR_PACKAGE" && npm install add-dependencies @zygarde-projects/win-control -f --ignore-scripts)
 (cd "$DIST_TARGET/$MAJOR_PACKAGE" && npm install add-dependencies kotlin@1.6.21 -f --ignore-scripts)
 (cd "$DIST_TARGET/$MAJOR_PACKAGE" && npm install add-dependencies kotlinx-coroutines-core@1.6.4 -f --ignore-scripts)
+(cd "$DIST_TARGET/$MAJOR_PACKAGE" && npm install add-dependencies kotlinx-atomicfu@0.17.3 -f --ignore-scripts)
 
 (cd "$DIST_TARGET/$MAJOR_PACKAGE" && npm version "$BUILD_VERSION" --no-git-tag-version && npm publish --registry=https://npm.puni.tw)
