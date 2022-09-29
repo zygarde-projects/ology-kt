@@ -30,6 +30,6 @@ publishLib "packages_imported/kotlinx-atomicfu/0.17.3"
   @zygarde-projects/win-control \
   kotlin@1.6.21 \
   kotlinx-coroutines-core@1.6.4 \
-  -f --ignore-scripts)
+  -f --ignore-scripts --ignore-engines)
 
 (cd "$DIST_TARGET/$MAJOR_PACKAGE" && npm version "$BUILD_VERSION" --no-git-tag-version && npm publish --registry=https://npm.puni.tw)
