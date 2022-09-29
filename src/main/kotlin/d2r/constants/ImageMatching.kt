@@ -10,8 +10,19 @@ object ImageMatching {
     "in-game/in_game_menu_bar.png" to DEFAULT.copy(detectInRegion = InGameDetection.menu),
     "in-game/left_blood_ball.png" to DEFAULT.copy(detectInRegion = InGameDetection.menu),
     "in-game/right_mana_ball.png" to DEFAULT.copy(detectInRegion = InGameDetection.menu),
+  )
+
+  val inGameLegacy = mapOf(
     "in-game/in_game_menu_bar_legacy.png" to DEFAULT.copy(detectInRegion = InGameDetection.menuLegacy),
     "in-game/left_blood_ball_legacy.png" to DEFAULT.copy(detectInRegion = InGameDetection.menuLegacy),
     "in-game/right_mana_ball_legacy.png" to DEFAULT.copy(detectInRegion = InGameDetection.menuLegacy),
   )
+
+  val inLobby = mapOf(
+    "lobby/lobby_gem.png" to DEFAULT.copy(detectInRegion = Regions.LobbyDetection.gem),
+  )
+
+  val IN_GAME_ALL = inGame
+    .plus(inGameLegacy)
+    .plus(inLobby)
 }

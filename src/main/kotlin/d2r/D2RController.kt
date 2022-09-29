@@ -2,6 +2,7 @@ package d2r
 
 import d2r.constants.GeneralConstants.gameWindowTitle
 import d2r.constants.ImageMatching
+import d2r.constants.ImageMatching.IN_GAME_ALL
 import d2r.constants.MouseLocations.InGame.btnExitGame
 import d2r.constants.MouseLocations.Lobby
 import extension.log
@@ -11,6 +12,7 @@ import external.nuttree.keyboard
 import external.wincontrol.WinControl.Window
 import kotlinx.coroutines.await
 import types.GameDifficulty
+import types.InGameStatus
 
 object D2RController {
 
@@ -22,7 +24,23 @@ object D2RController {
     return d2r != null
   }
 
-  suspend fun isInGame() = ScreenController.oneOfImagesIn(ImageMatching.inGame) != null
+  suspend fun detectGameStatus(): InGameStatus? {
+    val matchResult = ScreenController.oneOfImagesIn(IN_GAME_ALL)
+
+    val matchedImage = matchResult?.image
+    if (matchedImage != null) {
+      if (ImageMatching.inGame.containsKey(matchedImage)) {
+        return InGameStatus.IN_GAME
+      }
+      if (ImageMatching.inGameLegacy.containsKey(matchedImage)) {
+        return InGameStatus.IN_GAME_LEGACY
+      }
+      if (ImageMatching.inLobby.containsKey(matchedImage)) {
+        return InGameStatus.LOBBY
+      }
+    }
+    return null
+  }
 
   suspend fun exitGame() {
     keyboard.pressKey(Key.LeftShift).await()
@@ -40,10 +58,17 @@ object D2RController {
   ) = withD2rRunning(true) {
     MouseController.clickOn(btnExitGame).wait(500)
 
-    val inGame = isInGame()
-    if (inGame) {
+    val gameStatus = detectGameStatus()
+    if (gameStatus == null) {
+      println("cannot detect game status")
+      return@withD2rRunning
+    }
+
+    if (gameStatus.isInGame()) {
       println("inGame, exiting game")
       exitGame().wait(1500)
+    } else if (gameStatus.isInLobby()) {
+      println("inLobby")
     }
 
     MouseController.clickOn(Lobby.makeGameTab).wait(1000).log("game name=$name, password=$password")
@@ -54,8 +79,8 @@ object D2RController {
 
     KeyboardController.submitGameForm().wait(3000)
 
-    val inGameAfterJoinGame = isInGame()
-    if (inGameAfterJoinGame) {
+    val gameStatusAfterMakeGame = detectGameStatus()
+    if (gameStatusAfterMakeGame?.isInGame() == true) {
       log("Game $name created")
     } else {
       log("Failed to create game, something wrong...")
@@ -63,8 +88,13 @@ object D2RController {
   }
 
   suspend fun joinGame(name: String, password: String) = withD2rRunning(true) {
-    val inGame = isInGame()
-    if (inGame) {
+    val gameStatus = detectGameStatus()
+    if (gameStatus == null) {
+      println("cannot detect game status")
+      return@withD2rRunning
+    }
+
+    if (gameStatus.isInGame()) {
       println("inGame, exiting game")
       exitGame().wait(1500)
     }
@@ -74,7 +104,8 @@ object D2RController {
     KeyboardController.inputGameNameAndPassword(name = name, password = password).wait(100)
     MouseController.clickOn(Lobby.joinGameRefresh).wait(1000)
     KeyboardController.submitGameForm().wait(3000)
-    if (isInGame()) {
+    val gameStatusAfterJoinGame = detectGameStatus()
+    if (gameStatusAfterJoinGame?.isInGame() == true) {
       log("Game $name joined")
     } else {
       log("Did not detect in game or not...")

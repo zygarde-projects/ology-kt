@@ -10,6 +10,7 @@ import external.nuttree.Image
 import external.nuttree.OptionalSearchParameters
 import external.nuttree.Region
 import external.nuttree.screen
+import types.MatchedImage
 import types.MatchingImageRequest
 import kotlin.js.Promise
 
@@ -36,22 +37,23 @@ object ScreenController : WindowActor {
 
   suspend fun oneOfImagesIn(
     images: List<String>
-  ): Region? {
-    return oneOfImagesIn(
-      images.associateWith { ImageMatching.DEFAULT }
-    )
+  ): MatchedImage? {
+    return oneOfImagesIn(images.associateWith { ImageMatching.DEFAULT })
   }
 
   suspend fun oneOfImagesIn(
     reqMap: Map<String, MatchingImageRequest>
-  ): Region? {
+  ): MatchedImage? {
     val abortControllers = mutableListOf<AbortController>()
     val list = reqMap
       .map { e ->
         val abortController = AbortController()
         abortControllers.add(abortController)
-        Promise<Region?> { resolve, _ ->
-          launch { resolve(matchImage(e.key, e.value, abortController.signal)) }
+        Promise<MatchedImage?> { resolve, _ ->
+          launch {
+            val matchedRegion = matchImage(e.key, e.value, abortController.signal)
+            resolve(matchedRegion?.let { MatchedImage(e.key, it) })
+          }
         }
       }
       .toTypedArray()
@@ -87,6 +89,7 @@ object ScreenController : WindowActor {
         OptionalSearchParameters(
           searchRegion = searchRegion,
           confidence = confidence,
+          searchMultipleScales = true,
           abortSignal = abortSignal,
         )
       )

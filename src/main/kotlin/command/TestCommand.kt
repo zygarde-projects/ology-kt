@@ -9,7 +9,7 @@ object TestCommand : NoArgCommand("test") {
     launch {
       println("D2R Running: ${D2RController.d2rRunning(true)}")
       try {
-        val isInGame = D2RController.isInGame()
+        val isInGame = D2RController.detectGameStatus()
         println("D2R In Game: $isInGame")
       } catch (e: Throwable) {
         println(e)
