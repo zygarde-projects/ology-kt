@@ -12,7 +12,7 @@ fun CommandMessage.type(): CommandMessageType = runCatching {
   .getOrElse { CommandMessageType.UNKNOWN }
 
 fun CommandMessage.arg0() = split("|")[1]
-fun CommandMessage.arg1() = split("|")[1]
+fun CommandMessage.arg1() = split("|")[2]
 fun CommandMessage.gameName() = arg0()
 fun CommandMessage.password() = arg1()
 
