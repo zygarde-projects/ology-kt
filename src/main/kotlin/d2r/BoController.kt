@@ -5,12 +5,8 @@ import conf.ClientConfig
 import d2r.constants.GeneralConstants
 import d2r.constants.MouseLocations.Lobby.fireRiver
 import d2r.constants.MouseLocations.Lobby.moveWhenInFireRiver
-import extension.launch
-import extension.log
-import extension.wait
-import extension.waitRandomly
+import extension.*
 import external.nuttree.OptionalSearchParameters
-import external.nuttree.imageResource
 import external.nuttree.screen
 import external.wincontrol.WinControl
 import kotlinx.coroutines.await
@@ -56,7 +52,7 @@ object BoController {
       return
     }
 
-    runCatching { screen.find(imageResource("wp_in_fire_river.png"), option).await() }
+    runCatching { screen.find("wp_in_fire_river.png".toImageResource(), option).await() }
       .onFailure {
         val keyboardKeys = ClientConfig.get("bo:keys").split("|")
         keyboardKeys.forEach {
