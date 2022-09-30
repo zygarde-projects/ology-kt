@@ -2,6 +2,7 @@ package d2r
 
 import d2r.constants.ImageMatching
 import extension.CoroutineExtensions.launch
+import extension.PromiseExtensions.catchReturnNull
 import extension.toImageResource
 import external.node.AbortController
 import external.node.AbortSignal
@@ -93,6 +94,7 @@ object ScreenController : WindowActor {
           abortSignal = abortSignal,
         )
       )
+      .catchReturnNull()
       .await()
 
     return if (region == null && currentRetry <= maxRetry) {
