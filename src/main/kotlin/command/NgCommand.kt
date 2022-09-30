@@ -12,9 +12,7 @@ object NgCommand : NoArgCommand("ng") {
     val pwd = HostConfig.get("game:pwd")
     val counter = (HostConfig.get("game:counter").toIntOrNull() ?: 0) + 1
     val difficulty = resolveGameDifficulty(HostConfig.get("game:difficulty"))
-    launch {
-      D2RController.makeGame("$gamePrefix$counter", pwd, difficulty)
-      HostConfig.set("game:counter", counter)
-    }
+    HostConfig.set("game:counter", counter)
+    launch { D2RController.makeGame("$gamePrefix$counter", pwd, difficulty) }
   }
 }
