@@ -5,4 +5,4 @@ import external.nuttree.imageResource
 
 typealias TemplateImage = String
 
-fun TemplateImage.toImageResource() = imageResource("${SystemConfig.get("resolution")}/resources/template/$this")
+fun TemplateImage.toImageResource() = imageResource("resources/template/${SystemConfig.get("resolution")}/$this")
