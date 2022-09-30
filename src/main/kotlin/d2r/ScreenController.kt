@@ -1,8 +1,7 @@
 package d2r
 
 import d2r.constants.ImageMatching
-import extension.await
-import extension.launch
+import extension.CoroutineExtensions.launch
 import extension.toImageResource
 import external.node.AbortController
 import external.node.AbortSignal
@@ -10,6 +9,7 @@ import external.nuttree.Image
 import external.nuttree.OptionalSearchParameters
 import external.nuttree.Region
 import external.nuttree.screen
+import kotlinx.coroutines.await
 import types.MatchedImage
 import types.MatchingImageRequest
 import kotlin.js.Promise

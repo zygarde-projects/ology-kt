@@ -1,5 +1,5 @@
 import d2r.ScreenController
-import extension.launch
+import extension.CoroutineExtensions.launch
 import types.MatchingImageRequest
 import kotlin.test.Test
 

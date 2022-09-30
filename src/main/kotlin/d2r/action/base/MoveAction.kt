@@ -11,7 +11,7 @@ import d2r.constants.MouseLocations.InGame.moveRB
 import d2r.constants.MouseLocations.InGame.moveRT
 import d2r.constants.MouseLocations.InGame.moveT
 import extension.DimensionExtensions.translatePoint
-import extension.await
+import kotlinx.coroutines.await
 import external.nuttree.mouse
 import external.nuttree.sleep
 import types.PredefinedPoint

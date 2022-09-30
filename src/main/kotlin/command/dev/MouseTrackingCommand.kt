@@ -3,7 +3,7 @@ package command.dev
 import command.base.NoArgCommand
 import d2r.constants.DimensionConstants.baseScreenH
 import d2r.constants.DimensionConstants.baseScreenW
-import extension.await
+import kotlinx.coroutines.await
 import external.nuttree.mouse
 import external.nuttree.screen
 import timers.setInterval
@@ -15,7 +15,7 @@ object MouseTrackingCommand : NoArgCommand("mouse-tracking") {
     val height = screen.height().await()
     println("screen $width x $height")
 
-    val pointTranslator = PointTranslator(width!!.toInt(), height!!.toInt(), baseScreenW, baseScreenH)
+    val pointTranslator = PointTranslator(width.toInt(), height.toInt(), baseScreenW, baseScreenH)
     println("start mouse tracking")
     setInterval({
       mouse.getPosition().then {

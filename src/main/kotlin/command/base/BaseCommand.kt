@@ -1,6 +1,6 @@
 package command.base
 
-import extension.launch
+import extension.CoroutineExtensions.launch
 import external.yargs.Argv
 import external.yargs.CommandModule
 

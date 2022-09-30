@@ -6,6 +6,7 @@ import conf.ClientConfig
 import d2r.CommandMessageType
 import d2r.D2RController
 import extension.*
+import extension.CoroutineExtensions.launch
 import external.ws.WebSocket
 
 object ClientCommand : NoArgCommand("client") {

@@ -1,6 +1,6 @@
 package d2r
 
-import extension.await
+import kotlinx.coroutines.await
 import external.nuttree.*
 import types.PredefinedPoint
 

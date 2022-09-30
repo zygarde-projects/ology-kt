@@ -6,6 +6,7 @@ import d2r.constants.GeneralConstants
 import d2r.constants.MouseLocations.Lobby.fireRiver
 import d2r.constants.MouseLocations.Lobby.moveWhenInFireRiver
 import extension.*
+import extension.CoroutineExtensions.launch
 import external.nuttree.OptionalSearchParameters
 import external.nuttree.screen
 import external.wincontrol.WinControl

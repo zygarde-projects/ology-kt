@@ -2,7 +2,7 @@ package conf
 
 import __dirname
 import command.GenerateDefaultConfigCommand
-import extension.launch
+import extension.CoroutineExtensions.launch
 import external.nconf.Provider
 import external.nconf.nconf
 import external.node.process
