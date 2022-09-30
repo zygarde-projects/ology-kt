@@ -397,7 +397,7 @@ open external class WebSocket {
     var CLOSING: Number /* 2 */
     var CLOSED: Number /* 3 */
     var WebSocketServer: Any
-    var WebSocket: Any
+    var WebSocket: WebSocket
     fun createWebSocketStream(websocket: WebSocket, options: DuplexOptions = definedExternally): Duplex
   }
 }

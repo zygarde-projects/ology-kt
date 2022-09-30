@@ -22,6 +22,7 @@ dependencies {
   implementation(npm("nconf", "0.12.0"))
   implementation(npm("os", "0.1.2"))
   implementation(npm("ws", "8.8.1"))
+  implementation(npm("reconnecting-websocket", "4.4.0"))
   implementation(npm("yargs", "17.5.1"))
   implementation(npm("@types/nconf", "0.10.3"))
   implementation(npm("@types/node", "16.11.7"))
@@ -33,7 +34,7 @@ kotlin {
     binaries.executable()
     nodejs {
       runTask {
-        args("test")
+//        args("test")
 //        args("action", "-a=FindAndEnterTp")
 //        args("dev", "detect-all")
 //        args("dev", "mouse-tracking")
@@ -42,7 +43,7 @@ kotlin {
 //args("join", "-n=sally01", "-p=a")
 //        args("config-gen")
 //        args("host") // host command
-//        args("client") // client command
+        args("client") // client command
       }
     }
     compilations["main"].packageJson {
