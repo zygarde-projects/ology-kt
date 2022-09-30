@@ -20,7 +20,7 @@ object ScreenController : WindowActor {
     req: MatchingImageRequest = ImageMatching.DEFAULT,
     abortSignal: AbortSignal? = null,
   ): Region? {
-    val image = imageName.toImageResource().await() ?: throw IllegalArgumentException("image $imageName not found")
+    val image = imageName.toImageResource().await()
     val region = req.detectInRegion?.let { dir -> withTranslatedRegion(dir) { it } }
     return matchImageInternal(
       image = image,

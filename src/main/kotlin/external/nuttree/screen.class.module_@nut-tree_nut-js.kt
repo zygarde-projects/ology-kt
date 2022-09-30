@@ -28,7 +28,7 @@ external open class ScreenClass(providerRegistry: ProviderRegistry, findHooks: M
   open fun findAll(template: FirstArgumentType<Any>, params: OptionalSearchParameters = definedExternally): Promise<Array<Region>>
   open fun highlight(regionToHighlight: Region): Promise<Region>
   open fun highlight(regionToHighlight: Promise<Region>): Promise<Region>
-  open fun waitFor(templateImage: FirstArgumentType<Any>, timeoutMs: Number = definedExternally, updateInterval: Number = definedExternally, params: OptionalSearchParameters = definedExternally): Promise<Region>
+  open fun waitFor(templateImage: FirstArgumentType<Any>, timeoutMs: Number = definedExternally, updateInterval: Number = definedExternally, params: OptionalSearchParameters = definedExternally): Promise<Region?>
   open fun on(templateImage: Image, callback: FindHookCallback)
   open fun capture(fileName: String, fileFormat: FileType = definedExternally, filePath: String = definedExternally, fileNamePrefix: String = definedExternally, fileNamePostfix: String = definedExternally): Promise<String>
   open fun grab(): Promise<Image>

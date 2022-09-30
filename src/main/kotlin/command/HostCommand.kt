@@ -38,6 +38,7 @@ object HostCommand : NoArgCommand("host") {
               println("client:${clientName}")
               socket.asDynamic().clientName = clientName
             }
+            else -> throw IllegalArgumentException("unknown command type: ${command.type()}")
           }
         }
         socket.send("${CommandMessageType.GRETTING}|hello ology client, current game is $gameName")
