@@ -10,7 +10,7 @@ import external.ws.WebSocket
 
 object ClientCommand : NoArgCommand("client") {
 
-  override fun handle() {
+  override suspend fun handle() {
     val host = "ws://${ClientConfig.get("server_ip")}:${ClientConfig.get("server_port")}"
     val ws = WebSocket(host)
     ws.on("open") { _: WebSocket ->
@@ -32,7 +32,7 @@ object ClientCommand : NoArgCommand("client") {
             .run { D2RController.startBo() }
         }
 
-        CommandMessageType.DO_ACTION -> {
+        CommandMessageType.DO_ACTION -> launch {
           D2RController.execute(command.action())
         }
 

@@ -5,6 +5,7 @@ import command.base.NoArgCommand
 import conf.HostConfig
 import d2r.CommandMessageType
 import extension.arg0
+import extension.launch
 import extension.log
 import extension.type
 import external.cors.cors
@@ -16,7 +17,7 @@ import http.IncomingMessage
 
 object HostCommand : NoArgCommand("host") {
 
-  override fun handle() {
+  override suspend fun handle() {
     val gameName = "${HostConfig.get("game:prefix")}${HostConfig.get("game:counter")}"
     log("game name: $gameName")
     IPCommand.handle()
@@ -49,16 +50,18 @@ object HostCommand : NoArgCommand("host") {
       .apply {
         use(cors())
         get("/ng") { _, res ->
-          NgCommand.handle()
-          val gamePrefix = HostConfig.get("game:prefix")
-          val counter = HostConfig.get("game:counter")
-          val pwd = HostConfig.get("game:pwd")
-          val gamePayload = "$gamePrefix$counter|$pwd"
-          wss.clients.forEach({ client, _, _ ->
-            client.send("${CommandMessageType.NEXT_GAME}|$gamePayload")
-          })
-          res.status = 200
-          res.send(gamePayload)
+          launch {
+            NgCommand.handle()
+            val gamePrefix = HostConfig.get("game:prefix")
+            val counter = HostConfig.get("game:counter")
+            val pwd = HostConfig.get("game:pwd")
+            val gamePayload = "$gamePrefix$counter|$pwd"
+            wss.clients.forEach({ client, _, _ ->
+              client.send("${CommandMessageType.NEXT_GAME}|$gamePayload")
+            })
+            res.status = 200
+            res.send(gamePayload)
+          }
         }
 
         get("/clientAction/:action") { req, res ->

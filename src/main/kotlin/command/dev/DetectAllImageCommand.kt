@@ -7,7 +7,6 @@ import d2r.WindowActor
 import d2r.constants.ImageMatching
 import d2r.constants.ImageMatching.tpLegacy
 import extension.DimensionExtensions.translateRegion
-import extension.launch
 import extension.toImageResource
 import external.nuttree.OptionalSearchParameters
 import external.nuttree.screen
@@ -15,7 +14,7 @@ import external.nuttree.screen
 object DetectAllImageCommand : NoArgCommand("detect-all"), WindowActor {
 
   var intervalId: Timeout? = null
-  override fun handle() {
+  override suspend fun handle() {
     suspend fun detect() = withWindowDimension { dimensions ->
       ImageMatching.IN_GAME_ALL
         .plus(
@@ -46,9 +45,7 @@ object DetectAllImageCommand : NoArgCommand("detect-all"), WindowActor {
     println("start detect images")
     D2RController.d2rRunning(true)
 //    intervalId = setInterval({
-    launch {
-      detect()
-    }
+    detect()
 //    }, 5000)
 
   }

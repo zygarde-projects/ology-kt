@@ -33,7 +33,7 @@ kotlin {
     binaries.executable()
     nodejs {
       runTask {
-//        args("test")
+        args("test")
 //        args("action", "-a=FindAndEnterTp")
 //        args("dev", "detect-all")
 //        args("dev", "mouse-tracking")
@@ -42,7 +42,7 @@ kotlin {
 //args("join", "-n=sally01", "-p=a")
 //        args("config-gen")
 //        args("host") // host command
-        args("client") // client command
+//        args("client") // client command
       }
     }
     compilations["main"].packageJson {

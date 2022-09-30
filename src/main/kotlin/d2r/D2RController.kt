@@ -8,7 +8,6 @@ import d2r.constants.ImageMatching
 import d2r.constants.ImageMatching.IN_GAME_ALL
 import d2r.constants.MouseLocations.InGame.btnExitGame
 import d2r.constants.MouseLocations.Lobby
-import extension.launch
 import extension.log
 import extension.wait
 import external.nuttree.Key
@@ -128,12 +127,9 @@ object D2RController {
 
   fun allActionNames() = actionMap.keys
 
-  fun execute(actionName: String) {
-    actionMap[actionName]
-      ?.let {
-        launch { it.exec() }
-      }
-      ?: throw IllegalArgumentException("action $actionName not found")
+  suspend fun execute(actionName: String) {
+    val action = actionMap[actionName] ?: throw IllegalArgumentException("action $actionName not found")
+    action.exec()
   }
 
   private suspend fun withD2rRunning(switchToForegroundWhenRunning: Boolean = false, block: suspend () -> Unit) {

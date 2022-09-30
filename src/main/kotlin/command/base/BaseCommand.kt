@@ -1,5 +1,6 @@
 package command.base
 
+import extension.launch
 import external.yargs.Argv
 import external.yargs.CommandModule
 
@@ -13,8 +14,10 @@ abstract class BaseCommand<ARGS>(override var command: String) : CommandModule<d
     }
   }
 
-  override var handler: (args: ARGS) -> Unit = ::handle
+  override var handler: (args: ARGS) -> Unit = { args ->
+    launch { handle(args) }
+  }
 
-  abstract fun handle(args: ARGS)
+  abstract suspend fun handle(args: ARGS)
 
 }

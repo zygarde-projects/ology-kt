@@ -21,7 +21,7 @@ object DoActionCommand : BaseCommand<DoActionCommandArg>("action") {
     )
   }
 
-  override fun handle(args: DoActionCommandArg) {
+  override suspend fun handle(args: DoActionCommandArg) {
     D2RController.d2rRunning(true)
     D2RController.execute(args.action)
   }

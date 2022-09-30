@@ -2,6 +2,7 @@ package conf
 
 import __dirname
 import command.GenerateDefaultConfigCommand
+import extension.launch
 import external.nconf.Provider
 import external.nconf.nconf
 import external.node.process
@@ -17,8 +18,10 @@ open class Config(val prefix: ConfigPrefix) {
   private val configPath = "${process.cwd()}/config.json"
 
   init {
-    if (!fs.existsSync(configPath)) {
-      GenerateDefaultConfigCommand.handle()
+    launch {
+      if (!fs.existsSync(configPath)) {
+        GenerateDefaultConfigCommand.handle()
+      }
     }
   }
 
