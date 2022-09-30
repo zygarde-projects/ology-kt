@@ -1,4 +1,7 @@
 {
+  "system": {
+    "resolution": "hd"
+  },
   "host": {
     "port": 16667,
     "game": {

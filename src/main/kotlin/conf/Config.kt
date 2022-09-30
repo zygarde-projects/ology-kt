@@ -7,6 +7,7 @@ import external.nconf.nconf
 import external.node.process
 
 enum class ConfigPrefix(val prefix: String) {
+  SYSTEM("system"),
   HOST("host"),
   CLIENT("client"),
 }
@@ -40,5 +41,6 @@ open class Config(val prefix: ConfigPrefix) {
   }
 }
 
+object SystemConfig : Config(ConfigPrefix.SYSTEM)
 object HostConfig : Config(ConfigPrefix.HOST)
 object ClientConfig : Config(ConfigPrefix.CLIENT)
