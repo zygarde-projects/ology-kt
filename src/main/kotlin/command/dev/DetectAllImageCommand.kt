@@ -8,15 +8,16 @@ import d2r.constants.ImageMatching.tpLegacy
 import extension.DimensionExtensions.translateRegion
 import extension.toImageResource
 import external.nuttree.OptionalSearchParameters
-import external.nuttree.Region
 import external.nuttree.screen
+import kotlin.js.Date
 import kotlin.js.Promise
 
 object DetectAllImageCommand : NoArgCommand("detect-all"), WindowActor {
 
   data class DetectResult(
     val image: String,
-    val region: Region?,
+    val time: String,
+    val region: String?,
     val msg: String,
   )
 
@@ -28,6 +29,7 @@ object DetectAllImageCommand : NoArgCommand("detect-all"), WindowActor {
         )
         .map { e ->
           val searchRegion = e.value.detectInRegion?.let { dimensions.translateRegion(it) }
+          val st = Date().getTime()
           screen
             .find(
               e.key.toImageResource(),
@@ -37,20 +39,21 @@ object DetectAllImageCommand : NoArgCommand("detect-all"), WindowActor {
                 searchMultipleScales = true,
               ),
             )
-            .then { "detected at $it" }
+            .then { "left=${it.left.toInt()},top=${it.top.toInt()}, width=${it.width.toInt()}, height=${it.height.toInt()}" }
             .catch {
               val msg = kotlin
                 .runCatching {
                   "$it".replace(".*Best match".toRegex(), "")
                 }
                 .getOrDefault("$it")
-              "failed ${msg}"
+              "failed $msg"
             }
             .then {
               DetectResult(
                 image = e.key,
+                time = "${Date().getTime() - st}ms",
+                region = searchRegion?.toString() ?: "Full Screen",
                 msg = it,
-                region = searchRegion,
               )
             }
         }
