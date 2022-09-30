@@ -15,6 +15,9 @@
     "name": "client1",
     "server_ip": "localhost",
     "server_port": 16667,
+    "post_join_game": {
+      "switch_to_legacy": true
+    },
     "bo": {
       "enable": false,
       "keys": "11|12|13"

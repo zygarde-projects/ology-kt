@@ -1,5 +1,6 @@
 package d2r
 
+import conf.ClientConfig
 import d2r.action.Act1WaitTp
 import d2r.action.FindAndEnterTp
 import d2r.action.base.InGameAction
@@ -123,6 +124,10 @@ object D2RController {
     if (gameStatusAfterJoinGame?.isInGame() == true) {
       previousGameName = name
       log("Game $name joined")
+
+      if (ClientConfig.get("post_join_game:switch_to_legacy") == "true") {
+        KeyboardController.pressAndReleaseKey(Key.G)
+      }
     } else {
       log("Did not detect in game or not...")
     }
