@@ -8,10 +8,17 @@ import d2r.constants.ImageMatching.tpLegacy
 import extension.DimensionExtensions.translateRegion
 import extension.toImageResource
 import external.nuttree.OptionalSearchParameters
+import external.nuttree.Region
 import external.nuttree.screen
 import kotlin.js.Promise
 
 object DetectAllImageCommand : NoArgCommand("detect-all"), WindowActor {
+
+  data class DetectResult(
+    val image: String,
+    val region: Region?,
+    val msg: String,
+  )
 
   override suspend fun handle() {
     suspend fun detect() = withWindowDimension { dimensions ->
@@ -40,10 +47,10 @@ object DetectAllImageCommand : NoArgCommand("detect-all"), WindowActor {
               "failed ${msg}"
             }
             .then {
-              mapOf(
-                "msg" to it,
-                "img" to e.key,
-                "searchRegion" to searchRegion,
+              DetectResult(
+                image = e.key,
+                msg = it,
+                region = searchRegion,
               )
             }
         }
@@ -51,7 +58,7 @@ object DetectAllImageCommand : NoArgCommand("detect-all"), WindowActor {
         .let {
           Promise.all(it)
             .then {
-              console.asDynamic().table(it)
+              console.asDynamic().table(it.sortedBy { r -> r.image }.toTypedArray())
             }
         }
     }
