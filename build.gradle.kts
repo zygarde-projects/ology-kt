@@ -33,9 +33,9 @@ kotlin {
     binaries.executable()
     nodejs {
       runTask {
-        args("test")
+//        args("test")
 //        args("action", "-a=FindAndEnterTp")
-//        args("dev", "detect-all")
+        args("dev", "detect-all")
 //        args("dev", "mouse-tracking")
 //        args("bo")
 //        args("ip")
