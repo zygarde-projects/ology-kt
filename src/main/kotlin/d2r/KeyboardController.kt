@@ -8,24 +8,43 @@ import kotlinx.coroutines.await
 import kotlinx.coroutines.delay
 
 object KeyboardController {
-  suspend fun cleanInput(size: Int) {
-    delay(100)
-    keyboard.pressKey(Key.End).await()
-    keyboard.releaseKey(Key.End).await()
+  suspend fun cleanInput(size: Int? = null) = with(keyboard) {
+    type(Key.End).await()
+    if (size == null) {
+      pressKey(Key.LeftShift)
+        .then { type(Key.Home) }
+        .then { releaseKey(Key.LeftShift) }
+        .then { type(Key.Delete) }
+        .await()
+      return
+    }
+
     IntRange(0, size).forEach { _ ->
       delay(100)
-      keyboard.pressKey(Key.Backspace).await()
-      keyboard.releaseKey(Key.Backspace).await()
+      keyboard.type(Key.Backspace).await()
     }
   }
 
-  suspend fun inputGameNameAndPassword(name: String, password: String) {
-    cleanInput(name.length)
+  suspend fun inputGameNameAndPassword(
+    name: String,
+    password: String,
+    previousGameName: String? = null,
+  ) {
+    if (previousGameName != null) {
+      cleanInput(name.replaceFirst(previousGameName, "").length)
+    } else {
+      cleanInput()
+    }
+
     keyboard.type(name).await()
     delay(100)
     keyboard.type(Key.Tab).await()
-    cleanInput(password.length)
-    keyboard.type(password).await()
+
+    if (previousGameName == null) {
+      cleanInput(password.length)
+      keyboard.type(password).await()
+    }
+
     delay(100)
   }
 
