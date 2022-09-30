@@ -11,9 +11,9 @@ import d2r.constants.MouseLocations.InGame.moveRB
 import d2r.constants.MouseLocations.InGame.moveRT
 import d2r.constants.MouseLocations.InGame.moveT
 import extension.DimensionExtensions.translatePoint
-import kotlinx.coroutines.await
 import external.nuttree.mouse
 import external.nuttree.sleep
+import kotlinx.coroutines.await
 import types.PredefinedPoint
 import kotlin.math.min
 
@@ -37,7 +37,9 @@ object MoveAction : WindowActor {
     distance: Int
   ) = withWindowDimension { d ->
     val actualDistance = min(distance, maxDistance)
-    mouse.move(arrayOf(d.translatePoint(distanceOf(p1, p2, actualDistance))))
+    val targetPoint = distanceOf(p1, p2, actualDistance).randomly(50)
+    val targetPointTranslated = d.translatePoint(targetPoint)
+    mouse.move(arrayOf(targetPointTranslated))
       .then { mouse.leftClick() }
       .then { sleep(actualDistance * 300) }
       .await()

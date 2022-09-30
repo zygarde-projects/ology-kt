@@ -1,4 +1,9 @@
+###
 GET http://localhost:16668/clientAction/Act1WaitTp
 
 ###
 GET http://localhost:16668/clientAction/FindAndEnterTp
+
+
+###
+GET http://localhost:16668/ng
