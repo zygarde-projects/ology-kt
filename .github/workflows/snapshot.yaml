@@ -30,7 +30,7 @@ jobs:
 #          yarn build
 #          cd ..
       - name: build
-        run: ./gradlew build
+        run: ./gradlew prepareDevNodeModules clean build
       - name: publish
         run: ./scripts/publish-snapshot.sh
         env:
