@@ -5,6 +5,7 @@ import command.base.NoArgCommand
 import conf.HostConfig
 import d2r.CommandMessageType
 import d2r.D2RController
+import extension.CollectionExtensions.kt
 import extension.CoroutineExtensions.launch
 import extension.arg0
 import extension.log
@@ -70,7 +71,7 @@ object HostCommand : NoArgCommand("host") {
             val counter = HostConfig.get("game:counter")
             val pwd = HostConfig.get("game:pwd")
             val gamePayload = "$gamePrefix$counter|$pwd"
-            wss.clients.forEach { client ->
+            wss.clients.kt().forEach { client ->
               client.send("${CommandMessageType.NEXT_GAME}|$gamePayload")
             }
             res.status = 200
@@ -79,15 +80,15 @@ object HostCommand : NoArgCommand("host") {
         }
 
         get("/clientAction/:action") { req, res ->
-          wss.clients.forEach { client ->
+          wss.clients.kt().forEach { client ->
             client.send(CommandMessageType.DO_ACTION.args("${req.params.action}"))
           }
           res.status = 200
           res.send("ok")
         }
 
-        get("/tp") { req, res ->
-          wss.clients.forEach { client ->
+        get("/tp") { _, res ->
+          wss.clients.kt().forEach { client ->
             client.send(CommandMessageType.TP.name)
           }
           res.status = 200
@@ -98,7 +99,7 @@ object HostCommand : NoArgCommand("host") {
           res.status = 200
           res.send(
             JSON.stringify(
-              wss.clients.mapNotNull { it.asDynamic().clientName }
+              wss.clients.kt().mapNotNull { it.asDynamic().clientName }
             )
           )
         }
@@ -106,8 +107,8 @@ object HostCommand : NoArgCommand("host") {
         get("/clients/:client/move/:direction") { req, res ->
           val client = "${req.params.client}"
           val direction = "${req.params.direction}"
-          wss.clients.filter { it.asDynamic().clientName === client }.forEach { client ->
-            client.send(CommandMessageType.MOVE.args(direction))
+          wss.clients.kt().filter { it.asDynamic().clientName === client }.forEach { clientWs ->
+            clientWs.send(CommandMessageType.MOVE.args(direction))
           }
           res.status = 200
           res.send("ok")

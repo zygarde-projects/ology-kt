@@ -354,7 +354,7 @@ open external class WebSocket {
   abstract class Server<T : WebSocket>(options: ServerOptions = definedExternally, callback: () -> Unit = definedExternally) {
     open var options: ServerOptions
     open var path: String
-    open var clients: Array<T>
+    open var clients: Set<T>
     open fun address(): dynamic /* AddressInfo | String */
     open fun close(cb: (err: Error) -> Unit = definedExternally)
     open fun handleUpgrade(request: IncomingMessage, socket: Duplex, upgradeHead: Buffer, callback: (client: T, request: IncomingMessage) -> Unit)

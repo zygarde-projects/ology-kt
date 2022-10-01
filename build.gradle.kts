@@ -42,8 +42,8 @@ kotlin {
 //        args("ip")
 //args("join", "-n=sally01", "-p=a")
 //        args("config-gen")
-        args("host") // host command
-//        args("client") // client command
+//        args("host") // host command
+        args("client") // client command
       }
     }
     compilations["main"].packageJson {

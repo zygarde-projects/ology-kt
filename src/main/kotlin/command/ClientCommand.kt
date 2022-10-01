@@ -10,7 +10,9 @@ import external.ws.ReconnectingWebSocket
 import external.ws.ReconnectingWebSocketOptions
 import external.ws.WSROOT
 import external.ws.WebSocket
+import kotlinx.coroutines.await
 import types.MoveDirection
+import kotlin.js.Promise
 
 object ClientCommand : NoArgCommand("client") {
 
@@ -20,7 +22,9 @@ object ClientCommand : NoArgCommand("client") {
       host,
       emptyArray(),
       ReconnectingWebSocketOptions(
-        WSROOT
+        WebSocket = WSROOT,
+        startClosed = true,
+        debug = false,
       )
     )
     ws.addEventListener("open") { _: WebSocket.Event ->
@@ -29,15 +33,16 @@ object ClientCommand : NoArgCommand("client") {
     ws.addEventListener("error") { e: WebSocket.ErrorEvent ->
       log("WS Error $e")
     }
-    ws.on("error") { e: Error ->
-      log("WS Error $e")
-    }
     ws.addEventListener("message") { msg: WebSocket.MessageEvent ->
       log("Received: ${msg.data}")
       launch {
         ws.handleCommand(msg.data.toString())
       }
     }
+    ws.reconnect()
+    Promise<Any> { _, _ ->
+      // block forever?
+    }.await()
   }
 
   private suspend fun WebSocket.handleCommand(command: String) {

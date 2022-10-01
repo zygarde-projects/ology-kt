@@ -6,8 +6,12 @@ external class ReconnectingWebSocket(
   address: String,
   listeners: Array<Any?>,
   options: ReconnectingWebSocketOptions,
-) : WebSocket
+) : WebSocket {
+  fun reconnect()
+}
 
 data class ReconnectingWebSocketOptions(
-  val WebSocket: Any? = null
+  val WebSocket: Any? = null,
+  val startClosed: Boolean = true,
+  val debug: Boolean = false,
 )
