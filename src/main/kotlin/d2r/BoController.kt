@@ -19,15 +19,15 @@ object BoController {
   private val option = OptionalSearchParameters(searchMultipleScales = true, confidence = 0.9)
 
   suspend fun start() {
-    ScreenController.matchImage("act4wp.png")?.run {
+    ScreenController.matchImage("in-game/act4wp.png")?.run {
       MouseController.clickOnRegionCenter(this)
-      ScreenController.matchImage("wp_menu_tab_act4.png")?.run {
+      ScreenController.matchImage("in-game/wp_menu_tab_act4.png")?.run {
         MouseController.clickOn(fireRiver).wait(3000)
         val fireRiverMark = ScreenController.oneOfImagesIn(
           listOf(
-            "fire_river_mark_1.png",
-            "fire_river_mark_2.png",
-            "fire_river_mark_3.png"
+            "in-game/fire_river_mark_1.png",
+            "in-game/fire_river_mark_2.png",
+            "in-game/fire_river_mark_3.png"
           )
         )
 
@@ -53,7 +53,7 @@ object BoController {
       return
     }
 
-    runCatching { screen.find("wp_in_fire_river.png".toImageResource(), option).await() }
+    runCatching { screen.find("in-game/wp_in_fire_river.png".toImageResource(), option).await() }
       .onFailure {
         val keyboardKeys = ClientConfig.get("bo:keys").split("|")
         keyboardKeys.forEach {
