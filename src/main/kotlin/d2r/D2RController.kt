@@ -89,7 +89,7 @@ object D2RController {
 
     MouseController.clickOn(difficulty.btnPoint).wait(200)
 
-    KeyboardController.submitGameForm().wait(3000)
+    KeyboardController.submitGameForm().wait(5000)
 
     val gameStatusAfterMakeGame = detectGameStatus()
     if (gameStatusAfterMakeGame?.isInGame() == true) {
@@ -118,7 +118,7 @@ object D2RController {
       .inputGameNameAndPassword(name = name, password = password, previousGameName = previousGameName)
       .wait(100)
     MouseController.clickOn(Lobby.joinGameRefresh).wait(1000)
-    KeyboardController.submitGameForm().wait(3000)
+    KeyboardController.submitGameForm().wait(8000)
     val gameStatusAfterJoinGame = detectGameStatus()
     if (gameStatusAfterJoinGame?.isInGame() == true) {
       previousGameName = name
