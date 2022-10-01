@@ -19,16 +19,12 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 15
+          node-version: '16.x'
           cache: 'yarn'
           cache-dependency-path: |
             kotlin-js-store/yarn.lock
-#      - name: build web
-#        run: |
-#          cd web
-#          yarn
-#          yarn build
-#          cd ..
+      - name: build web
+        run: (cd web && yarn && yarn build)
       - name: build
         run: ./gradlew prepareDevNodeModules clean build
       - name: publish

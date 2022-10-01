@@ -18,7 +18,7 @@ function publishLib() {
     echo "Skip $package"
     return 0
   fi
-  (cd "$DIST_TARGET/$1" && npm version "$BUILD_VERSION" --no-git-tag-version && npm publish --registry=https://npm.puni.tw)
+  (cd "$DIST_TARGET/$1" && yarn publish --registry=https://npm.puni.tw --no-git-tag-version --new-version "$BUILD_VERSION")
   (cd "$DIST_TARGET/$MAJOR_PACKAGE" && yarn add "$package@$BUILD_VERSION" --ignore-scripts --registry=https://npm.puni.tw)
 }
 
@@ -34,4 +34,4 @@ echo "prepare dependencies"
   -f --ignore-scripts --ignore-engines --ignore-platform)
 
 echo "publish major package"
-(cd "$DIST_TARGET/$MAJOR_PACKAGE" && npm version "$BUILD_VERSION" --no-git-tag-version && npm publish --registry=https://npm.puni.tw)
+(cd "$DIST_TARGET/$MAJOR_PACKAGE" && yarn publish --registry=https://npm.puni.tw --no-git-tag-version --new-version "$BUILD_VERSION")
