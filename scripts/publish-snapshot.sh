@@ -26,10 +26,12 @@ function publishLib() {
 publishLib "packages_imported/kotlinx-atomicfu/0.17.3"
 
 # add win-control to dist target
+echo "prepare dependencies"
 (cd "$DIST_TARGET/$MAJOR_PACKAGE" && yarn add \
   kotlin@1.6.21 \
   kotlinx-coroutines-core@1.6.4 \
   @zygarde-projects/win-control \
   -f --ignore-scripts --ignore-engines --ignore-platform)
 
+echo "publish major package"
 (cd "$DIST_TARGET/$MAJOR_PACKAGE" && npm version "$BUILD_VERSION" --no-git-tag-version && npm publish --registry=https://npm.puni.tw)
