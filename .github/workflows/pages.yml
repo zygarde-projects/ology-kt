@@ -31,11 +31,12 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16.x'
+          cache: 'yarn'
       - name: run build
         run: |
           cd web
-          npm install
-          npm run build
+          yarn
+          yarn build
           cd ..
       - name: Setup Pages
         uses: actions/configure-pages@v2

@@ -58,11 +58,11 @@ object HostCommand : NoArgCommand("host") {
 
       }
 
-
     val httpPort = wsPort + 1
     express()
       .apply {
         use(cors())
+        use("/ology-kt", express.static("resources/dist"))
         get("/ng") { _, res ->
           launch {
             NgCommand.handle()

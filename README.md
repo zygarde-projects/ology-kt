@@ -6,8 +6,13 @@
 npm install --registry=https://npm.puni.tw --global ology-kt
 ```
 
-## WEB
+## Web
+
+(Online)
 https://zygarde-projects.github.io/ology-kt
+
+(Local)
+http://localhost:16668/ology-kt
 
 ## API
 
@@ -19,6 +24,9 @@ https://zygarde-projects.github.io/ology-kt
 ## development setup
 ```
 ./gradlew prepareDevNodeModules
+cd web
+yarn
+yarn build
 ```
 
 ## windows development setup
