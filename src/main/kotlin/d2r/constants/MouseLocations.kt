@@ -13,7 +13,7 @@ object MouseLocations {
 
     val joinGameTab = PredefinedPoint(2938, 156)
     val joinGameInputName = PredefinedPoint(2556, 300)
-    val joinGameRefresh = PredefinedPoint(3450, 412)
+    val joinGameRefresh = PredefinedPoint(3412, 412)
 
     val btnGameDifficultyNormal = PredefinedPoint(2706, 752)
     val btnGameDifficultyNightmare = PredefinedPoint(2938, 750)

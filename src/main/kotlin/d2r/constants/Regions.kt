@@ -26,9 +26,14 @@ object Regions {
   }
 
   object Act4Detection {
-    val act4 = pointToRegion(
+    val tp = pointToRegion(
       PredefinedPoint(1920, 0),
       PredefinedPoint(3840, 1080),
+    )
+
+    val wpMenuTab = pointToRegion(
+      PredefinedPoint(0, 0),
+      PredefinedPoint(1920, 1080),
     )
   }
 

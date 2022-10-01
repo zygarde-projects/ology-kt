@@ -3,6 +3,7 @@ package d2r
 import NodeJS.Timeout
 import conf.ClientConfig
 import d2r.constants.GeneralConstants
+import d2r.constants.ImageMatching
 import d2r.constants.MouseLocations.Lobby.fireRiver
 import d2r.constants.MouseLocations.Lobby.moveWhenInFireRiver
 import extension.*
@@ -19,9 +20,9 @@ object BoController {
   private val option = OptionalSearchParameters(searchMultipleScales = true, confidence = 0.9)
 
   suspend fun start() {
-    ScreenController.matchImage("in-game/act4wp.png")?.run {
+    ScreenController.oneOfImagesIn(ImageMatching.act4tp)?.region?.run {
       MouseController.clickOnRegionCenter(this)
-      ScreenController.matchImage("in-game/wp_menu_tab_act4.png")?.run {
+      ScreenController.oneOfImagesIn(ImageMatching.wpMenuTabAct4)?.region?.run {
         MouseController.clickOn(fireRiver).wait(3000)
         val fireRiverMark = ScreenController.oneOfImagesIn(
           listOf(

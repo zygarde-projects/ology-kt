@@ -35,9 +35,16 @@ object ImageMatching {
     ),
   )
 
-  private val inAct4 = mapOf(
+  val act4tp = mapOf(
     "in-game/act4wp.png" to DEFAULT.copy(
-      detectInRegion = Regions.Act4Detection.act4,
+      detectInRegion = Regions.Act4Detection.tp,
+      maxRetry = 2
+    )
+  )
+
+  val wpMenuTabAct4 = mapOf(
+    "in-game/wp_menu_tab_act4.png" to DEFAULT.copy(
+      detectInRegion = Regions.Act4Detection.wpMenuTab,
       maxRetry = 2
     )
   )
@@ -45,5 +52,6 @@ object ImageMatching {
   val IN_GAME_ALL = inGame
     .plus(inGameLegacy)
     .plus(inLobby)
-    .plus(inAct4)
+    .plus(act4tp)
+    .plus(wpMenuTabAct4)
 }
