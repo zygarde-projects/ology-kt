@@ -23,12 +23,12 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: |
             kotlin-js-store/yarn.lock
-      - name: build web
-        run: |
-          cd web
-          yarn
-          yarn build
-          cd ..
+#      - name: build web
+#        run: |
+#          cd web
+#          yarn
+#          yarn build
+#          cd ..
       - name: build
         run: ./gradlew build
       - name: publish
