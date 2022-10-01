@@ -5,10 +5,12 @@ enum class CommandMessageType {
   // client -> host
   CLIENT_REG,
   CLIENT_GAME_JOINED,
+  CLIENT_TP_ENTERED,
 
   // host -> client
   NEXT_GAME,
   DO_ACTION,
+  TP,
 
   // other
   GRETTING,

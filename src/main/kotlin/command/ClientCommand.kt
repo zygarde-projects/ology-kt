@@ -54,6 +54,13 @@ object ClientCommand : NoArgCommand("client") {
         }
       }
 
+      CommandMessageType.TP -> {
+        val enteredTp = D2RController.enterTp()
+        if (enteredTp) {
+          send(CommandMessageType.CLIENT_TP_ENTERED.name)
+        }
+      }
+
       else -> log("unknown command: $command")
     }
   }

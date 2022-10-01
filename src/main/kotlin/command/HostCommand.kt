@@ -43,17 +43,12 @@ object HostCommand : NoArgCommand("host") {
 
             CommandMessageType.CLIENT_GAME_JOINED -> {
               val clientName = socket.asDynamic().clientName
-              if (HostConfig.getNullable("client_actions:$clientName:enabled") == "true") {
-                D2RController.allActions()
-                  .filter { it.lifeCycle() == InGameLifeCycle.POST_JOIN_GAME }
-                  .filter { action -> HostConfig.getNullable("client_actions:$clientName:${action.configKey()}") == "true" }
-                  .map { it.actionName() }
-                  .takeIf { it.isNotEmpty() }
-                  ?.joinToString(";")
-                  ?.let {
-                    socket.send(CommandMessageType.DO_ACTION.args(it))
-                  }
-              }
+              socket.sendLifeCycleActions(clientName, InGameLifeCycle.POST_JOIN_GAME)
+            }
+
+            CommandMessageType.CLIENT_TP_ENTERED -> {
+              val clientName = socket.asDynamic().clientName
+              socket.sendLifeCycleActions(clientName, InGameLifeCycle.POST_ENTER_TP)
             }
 
             else -> throw IllegalArgumentException("unknown command type: ${command.type()}")
@@ -85,7 +80,15 @@ object HostCommand : NoArgCommand("host") {
 
         get("/clientAction/:action") { req, res ->
           wss.clients.forEach({ client, _, _ ->
-            client.send("${CommandMessageType.DO_ACTION}|${req.params.action}")
+            client.send(CommandMessageType.DO_ACTION.args("${req.params.action}"))
+          })
+          res.status = 200
+          res.send("ok")
+        }
+
+        get("/tp") { req, res ->
+          wss.clients.forEach({ client, _, _ ->
+            client.send(CommandMessageType.TP.name)
           })
           res.status = 200
           res.send("ok")
@@ -94,5 +97,19 @@ object HostCommand : NoArgCommand("host") {
       .listen(port = httpPort) {
         log("http server started localhost:$httpPort")
       }
+  }
+
+  private fun WebSocket.sendLifeCycleActions(clientName: Any?, targetLifeCycle: InGameLifeCycle) {
+    if (HostConfig.getNullable("client_actions:$clientName:enabled") == "true") {
+      D2RController.allActions()
+        .filter { it.lifeCycle() == targetLifeCycle }
+        .filter { action -> HostConfig.getNullable("client_actions:$clientName:${action.configKey()}") == "true" }
+        .map { it.actionName() }
+        .takeIf { it.isNotEmpty() }
+        ?.joinToString(";")
+        ?.let {
+          send(CommandMessageType.DO_ACTION.args(it))
+        }
+    }
   }
 }

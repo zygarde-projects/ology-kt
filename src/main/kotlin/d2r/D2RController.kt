@@ -23,7 +23,6 @@ object D2RController {
   private var previousGameName: String? = null
 
   private val actionMap: Map<String, InGameAction> = listOf(
-    FindAndEnterTp,
     Act1WaitTp,
   ).associateBy { it::class.simpleName.orEmpty() }
 
@@ -148,6 +147,8 @@ object D2RController {
     val action = actionMap[actionName] ?: throw IllegalArgumentException("action $actionName not found")
     action.exec()
   }
+
+  suspend fun enterTp() = withD2rRunning { FindAndEnterTp.exec() }
 
   private suspend fun <T> withD2rRunning(switchToForegroundWhenRunning: Boolean = false, block: suspend () -> T): T {
     return if (d2rRunning(switchToForegroundWhenRunning)) {
