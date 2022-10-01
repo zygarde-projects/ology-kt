@@ -6,7 +6,7 @@ import d2r.action.FindAndEnterTp
 import d2r.action.base.InGameAction
 import d2r.constants.GeneralConstants.gameWindowTitle
 import d2r.constants.ImageMatching
-import d2r.constants.ImageMatching.IN_GAME_ALL
+import d2r.constants.ImageMatching.GAME_STATUS_ALL
 import d2r.constants.MouseLocations.InGame.btnExitGame
 import d2r.constants.MouseLocations.Lobby
 import extension.log
@@ -34,7 +34,7 @@ object D2RController {
   }
 
   suspend fun detectGameStatus(): InGameStatus? {
-    val matchResult = ScreenController.oneOfImagesIn(IN_GAME_ALL)
+    val matchResult = ScreenController.oneOfImagesIn(GAME_STATUS_ALL)
 
     val matchedImage = matchResult?.image
     if (matchedImage != null) {
@@ -117,7 +117,10 @@ object D2RController {
       .inputGameNameAndPassword(name = name, password = password)
       .wait(1000)
     MouseController.clickOn(Lobby.joinGameRefresh).wait(1000)
-    KeyboardController.submitGameForm().wait(8000)
+    KeyboardController.submitGameForm()
+
+    delay(ClientConfig.get("join_loading_delay").toLongOrNull() ?: 8000L)
+
     val gameStatusAfterJoinGame = detectGameStatus()
     if (gameStatusAfterJoinGame?.isInGame() == true) {
       log("Game $name joined")

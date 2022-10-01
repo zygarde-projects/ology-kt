@@ -28,6 +28,7 @@
     "server_ip": "localhost",
     "server_port": 16667,
     "join_delay": 0,
+    "join_loading_delay": 8000,
     "post_join_game": {
       "switch_to_legacy": true
     },

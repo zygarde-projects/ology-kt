@@ -77,9 +77,11 @@ object ImageMatching {
     )
   )
 
-  val IN_GAME_ALL = inGame
+  val GAME_STATUS_ALL = inGame
     .plus(inGameLegacy)
     .plus(inLobby)
+
+  val IN_GAME_ALL = GAME_STATUS_ALL
     .plus(act4tp)
     .plus(wpMenuTabAct4)
     .plus(wpInFireRiverAct4)
