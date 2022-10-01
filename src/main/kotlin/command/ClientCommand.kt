@@ -27,26 +27,34 @@ object ClientCommand : NoArgCommand("client") {
     }
     ws.addEventListener("message") { msg: WebSocket.MessageEvent ->
       log("Received: ${msg.data}")
-      val command = msg.data.toString()
-      when (command.type()) {
-        CommandMessageType.GRETTING -> {
-          val clientName = ClientConfig.get("name")
-          ws.send(CommandMessageType.CLIENT_REG.args(clientName))
-        }
-
-        CommandMessageType.NEXT_GAME -> launch {
-          D2RController.joinGame(name = command.gameName(), password = command.password())
-          ClientConfig.get("bo:enable")
-            .takeIf { it.toBoolean() }
-            .run { D2RController.startBo() }
-        }
-
-        CommandMessageType.DO_ACTION -> launch {
-          D2RController.execute(command.action())
-        }
-
-        else -> log("unknown command: $command")
+      launch {
+        ws.handleCommand(msg.data.toString())
       }
+    }
+  }
+
+  private suspend fun WebSocket.handleCommand(command: String) {
+    when (command.type()) {
+      CommandMessageType.GRETTING -> {
+        val clientName = ClientConfig.get("name")
+        send(CommandMessageType.CLIENT_REG.args(clientName))
+      }
+
+      CommandMessageType.NEXT_GAME -> {
+        val joinSuccess = D2RController.joinGame(name = command.gameName(), password = command.password())
+        if (joinSuccess) {
+          D2RController.takeIf { ClientConfig.get("bo:enable").toBoolean() }?.startBo()
+          send(CommandMessageType.CLIENT_GAME_JOINED)
+        }
+      }
+
+      CommandMessageType.DO_ACTION -> {
+        for (action in command.actions()) {
+          D2RController.execute(action)
+        }
+      }
+
+      else -> log("unknown command: $command")
     }
   }
 }

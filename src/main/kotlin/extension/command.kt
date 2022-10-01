@@ -16,4 +16,4 @@ fun CommandMessage.arg1() = split("|")[2]
 fun CommandMessage.gameName() = arg0()
 fun CommandMessage.password() = arg1()
 
-fun CommandMessage.action() = arg0()
+fun CommandMessage.actions() = arg0().split(";")

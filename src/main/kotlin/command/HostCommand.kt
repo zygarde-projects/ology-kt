@@ -4,8 +4,9 @@ import Buffer
 import command.base.NoArgCommand
 import conf.HostConfig
 import d2r.CommandMessageType
-import extension.arg0
+import d2r.D2RController
 import extension.CoroutineExtensions.launch
+import extension.arg0
 import extension.log
 import extension.type
 import external.cors.cors
@@ -14,6 +15,7 @@ import external.ws.WebSocket
 import external.ws.WebSocketServer
 import external.ws.WebSocketServerOptions
 import http.IncomingMessage
+import types.InGameLifeCycle
 
 object HostCommand : NoArgCommand("host") {
 
@@ -38,10 +40,26 @@ object HostCommand : NoArgCommand("host") {
               println("client:${clientName}")
               socket.asDynamic().clientName = clientName
             }
+
+            CommandMessageType.CLIENT_GAME_JOINED -> {
+              val clientName = socket.asDynamic().clientName
+              if (HostConfig.getNullable("client_actions:$clientName:enabled") == "true") {
+                D2RController.allActions()
+                  .filter { it.lifeCycle() == InGameLifeCycle.POST_JOIN_GAME }
+                  .filter { action -> HostConfig.getNullable("client_actions:$clientName:${action.configKey()}") == "true" }
+                  .map { it.actionName() }
+                  .takeIf { it.isNotEmpty() }
+                  ?.joinToString(";")
+                  ?.let {
+                    socket.send(CommandMessageType.DO_ACTION.args(it))
+                  }
+              }
+            }
+
             else -> throw IllegalArgumentException("unknown command type: ${command.type()}")
           }
         }
-        socket.send("${CommandMessageType.GRETTING}|hello ology client, current game is $gameName")
+        socket.send(CommandMessageType.GRETTING.args("hello ology client, current game is $gameName"))
 
       }
 

@@ -9,6 +9,18 @@
       "pwd": "pwd",
       "counter": 1,
       "difficulty": "N"
+    },
+    "client_actions": {
+      "client1": {
+        "enabled": true,
+        "post_join_game": {
+          "Act1WaitTp": true
+        },
+        "post_enter_tp": {
+          "BO": false,
+          "BallRunSkillCast": false
+        }
+      }
     }
   },
   "client": {

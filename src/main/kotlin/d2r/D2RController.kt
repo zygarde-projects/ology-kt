@@ -101,11 +101,11 @@ object D2RController {
     }
   }
 
-  suspend fun joinGame(name: String, password: String) = withD2rRunning(true) {
+  suspend fun joinGame(name: String, password: String): Boolean = withD2rRunning(true) {
     val gameStatus = detectGameStatus()
     if (gameStatus == null) {
       println("cannot detect game status")
-      return@withD2rRunning
+      return@withD2rRunning false
     }
 
     if (gameStatus.isInGame()) {
@@ -131,6 +131,8 @@ object D2RController {
     } else {
       log("Did not detect in game or not...")
     }
+
+    gameStatusAfterJoinGame?.isInGame() == true
   }
 
   suspend fun startBo() {
@@ -140,16 +142,18 @@ object D2RController {
 
   fun allActionNames() = actionMap.keys
 
+  fun allActions() = actionMap.values
+
   suspend fun execute(actionName: String) {
     val action = actionMap[actionName] ?: throw IllegalArgumentException("action $actionName not found")
     action.exec()
   }
 
-  private suspend fun withD2rRunning(switchToForegroundWhenRunning: Boolean = false, block: suspend () -> Unit) {
-    if (d2rRunning(switchToForegroundWhenRunning)) {
+  private suspend fun <T> withD2rRunning(switchToForegroundWhenRunning: Boolean = false, block: suspend () -> T): T {
+    return if (d2rRunning(switchToForegroundWhenRunning)) {
       block()
     } else {
-      log("D2R not running, please launch D2R and go to lobby first")
+      throw IllegalStateException("D2R not running, please launch D2R and go to lobby first")
     }
   }
 }

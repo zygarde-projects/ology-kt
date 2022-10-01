@@ -2,10 +2,16 @@ package d2r
 
 
 enum class CommandMessageType {
-  GRETTING,
+  // client -> host
   CLIENT_REG,
+  CLIENT_GAME_JOINED,
+
+  // host -> client
   NEXT_GAME,
   DO_ACTION,
+
+  // other
+  GRETTING,
   UNKNOWN,
   //
   ;

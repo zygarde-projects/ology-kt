@@ -1,9 +1,9 @@
 package d2r.action
 
-import d2r.action.base.InGameAction
 import d2r.action.base.MoveAction
+import d2r.action.base.PostJoinGameAction
 
-object Act1WaitTp : InGameAction {
+object Act1WaitTp : PostJoinGameAction() {
 
   private val routes: Collection<suspend () -> Unit> = listOf(
     {

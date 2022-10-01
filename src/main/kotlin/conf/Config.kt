@@ -34,6 +34,8 @@ open class Config(val prefix: ConfigPrefix) {
     "$v"
   }
 
+  fun getNullable(key: String): String? = kotlin.runCatching { get(key) }.getOrNull()
+
   fun set(key: String, value: Any) = withConfig { config ->
     config.set(prefix.prefix + ":" + key, value)
     config.save("")
