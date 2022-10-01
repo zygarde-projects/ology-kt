@@ -20,8 +20,6 @@ import types.InGameStatus
 
 object D2RController {
 
-  private var previousGameName: String? = null
-
   private val actionMap: Map<String, InGameAction> = listOf(
     Act1WaitTp,
   ).associateBy { it::class.simpleName.orEmpty() }
@@ -84,7 +82,7 @@ object D2RController {
     MouseController.clickOn(Lobby.makeGameTab).wait(1000).log("game name=$name, password=$password")
     MouseController.clickOn(Lobby.makeGameInputName)
     KeyboardController
-      .inputGameNameAndPassword(name = name, password = password, previousGameName = previousGameName)
+      .inputGameNameAndPassword(name = name, password = password)
       .wait(1000)
 
     MouseController.clickOn(difficulty.btnPoint).wait(200)
@@ -94,7 +92,6 @@ object D2RController {
     val gameStatusAfterMakeGame = detectGameStatus()
     if (gameStatusAfterMakeGame?.isInGame() == true) {
       log("Game $name created")
-      previousGameName = name
     } else {
       log("Failed to create game, something wrong...")
     }
@@ -115,13 +112,12 @@ object D2RController {
     MouseController.clickOn(Lobby.joinGameTab).wait(100)
     MouseController.clickOn(Lobby.joinGameInputName).wait(100)
     KeyboardController
-      .inputGameNameAndPassword(name = name, password = password, previousGameName = previousGameName)
-      .wait(100)
+      .inputGameNameAndPassword(name = name, password = password)
+      .wait(1000)
     MouseController.clickOn(Lobby.joinGameRefresh).wait(1000)
     KeyboardController.submitGameForm().wait(8000)
     val gameStatusAfterJoinGame = detectGameStatus()
     if (gameStatusAfterJoinGame?.isInGame() == true) {
-      previousGameName = name
       log("Game $name joined")
 
       if (ClientConfig.get("post_join_game:switch_to_legacy") == "true") {

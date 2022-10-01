@@ -6,7 +6,6 @@ import external.nuttree.KeyBtn
 import external.nuttree.keyboard
 import kotlinx.coroutines.await
 import kotlinx.coroutines.delay
-import kotlin.math.min
 
 object KeyboardController {
   suspend fun cleanInput(size: Int? = null) = with(keyboard) {
@@ -29,31 +28,14 @@ object KeyboardController {
   suspend fun inputGameNameAndPassword(
     name: String,
     password: String,
-    previousGameName: String? = null,
   ) {
-    if (previousGameName != null) {
-      var lengthToRemove = name.length
-      for (i in (0 until min(name.length, previousGameName.length))) {
-        if (name[i] == previousGameName[i]) {
-          lengthToRemove--
-        } else {
-          break
-        }
-      }
-      cleanInput(lengthToRemove)
+    cleanInput()
+    keyboard.type(name).await()
 
-      keyboard.type(name.substring(name.length - lengthToRemove)).await()
-    } else {
-      cleanInput()
-      keyboard.type(name).await()
-    }
-
-    if (previousGameName == null) {
-      delay(100)
-      keyboard.type(Key.Tab).await()
-      cleanInput(password.length)
-      keyboard.type(password).await()
-    }
+    delay(500)
+    keyboard.type(Key.Tab).await()
+    cleanInput()
+    keyboard.type(password).await()
 
     delay(100)
   }
