@@ -25,6 +25,9 @@ object ClientCommand : NoArgCommand("client") {
     ws.addEventListener("open") { _: WebSocket.Event ->
       log("Connected to $host")
     }
+    ws.addEventListener("error") { e: WebSocket.ErrorEvent ->
+      log("WS Error $e")
+    }
     ws.addEventListener("message") { msg: WebSocket.MessageEvent ->
       log("Received: ${msg.data}")
       launch {
