@@ -27,6 +27,7 @@
     "name": "client1",
     "server_ip": "localhost",
     "server_port": 16667,
+    "join_delay": 0,
     "post_join_game": {
       "switch_to_legacy": true
     },

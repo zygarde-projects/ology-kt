@@ -15,6 +15,7 @@ import external.nuttree.Key
 import external.nuttree.keyboard
 import external.wincontrol.WinControl.Window
 import kotlinx.coroutines.await
+import kotlinx.coroutines.delay
 import types.GameDifficulty
 import types.InGameStatus
 
@@ -98,6 +99,7 @@ object D2RController {
   }
 
   suspend fun joinGame(name: String, password: String): Boolean = withD2rRunning(true) {
+    delay(ClientConfig.get("join_delay").toLongOrNull() ?: 0L)
     val gameStatus = detectGameStatus()
     if (gameStatus == null) {
       println("cannot detect game status")
