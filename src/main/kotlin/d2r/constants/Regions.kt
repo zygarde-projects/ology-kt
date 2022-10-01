@@ -36,6 +36,11 @@ object Regions {
       PredefinedPoint(1920, 1080),
     )
 
+    val wpInFireRiver = pointToRegion(
+      PredefinedPoint(0, 0),
+      PredefinedPoint(2160, 1260),
+    )
+
     val fireRiver1 = pointToRegion(
       PredefinedPoint(400, 720),
       PredefinedPoint(3140, 2160),

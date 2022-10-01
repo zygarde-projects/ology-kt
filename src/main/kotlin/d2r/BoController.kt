@@ -6,18 +6,16 @@ import d2r.constants.GeneralConstants
 import d2r.constants.ImageMatching
 import d2r.constants.MouseLocations.Lobby.fireRiver
 import d2r.constants.MouseLocations.Lobby.moveWhenInFireRiver
-import extension.*
 import extension.CoroutineExtensions.launch
-import external.nuttree.OptionalSearchParameters
-import external.nuttree.screen
+import extension.log
+import extension.wait
+import extension.waitRandomly
 import external.wincontrol.WinControl
-import kotlinx.coroutines.await
 import timers.clearInterval
 import timers.setInterval
 
 object BoController {
   private var boIntervalId: Timeout? = null
-  private val option = OptionalSearchParameters(searchMultipleScales = true, confidence = 0.9)
 
   suspend fun start() {
     ScreenController.oneOfImagesIn(ImageMatching.act4tp)?.region?.run {
@@ -46,13 +44,12 @@ object BoController {
       return
     }
 
-    runCatching { screen.find("in-game/wp_in_fire_river.png".toImageResource(), option).await() }
-      .onFailure {
-        val keyboardKeys = ClientConfig.get("bo:keys").split("|")
-        keyboardKeys.forEach {
-          KeyboardController.pressAndReleaseKey(it.toInt())
-          MouseController.rightClick().waitRandomly()
-        }
+    if (ScreenController.oneOfImagesIn(ImageMatching.wpInFireRiverAct4)?.region == null) {
+      val keyboardKeys = ClientConfig.get("bo:keys").split("|")
+      keyboardKeys.forEach {
+        KeyboardController.pressAndReleaseKey(it.toInt())
+        MouseController.rightClick().waitRandomly()
       }
+    }
   }
 }
