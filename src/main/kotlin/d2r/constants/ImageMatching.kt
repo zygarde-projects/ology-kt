@@ -38,14 +38,16 @@ object ImageMatching {
   val act4tp = mapOf(
     "in-game/act4wp.png" to DEFAULT.copy(
       detectInRegion = Regions.Act4Detection.tp,
-      maxRetry = 2
+      maxRetry = 2,
+      baseConfidence = 0.85
     )
   )
 
   val wpMenuTabAct4 = mapOf(
     "in-game/wp_menu_tab_act4.png" to DEFAULT.copy(
       detectInRegion = Regions.Act4Detection.wpMenuTab,
-      maxRetry = 2
+      maxRetry = 2,
+      baseConfidence = 0.85
     )
   )
 
