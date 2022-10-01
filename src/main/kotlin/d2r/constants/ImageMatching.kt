@@ -82,5 +82,6 @@ object ImageMatching {
     .plus(inLobby)
     .plus(act4tp)
     .plus(wpMenuTabAct4)
+    .plus(wpInFireRiverAct4)
     .plus(fireRiver)
 }
