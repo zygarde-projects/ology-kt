@@ -146,14 +146,14 @@ object D2RController {
 
   fun allActions() = actionMap.values
 
-  suspend fun execute(actionName: String) {
+  suspend fun execute(actionName: String) = withD2rRunning(true) {
     val action = actionMap[actionName] ?: throw IllegalArgumentException("action $actionName not found")
     action.exec()
   }
 
-  suspend fun enterTp() = withD2rRunning { FindAndEnterTp.exec() }
+  suspend fun enterTp() = withD2rRunning(true) { FindAndEnterTp.exec() }
 
-  suspend fun move(direction: MoveDirection, distance: Int = 1) {
+  suspend fun move(direction: MoveDirection, distance: Int = 1) = withD2rRunning(true) {
     MoveAction.move(direction, distance)
   }
 

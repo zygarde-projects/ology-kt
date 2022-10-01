@@ -97,10 +97,8 @@ object HostCommand : NoArgCommand("host") {
 
         get("/clients") { _, res ->
           res.status = 200
-          res.send(
-            JSON.stringify(
-              wss.clients.kt().mapNotNull { it.asDynamic().clientName }
-            )
+          res.json(
+            wss.clients.kt().mapNotNull { it.asDynamic().clientName }.toHashSet()
           )
         }
 

@@ -2,8 +2,20 @@
 GET http://localhost:16668/clientAction/Act1WaitTp
 
 ###
+
 GET http://localhost:16668/tp
 
 
 ###
 GET http://localhost:16668/ng
+
+
+###
+GET http://localhost:16668/clients
+
+
+###
+GET http://localhost:16668/clients/client1/move/UP
+
+###
+GET http://localhost:16668/clients/client1/move/LEFT
