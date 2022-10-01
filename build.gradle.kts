@@ -81,6 +81,9 @@ ${it.readText()}"""
 task("packResources", Copy::class) {
   from("src/main/resources")
   into("build/js/packages/ology-kt/resources")
+}
+
+task("packWebResources", Copy::class) {
   from("web/dist")
   into("build/js/packages/ology-kt/resources/dist")
 }
@@ -96,5 +99,6 @@ task("prepareDevNodeModules", Copy::class) {
 }
 
 tasks.getByName("compileKotlinJs").finalizedBy("packResources")
+tasks.getByName("compileKotlinJs").finalizedBy("packWebResources")
 tasks.getByName("build").finalizedBy("prepareBinJs")
 tasks.getByName("nodeTest").dependsOn("packTestResources")
