@@ -44,7 +44,7 @@ object ClientCommand : NoArgCommand("client") {
         val joinSuccess = D2RController.joinGame(name = command.gameName(), password = command.password())
         if (joinSuccess) {
           D2RController.takeIf { ClientConfig.get("bo:enable").toBoolean() }?.startBo()
-          send(CommandMessageType.CLIENT_GAME_JOINED)
+          send(CommandMessageType.CLIENT_GAME_JOINED.name)
         }
       }
 
