@@ -35,7 +35,15 @@ object ImageMatching {
     ),
   )
 
+  private val inAct4 = mapOf(
+    "in-game/act4wp.png" to DEFAULT.copy(
+      detectInRegion = Regions.Act4Detection.act4,
+      maxRetry = 2
+    )
+  )
+
   val IN_GAME_ALL = inGame
     .plus(inGameLegacy)
     .plus(inLobby)
+    .plus(inAct4)
 }

@@ -25,6 +25,13 @@ object Regions {
     )
   }
 
+  object Act4Detection {
+    val act4 = pointToRegion(
+      PredefinedPoint(1920, 0),
+      PredefinedPoint(3840, 1080),
+    )
+  }
+
   private fun pointToRegion(leftTop: PredefinedPoint, rightBottom: PredefinedPoint): PredefinedRegion {
     return PredefinedRegion(leftTop.x, leftTop.y, rightBottom.x - leftTop.x, rightBottom.y - leftTop.y)
   }
