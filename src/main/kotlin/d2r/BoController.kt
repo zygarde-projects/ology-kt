@@ -24,15 +24,7 @@ object BoController {
       MouseController.clickOnRegionCenter(this)
       ScreenController.oneOfImagesIn(ImageMatching.wpMenuTabAct4)?.region?.run {
         MouseController.clickOn(fireRiver).wait(3000)
-        val fireRiverMark = ScreenController.oneOfImagesIn(
-          listOf(
-            "in-game/fire_river_mark_1.png",
-            "in-game/fire_river_mark_2.png",
-            "in-game/fire_river_mark_3.png"
-          )
-        )
-
-        when (fireRiverMark) {
+        when (ScreenController.oneOfImagesIn(ImageMatching.fireRiver)) {
           null -> log("fireRiverMark not detected, bo won't start")
           else -> {
             MouseController.clickOn(moveWhenInFireRiver)

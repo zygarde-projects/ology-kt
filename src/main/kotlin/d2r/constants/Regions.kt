@@ -35,6 +35,21 @@ object Regions {
       PredefinedPoint(0, 0),
       PredefinedPoint(1920, 1080),
     )
+
+    val fireRiver1 = pointToRegion(
+      PredefinedPoint(400, 720),
+      PredefinedPoint(3140, 2160),
+    )
+
+    val fireRiver2 = pointToRegion(
+      PredefinedPoint(1920, 960),
+      PredefinedPoint(3840, 1920),
+    )
+
+    val fireRiver3 = pointToRegion(
+      PredefinedPoint(1920, 0),
+      PredefinedPoint(3840, 1080),
+    )
   }
 
   private fun pointToRegion(leftTop: PredefinedPoint, rightBottom: PredefinedPoint): PredefinedRegion {
