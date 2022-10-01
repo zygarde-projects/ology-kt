@@ -17,3 +17,5 @@ fun CommandMessage.gameName() = arg0()
 fun CommandMessage.password() = arg1()
 
 fun CommandMessage.actions() = arg0().split(";")
+
+fun CommandMessage.direction() = arg0()

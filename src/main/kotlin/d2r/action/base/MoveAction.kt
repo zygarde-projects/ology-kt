@@ -14,12 +14,26 @@ import extension.DimensionExtensions.translatePoint
 import external.nuttree.mouse
 import external.nuttree.sleep
 import kotlinx.coroutines.await
+import types.MoveDirection
 import types.PredefinedPoint
 import kotlin.math.min
 
 object MoveAction : WindowActor {
 
   const val maxDistance = 5
+
+  suspend fun move(direction: MoveDirection, distance: Int) {
+    when (direction) {
+      MoveDirection.UP -> up(distance)
+      MoveDirection.DOWN -> down(distance)
+      MoveDirection.LEFT -> left(distance)
+      MoveDirection.RIGHT -> right(distance)
+      MoveDirection.UP_LEFT -> upLeft(distance)
+      MoveDirection.UP_RIGHT -> upRight(distance)
+      MoveDirection.DOWN_LEFT -> downLeft(distance)
+      MoveDirection.DOWN_RIGHT -> downRight(distance)
+    }
+  }
 
   suspend fun up(distance: Int) = moveFromTo(charCenter, moveT, distance)
   suspend fun down(distance: Int) = moveFromTo(charCenter, moveB, distance)

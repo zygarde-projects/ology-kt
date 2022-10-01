@@ -4,6 +4,7 @@ import conf.ClientConfig
 import d2r.action.Act1WaitTp
 import d2r.action.FindAndEnterTp
 import d2r.action.base.InGameAction
+import d2r.action.base.MoveAction
 import d2r.constants.GeneralConstants.gameWindowTitle
 import d2r.constants.ImageMatching
 import d2r.constants.ImageMatching.GAME_STATUS_ALL
@@ -18,6 +19,7 @@ import kotlinx.coroutines.await
 import kotlinx.coroutines.delay
 import types.GameDifficulty
 import types.InGameStatus
+import types.MoveDirection
 
 object D2RController {
 
@@ -150,6 +152,10 @@ object D2RController {
   }
 
   suspend fun enterTp() = withD2rRunning { FindAndEnterTp.exec() }
+
+  suspend fun move(direction: MoveDirection, distance: Int = 1) {
+    MoveAction.move(direction, distance)
+  }
 
   private suspend fun <T> withD2rRunning(switchToForegroundWhenRunning: Boolean = false, block: suspend () -> T): T {
     return if (d2rRunning(switchToForegroundWhenRunning)) {

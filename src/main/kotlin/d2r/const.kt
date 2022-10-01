@@ -11,6 +11,7 @@ enum class CommandMessageType {
   NEXT_GAME,
   DO_ACTION,
   TP,
+  MOVE,
 
   // other
   GRETTING,

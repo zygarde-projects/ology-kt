@@ -10,6 +10,7 @@ import external.ws.ReconnectingWebSocket
 import external.ws.ReconnectingWebSocketOptions
 import external.ws.WSROOT
 import external.ws.WebSocket
+import types.MoveDirection
 
 object ClientCommand : NoArgCommand("client") {
 
@@ -26,6 +27,9 @@ object ClientCommand : NoArgCommand("client") {
       log("Connected to $host")
     }
     ws.addEventListener("error") { e: WebSocket.ErrorEvent ->
+      log("WS Error $e")
+    }
+    ws.on("error") { e: Error ->
       log("WS Error $e")
     }
     ws.addEventListener("message") { msg: WebSocket.MessageEvent ->
@@ -62,6 +66,10 @@ object ClientCommand : NoArgCommand("client") {
         if (enteredTp) {
           send(CommandMessageType.CLIENT_TP_ENTERED.name)
         }
+      }
+
+      CommandMessageType.MOVE -> {
+        D2RController.move(MoveDirection.valueOf(command.arg0()))
       }
 
       else -> log("unknown command: $command")
