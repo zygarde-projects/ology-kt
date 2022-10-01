@@ -25,8 +25,14 @@ object ImageMatching {
   )
 
   val tpLegacy = mapOf(
-    "in-game/tp_legacy_1.png" to DEFAULT.copy(detectInRegion = InGameDetection.tpLegacy),
-    "in-game/tp_legacy_2.png" to DEFAULT.copy(detectInRegion = InGameDetection.tpLegacy),
+    "in-game/tp_legacy_1.png" to DEFAULT.copy(
+      detectInRegion = InGameDetection.tpLegacy,
+      maxRetry = 2,
+    ),
+    "in-game/tp_legacy_2.png" to DEFAULT.copy(
+      detectInRegion = InGameDetection.tpLegacy,
+      maxRetry = 2,
+    ),
   )
 
   val IN_GAME_ALL = inGame

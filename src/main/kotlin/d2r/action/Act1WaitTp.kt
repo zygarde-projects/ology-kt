@@ -2,6 +2,7 @@ package d2r.action
 
 import d2r.action.base.MoveAction
 import d2r.action.base.PostJoinGameAction
+import kotlin.random.Random
 
 object Act1WaitTp : PostJoinGameAction() {
 
@@ -44,6 +45,8 @@ object Act1WaitTp : PostJoinGameAction() {
   )
 
   override suspend fun exec() {
-    routes.random().invoke()
+    val rand = Random.nextInt(routes.size)
+    println("Act1WaitTp using route $rand")
+    routes.elementAt(rand).invoke()
   }
 }
