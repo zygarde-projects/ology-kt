@@ -3,10 +3,11 @@ package command.dev
 import command.base.NoArgCommand
 import d2r.constants.DimensionConstants.baseScreenH
 import d2r.constants.DimensionConstants.baseScreenW
-import kotlinx.coroutines.await
 import external.nuttree.mouse
 import external.nuttree.screen
+import kotlinx.coroutines.await
 import timers.setInterval
+import types.PredefinedPoint
 import utils.PointTranslator
 
 object MouseTrackingCommand : NoArgCommand("mouse-tracking") {
@@ -19,7 +20,8 @@ object MouseTrackingCommand : NoArgCommand("mouse-tracking") {
     println("start mouse tracking")
     setInterval({
       mouse.getPosition().then {
-        println("position: $it -> ${pointTranslator.translate(it)}")
+        val translated = pointTranslator.translate(it)
+        println("position: $it -> ${PredefinedPoint(translated.x, translated.y)}")
       }
     }, 1000)
   }

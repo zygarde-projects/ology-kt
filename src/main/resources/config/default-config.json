@@ -14,7 +14,11 @@
       "client1": {
         "enabled": true,
         "post_join_game": {
-          "Act1WaitTp": true
+          "Act1WaitTp": true,
+          "Act2WaitTp": false,
+          "Act3WaitTp": false,
+          "Act4WaitTp": false,
+          "Act5WaitTp": false
         },
         "post_enter_tp": {
           "BO": false,

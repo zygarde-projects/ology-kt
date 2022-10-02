@@ -11,6 +11,7 @@ object Act1WaitTp : PostJoinGameAction() {
       MoveAction.left(5)
       MoveAction.down(4)
       MoveAction.downRight(2)
+      MoveAction.downLeft(2)
     },
     {
       MoveAction.downLeft(2)
@@ -29,6 +30,7 @@ object Act1WaitTp : PostJoinGameAction() {
       MoveAction.down(2)
       MoveAction.down(4)
       MoveAction.left(2)
+      MoveAction.downLeft(3)
     },
     {
       MoveAction.upRight(2)
@@ -41,6 +43,7 @@ object Act1WaitTp : PostJoinGameAction() {
       MoveAction.left(2)
       MoveAction.down(3)
       MoveAction.down(2)
+      MoveAction.downLeft(2)
     },
   )
 

@@ -55,7 +55,7 @@ object MoveAction : WindowActor {
     val targetPointTranslated = d.translatePoint(targetPoint)
     mouse.move(arrayOf(targetPointTranslated))
       .then { mouse.leftClick() }
-      .then { sleep(actualDistance * 300) }
+      .then { sleep(actualDistance * 350) }
       .await()
   }
 
