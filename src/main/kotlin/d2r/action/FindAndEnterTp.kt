@@ -1,16 +1,19 @@
 package d2r.action
 
+import conf.ClientConfig
 import d2r.MouseController
 import d2r.ScreenController
 import d2r.action.base.MoveAction
 import d2r.constants.ImageMatching
 import external.nuttree.Region
+import kotlinx.coroutines.delay
 
 object FindAndEnterTp {
   suspend fun exec(): Boolean {
     val tp = findTp()
     if (tp != null) {
       MouseController.clickOnRegionCenter(tp)
+      delay(ClientConfig.get("enter_tp_loading_delay").toLongOrNull() ?: 3000L)
     } else {
       println("FindAndEnterTp: tp not found")
     }

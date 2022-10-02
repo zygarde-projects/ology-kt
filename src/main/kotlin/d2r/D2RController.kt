@@ -169,7 +169,10 @@ object D2RController {
     action.exec()
   }
 
-  suspend fun enterTp() = withD2rRunning(true) { FindAndEnterTp.exec() }
+  suspend fun enterTp() = withD2rRunning(true) {
+    stopSkillCast()
+    FindAndEnterTp.exec()
+  }
 
   suspend fun move(direction: MoveDirection, distance: Int = 1) = withD2rRunning(true) {
     MoveAction.move(direction, distance)

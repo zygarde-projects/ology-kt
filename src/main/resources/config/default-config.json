@@ -35,6 +35,7 @@
     "server_port": 16667,
     "join_delay": 0,
     "join_loading_delay": 8000,
+    "enter_tp_loading_delay": 5000,
     "post_join_game": {
       "switch_to_legacy": true
     },
