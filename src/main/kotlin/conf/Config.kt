@@ -11,6 +11,7 @@ enum class ConfigPrefix(val prefix: String) {
   SYSTEM("system"),
   HOST("host"),
   CLIENT("client"),
+  SKILL("client:skill_keys"),
 }
 
 open class Config(val prefix: ConfigPrefix) {
@@ -49,3 +50,5 @@ open class Config(val prefix: ConfigPrefix) {
 object SystemConfig : Config(ConfigPrefix.SYSTEM)
 object HostConfig : Config(ConfigPrefix.HOST)
 object ClientConfig : Config(ConfigPrefix.CLIENT)
+
+object SkillConfig : Config(ConfigPrefix.SKILL)

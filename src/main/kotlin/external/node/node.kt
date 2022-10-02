@@ -2,6 +2,7 @@ package external.node
 
 import NodeJS.Process
 import org.w3c.dom.events.Event
+import tsstdlib.ObjectConstructor
 
 @JsModule("process")
 @JsNonModule
@@ -23,3 +24,5 @@ external interface AbortSignal {
     var prototype: AbortSignal
   }
 }
+
+external val Object: ObjectConstructor = definedExternally
