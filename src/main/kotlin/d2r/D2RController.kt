@@ -5,6 +5,9 @@ import d2r.action.Act1WaitTp
 import d2r.action.FindAndEnterTp
 import d2r.action.base.InGameAction
 import d2r.action.base.MoveAction
+import d2r.action.base.SkillCastAction
+import d2r.action.skill.BallRunAssassinTrap
+import d2r.action.skill.BarbBo
 import d2r.constants.GeneralConstants.gameWindowTitle
 import d2r.constants.ImageMatching
 import d2r.constants.ImageMatching.GAME_STATUS_ALL
@@ -23,8 +26,14 @@ import types.MoveDirection
 
 object D2RController {
 
+  private val runningSkillActions: MutableList<SkillCastAction> = mutableListOf()
+
   private val actionMap: Map<String, InGameAction> = listOf(
+    // post join game
     Act1WaitTp,
+    // post enter tp
+    BarbBo,
+    BallRunAssassinTrap,
   ).associateBy { it::class.simpleName.orEmpty() }
 
   fun d2rRunning(switchToForegroundWhenRunning: Boolean = false): Boolean {
@@ -54,6 +63,8 @@ object D2RController {
   }
 
   suspend fun exitGame() {
+    stopSkillCast()
+
     keyboard.pressKey(Key.LeftShift).await()
     MouseController.clickOn(btnExitGame)
     keyboard.releaseKey(Key.LeftShift).await()
@@ -101,6 +112,8 @@ object D2RController {
   }
 
   suspend fun joinGame(name: String, password: String): Boolean = withD2rRunning(true) {
+    stopSkillCast()
+
     delay(ClientConfig.get("join_delay").toLongOrNull() ?: 0L)
     val gameStatus = detectGameStatus()
     if (gameStatus == null) {
@@ -148,6 +161,11 @@ object D2RController {
 
   suspend fun execute(actionName: String) = withD2rRunning(true) {
     val action = actionMap[actionName] ?: throw IllegalArgumentException("action $actionName not found")
+
+    if (action is SkillCastAction) {
+      runningSkillActions.add(action)
+    }
+
     action.exec()
   }
 
@@ -155,6 +173,13 @@ object D2RController {
 
   suspend fun move(direction: MoveDirection, distance: Int = 1) = withD2rRunning(true) {
     MoveAction.move(direction, distance)
+  }
+
+  private fun stopSkillCast() {
+    for (runningSkillAction in runningSkillActions) {
+      runningSkillAction.stop()
+    }
+    runningSkillActions.clear()
   }
 
   private suspend fun <T> withD2rRunning(switchToForegroundWhenRunning: Boolean = false, block: suspend () -> T): T {

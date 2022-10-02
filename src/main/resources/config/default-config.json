@@ -20,6 +20,12 @@
           "BO": false,
           "BallRunSkillCast": false
         }
+      },
+      "Barb": {
+        "enabled": true,
+        "post_enter_tp": {
+          "BarbBo": true
+        }
       }
     }
   },
@@ -32,6 +38,7 @@
     "post_join_game": {
       "switch_to_legacy": true
     },
+    "skill_fast_cast": true,
     "bo": {
       "enable": false,
       "keys": "11|12|13"
