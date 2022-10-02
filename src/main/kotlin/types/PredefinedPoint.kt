@@ -8,9 +8,8 @@ data class PredefinedPoint(
 ) {
   fun randomly(range: Int): PredefinedPoint {
     return PredefinedPoint(
-      x + (range.toDouble() / -2 + Random(range).nextDouble()).toInt(),
-      y + (range.toDouble() / -2 + Random(range).nextDouble()).toInt(),
+      x + (range.toDouble() / -2 + range * Random.nextDouble()).toInt(),
+      y + (range.toDouble() / -2 + range * Random.nextDouble()).toInt(),
     )
-
   }
 }
