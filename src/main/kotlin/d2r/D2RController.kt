@@ -142,6 +142,7 @@ object D2RController {
 
       if (ClientConfig.get("post_join_game:switch_to_legacy") == "true") {
         KeyboardController.pressAndReleaseKey(Key.G)
+        delay(1000)
       }
     } else {
       log("Did not detect in game or not...")
