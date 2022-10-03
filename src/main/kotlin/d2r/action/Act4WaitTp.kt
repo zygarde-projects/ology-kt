@@ -22,6 +22,6 @@ object Act4WaitTp : PostJoinGameAction() {
   override suspend fun exec() {
     val rand = Random.nextInt(routes.size)
     println("Act1WaitTp using route $rand")
-    routes.elementAt(1).invoke()
+    routes.elementAt(rand).invoke()
   }
 }

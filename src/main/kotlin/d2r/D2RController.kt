@@ -1,8 +1,7 @@
 package d2r
 
 import conf.ClientConfig
-import d2r.action.Act1WaitTp
-import d2r.action.FindAndEnterTp
+import d2r.action.*
 import d2r.action.base.InGameAction
 import d2r.action.base.MoveAction
 import d2r.action.base.SkillCastAction
@@ -31,6 +30,10 @@ object D2RController {
   private val actionMap: Map<String, InGameAction> = listOf(
     // post join game
     Act1WaitTp,
+    Act2WaitTp,
+    Act3WaitTp,
+    Act4WaitTp,
+    Act5WaitTp,
     // post enter tp
     BarbBo,
     BallRunAssassinTrap,
