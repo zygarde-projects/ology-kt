@@ -16,6 +16,9 @@ import kotlin.js.Promise
 
 object ClientCommand : NoArgCommand("client") {
 
+  var inTp = false
+  var inGame = false
+
   override suspend fun handle() {
     val host = "ws://${ClientConfig.get("server_ip")}:${ClientConfig.get("server_port")}"
     val ws = ReconnectingWebSocket(
@@ -45,6 +48,14 @@ object ClientCommand : NoArgCommand("client") {
     }.await()
   }
 
+  private suspend fun mustInGame(block: suspend () -> Unit) {
+    if (!inGame) {
+      println("not in game, skip command")
+      return
+    }
+    block()
+  }
+
   private suspend fun WebSocket.handleCommand(command: String) {
     when (command.type()) {
       CommandMessageType.GRETTING -> {
@@ -53,27 +64,31 @@ object ClientCommand : NoArgCommand("client") {
       }
 
       CommandMessageType.NEXT_GAME -> {
+        inTp = false
+        inGame = false
         val joinSuccess = D2RController.joinGame(name = command.gameName(), password = command.password())
         if (joinSuccess) {
+          inGame = true
           D2RController.takeIf { ClientConfig.get("bo:enable").toBoolean() }?.startBo()
           send(CommandMessageType.CLIENT_GAME_JOINED.name)
         }
       }
 
-      CommandMessageType.DO_ACTION -> {
+      CommandMessageType.DO_ACTION -> mustInGame {
         for (action in command.actions()) {
           D2RController.execute(action)
         }
       }
 
-      CommandMessageType.TP -> {
+      CommandMessageType.TP -> mustInGame {
         val enteredTp = D2RController.enterTp()
         if (enteredTp) {
-          send(CommandMessageType.CLIENT_TP_ENTERED.name)
+          inTp = !inTp
+          send(CommandMessageType.CLIENT_TP_ENTERED.args(inTp))
         }
       }
 
-      CommandMessageType.MOVE -> {
+      CommandMessageType.MOVE -> mustInGame {
         D2RController.move(MoveDirection.valueOf(command.arg0()))
       }
 

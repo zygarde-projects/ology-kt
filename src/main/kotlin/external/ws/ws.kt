@@ -12,6 +12,7 @@ import stream.internal.Duplex
 import stream.internal.DuplexOptions
 import tls.SecureContextOptions
 import tsstdlib.Set
+import types.OlogyClient
 import url.URL
 import zlib.ZlibOptions
 
@@ -34,10 +35,11 @@ external interface `T$13` {
     set(value) = definedExternally
 }
 
-external class WebSocketServer(options: WebSocketServerOptions) : WebSocket.Server<WebSocket>
+external class WebSocketServer(options: WebSocketServerOptions) : WebSocket.Server<OlogyClient>
 
 open external class WebSocket {
 
+  constructor()
   constructor(address: Nothing?)
   constructor(address: String, options: ClientOptions = definedExternally)
   constructor(address: String)

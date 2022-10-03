@@ -17,10 +17,13 @@ import external.ws.WebSocket
 import external.ws.WebSocketServer
 import external.ws.WebSocketServerOptions
 import http.IncomingMessage
+import types.ClientState
 import types.InGameLifeCycle
+import types.OlogyClient
 
 object HostCommand : NoArgCommand("host") {
 
+  var clientIdCounter = 1
   override suspend fun handle() {
     val gameName = "${HostConfig.get("game:prefix")}${HostConfig.get("game:counter")}"
     log("game name: $gameName")
@@ -30,27 +33,29 @@ object HostCommand : NoArgCommand("host") {
     val wssOptions = WebSocketServerOptions(port = wsPort)
     val wss = WebSocketServer(wssOptions)
     wss
-      .on("connection") { socket: WebSocket, _: IncomingMessage ->
-        log("client connected")
-        log("client count: ${wss.clients.size}")
+      .on("connection") { socket: OlogyClient, _: IncomingMessage ->
+        socket.ologyState = ClientState("${clientIdCounter++}")
+        log("client connected: ${wss.clients.size}")
         socket.on("message") { msg: Buffer, _ ->
           val command = msg.toString()
           println("received $command")
           when (command.type()) {
             CommandMessageType.CLIENT_REG -> {
               val clientName = command.arg0()
+              socket.ologyState.name = clientName
               println("client:${clientName}")
-              socket.asDynamic().clientName = clientName
             }
 
             CommandMessageType.CLIENT_GAME_JOINED -> {
-              val clientName = socket.asDynamic().clientName
-              socket.sendLifeCycleActions(clientName, InGameLifeCycle.POST_JOIN_GAME)
+              socket.ologyState.inGame = true
+              socket.sendLifeCycleActions(socket.ologyState.name, InGameLifeCycle.POST_JOIN_GAME)
             }
 
             CommandMessageType.CLIENT_TP_ENTERED -> {
-              val clientName = socket.asDynamic().clientName
-              socket.sendLifeCycleActions(clientName, InGameLifeCycle.POST_ENTER_TP)
+              socket.ologyState.inTp = command.arg0().toBoolean()
+              if (socket.ologyState.inTp) {
+                socket.sendLifeCycleActions(socket.ologyState.name, InGameLifeCycle.POST_ENTER_TP)
+              }
             }
 
             else -> throw IllegalArgumentException("unknown command type: ${command.type()}")
@@ -73,6 +78,8 @@ object HostCommand : NoArgCommand("host") {
             val pwd = HostConfig.get("game:pwd")
             val gamePayload = "$gamePrefix$counter|$pwd"
             wss.clients.kt().forEach { client ->
+              client.ologyState.inGame = false
+              client.ologyState.inTp = false
               client.send("${CommandMessageType.NEXT_GAME}|$gamePayload")
             }
             res.status = 200
@@ -80,33 +87,36 @@ object HostCommand : NoArgCommand("host") {
           }
         }
 
-        get("/clientAction/:action") { req, res ->
-          wss.clients.kt().forEach { client ->
-            client.send(CommandMessageType.DO_ACTION.args("${req.params.action}"))
-          }
-          res.status = 200
-          res.send("ok")
-        }
-
-        get("/tp") { _, res ->
-          wss.clients.kt().forEach { client ->
-            client.send(CommandMessageType.TP.name)
-          }
-          res.status = 200
-          res.send("ok")
-        }
-
         get("/clients") { _, res ->
           res.status = 200
           res.json(
-            wss.clients.kt().mapNotNull { it.asDynamic().clientName }.toHashSet()
+            wss.clients.kt().map { it.ologyState }
           )
         }
 
-        get("/clients/:client/move/:direction") { req, res ->
-          val client = "${req.params.client}"
+        get("/clients/:clientId/actions/:action") { req, res ->
+          val clientId = "${req.params.clientId}"
+          val action = "${req.params.action}"
+          wss.filterAndSend(clientId) { clientWs ->
+            clientWs.send(CommandMessageType.DO_ACTION.args(action))
+          }
+          res.status = 200
+          res.send("ok")
+        }
+
+        get("/clients/:clientId/tp") { req, res ->
+          val clientId = "${req.params.clientId}"
+          wss.filterAndSend(clientId) { clientWs ->
+            clientWs.send(CommandMessageType.TP.name)
+          }
+          res.status = 200
+          res.send("ok")
+        }
+
+        get("/clients/:clientId/move/:direction") { req, res ->
+          val clientId = "${req.params.clientId}"
           val direction = "${req.params.direction}"
-          wss.clients.kt().filter { it.asDynamic().clientName === client }.forEach { clientWs ->
+          wss.filterAndSend(clientId) { clientWs ->
             clientWs.send(CommandMessageType.MOVE.args(direction))
           }
           res.status = 200
@@ -116,6 +126,12 @@ object HostCommand : NoArgCommand("host") {
       .listen(port = httpPort) {
         log("http server started localhost:$httpPort")
       }
+  }
+
+  private fun WebSocketServer.filterAndSend(clientId: String, block: (wsClient: OlogyClient) -> Unit) {
+    clients.kt()
+      .filter { clientId == "all" || it.ologyState.id == clientId || it.ologyState.name == clientId }
+      .forEach(block)
   }
 
   private fun WebSocket.sendLifeCycleActions(clientName: Any?, targetLifeCycle: InGameLifeCycle) {
