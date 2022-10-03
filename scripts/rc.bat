@@ -1,4 +1,5 @@
+call yarn add ology-kt --registry=https://npm.puni.tw
 :run
-yarn add ology-kt --registry=https://npm.puni.tw && yarn ology client
+call yarn ology client
 goto run
 pause
