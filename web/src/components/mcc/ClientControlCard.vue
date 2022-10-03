@@ -6,7 +6,7 @@ import axios from "axios";
 
 const props = defineProps<{ client: Client }>()
 
-const shortEnLocale = {formatDistance: (token, count) => count + token.substring(1, 2).toLowerCase()}
+const shortEnLocale = {formatDistance: (token: string, count: number) => count + token.substring(1, 2).toLowerCase()}
 
 const connectTime = computed(() => {
   return formatDuration(
@@ -87,6 +87,6 @@ const doTp = async () => {
 }
 
 button:disabled {
-  @apply  bg-gray-500 opacity-50 transition-none active:bg-gray-500 focus:bg-gray-500 hover:bg-gray-500
+  @apply bg-gray-500 opacity-50 transition-none active:bg-gray-500 focus:bg-gray-500 hover:bg-gray-500
 }
 </style>
