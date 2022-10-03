@@ -70,7 +70,7 @@ object HostCommand : NoArgCommand("host") {
       .apply {
         use(cors())
         use("/web", express.static("$__dirname/../resources/web"))
-        get("/ng") { _, res ->
+        get("/api/ng") { _, res ->
           launch {
             NgCommand.handle()
             val gamePrefix = HostConfig.get("game:prefix")
@@ -87,14 +87,14 @@ object HostCommand : NoArgCommand("host") {
           }
         }
 
-        get("/clients") { _, res ->
+        get("/api/clients") { _, res ->
           res.status = 200
           res.json(
             wss.clients.kt().map { it.ologyState }
           )
         }
 
-        get("/clients/:clientId/actions/:action") { req, res ->
+        get("/api/clients/:clientId/actions/:action") { req, res ->
           val clientId = "${req.params.clientId}"
           val action = "${req.params.action}"
           wss.filterAndSend(clientId) { clientWs ->
@@ -104,7 +104,7 @@ object HostCommand : NoArgCommand("host") {
           res.send("ok")
         }
 
-        get("/clients/:clientId/tp") { req, res ->
+        get("/api/clients/:clientId/tp") { req, res ->
           val clientId = "${req.params.clientId}"
           wss.filterAndSend(clientId) { clientWs ->
             clientWs.send(CommandMessageType.TP.name)
@@ -113,7 +113,7 @@ object HostCommand : NoArgCommand("host") {
           res.send("ok")
         }
 
-        get("/clients/:clientId/move/:direction") { req, res ->
+        get("/api/clients/:clientId/move/:direction") { req, res ->
           val clientId = "${req.params.clientId}"
           val direction = "${req.params.direction}"
           wss.filterAndSend(clientId) { clientWs ->

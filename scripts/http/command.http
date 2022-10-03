@@ -11,7 +11,7 @@ GET http://localhost:16668/ng
 
 
 ###
-GET http://localhost:16668/clients
+GET http://localhost:16668/api/clients
 
 
 ###
