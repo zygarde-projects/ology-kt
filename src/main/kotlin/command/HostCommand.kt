@@ -1,6 +1,7 @@
 package command
 
 import Buffer
+import __dirname
 import command.base.NoArgCommand
 import conf.HostConfig
 import d2r.CommandMessageType
@@ -63,7 +64,7 @@ object HostCommand : NoArgCommand("host") {
     express()
       .apply {
         use(cors())
-        use("/ology-kt", express.static("resources/dist"))
+        use("/web", express.static("$__dirname/../resources/web"))
         get("/ng") { _, res ->
           launch {
             NgCommand.handle()
