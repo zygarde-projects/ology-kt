@@ -47,22 +47,22 @@ object D2RController {
     return d2r != null
   }
 
-  suspend fun detectGameStatus(): InGameStatus? {
+  suspend fun detectGameStatus(): InGameStatus? = withD2rRunning(true) {
     val matchResult = ScreenController.oneOfImagesIn(GAME_STATUS_ALL)
-
     val matchedImage = matchResult?.image
     if (matchedImage != null) {
       if (ImageMatching.inGame.containsKey(matchedImage)) {
-        return InGameStatus.IN_GAME
+        InGameStatus.IN_GAME
+      } else if (ImageMatching.inGameLegacy.containsKey(matchedImage)) {
+        InGameStatus.IN_GAME_LEGACY
+      } else if (ImageMatching.inLobby.containsKey(matchedImage)) {
+        InGameStatus.LOBBY
+      } else {
+        null
       }
-      if (ImageMatching.inGameLegacy.containsKey(matchedImage)) {
-        return InGameStatus.IN_GAME_LEGACY
-      }
-      if (ImageMatching.inLobby.containsKey(matchedImage)) {
-        return InGameStatus.LOBBY
-      }
+    } else {
+      null
     }
-    return null
   }
 
   suspend fun exitGame() {

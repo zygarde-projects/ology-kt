@@ -32,6 +32,9 @@ object ClientCommand : NoArgCommand("client") {
     )
     ws.addEventListener("open") { _: WebSocket.Event ->
       log("Connected to $host")
+      launch {
+        refreshGameStatus()
+      }
     }
     ws.addEventListener("error") { e: WebSocket.ErrorEvent ->
       log("WS Error $e")
@@ -50,10 +53,17 @@ object ClientCommand : NoArgCommand("client") {
 
   private suspend fun mustInGame(block: suspend () -> Unit) {
     if (!inGame) {
-      println("not in game, skip command")
-      return
+      refreshGameStatus()
+      if (!inGame) {
+        println("not in game, skip command")
+        return
+      }
     }
     block()
+  }
+
+  private suspend fun refreshGameStatus() {
+    inGame = D2RController.detectGameStatus()?.isInGame() == true
   }
 
   private suspend fun WebSocket.handleCommand(command: String) {
