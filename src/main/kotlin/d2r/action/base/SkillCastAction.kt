@@ -32,17 +32,24 @@ abstract class SkillCastAction : WindowActor {
     abortSignal = abortController.signal
   }
 
+  protected fun getCastTarget(): PredefinedPoint {
+    return PredefinedPoint(
+      ClientConfig.get("skill_cast_location:x").toIntOrNull() ?: MouseLocations.InGame.charCenter.x,
+      ClientConfig.get("skill_cast_location:y").toIntOrNull() ?: MouseLocations.InGame.charCenter.y,
+    )
+  }
+
   protected abstract suspend fun doCast()
 
   protected suspend fun cast(
     key: KeyBtn,
     delayMs: Int,
-    target: PredefinedPoint = MouseLocations.InGame.charCenter,
+    pointRandomRange: Int = 0
   ) {
     if (abortSignal.aborted) {
       return
     }
-    withTranslatedPoint(target) { point ->
+    withTranslatedPoint(getCastTarget().randomly(pointRandomRange)) { point ->
       mouse.move(arrayOf(point))
         .then { keyboard.type(key) }
         .await()

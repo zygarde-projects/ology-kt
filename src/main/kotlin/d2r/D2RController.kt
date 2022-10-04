@@ -5,7 +5,7 @@ import d2r.action.*
 import d2r.action.base.InGameAction
 import d2r.action.base.MoveAction
 import d2r.action.base.SkillCastAction
-import d2r.action.skill.BallRunAssassinTrap
+import d2r.action.skill.AssassinTrap
 import d2r.action.skill.BarbBo
 import d2r.constants.GeneralConstants.gameWindowTitle
 import d2r.constants.ImageMatching
@@ -36,7 +36,7 @@ object D2RController {
     Act5WaitTp,
     // post enter tp
     BarbBo,
-    BallRunAssassinTrap,
+    AssassinTrap,
   ).associateBy { it::class.simpleName.orEmpty() }
 
   fun d2rRunning(switchToForegroundWhenRunning: Boolean = false): Boolean {
@@ -165,7 +165,6 @@ object D2RController {
 
   suspend fun execute(actionName: String) = withD2rRunning(true) {
     val action = actionMap[actionName] ?: throw IllegalArgumentException("action $actionName not found")
-
     if (action is SkillCastAction) {
       runningSkillActions.add(action)
     }
@@ -182,7 +181,7 @@ object D2RController {
     MoveAction.move(direction, distance)
   }
 
-  private fun stopSkillCast() {
+  fun stopSkillCast() {
     for (runningSkillAction in runningSkillActions) {
       runningSkillAction.stop()
     }

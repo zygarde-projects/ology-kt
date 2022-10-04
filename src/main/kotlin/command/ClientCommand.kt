@@ -4,6 +4,7 @@ import command.base.NoArgCommand
 import conf.ClientConfig
 import d2r.CommandMessageType
 import d2r.D2RController
+import d2r.constants.MouseLocations
 import extension.*
 import extension.CoroutineExtensions.launch
 import external.ws.ReconnectingWebSocket
@@ -16,7 +17,6 @@ import kotlin.js.Promise
 
 object ClientCommand : NoArgCommand("client") {
 
-  var inTp = false
   var inGame = false
 
   override suspend fun handle() {
@@ -72,7 +72,6 @@ object ClientCommand : NoArgCommand("client") {
       }
 
       CommandMessageType.NEXT_GAME -> {
-        inTp = false
         inGame = false
         val joinSuccess = D2RController.joinGame(name = command.gameName(), password = command.password())
         if (joinSuccess) {
@@ -88,16 +87,21 @@ object ClientCommand : NoArgCommand("client") {
         }
       }
 
+      CommandMessageType.SKILL_CAST_STOP -> mustInGame {
+        D2RController.stopSkillCast()
+      }
+
       CommandMessageType.TP -> mustInGame {
-        val enteredTp = D2RController.enterTp()
-        if (enteredTp) {
-          inTp = !inTp
-          send(CommandMessageType.CLIENT_TP_ENTERED.args(inTp))
-        }
+        D2RController.enterTp()
       }
 
       CommandMessageType.MOVE -> mustInGame {
         D2RController.move(MoveDirection.valueOf(command.arg0()))
+      }
+
+      CommandMessageType.SKILL_CAST_LOCATION -> {
+        ClientConfig.set("skill_cast_location:x", command.arg0().toIntOrNull() ?: MouseLocations.InGame.charCenter.x)
+        ClientConfig.set("skill_cast_location:y", command.arg1().toIntOrNull() ?: MouseLocations.InGame.charCenter.y)
       }
 
       else -> log("unknown command: $command")

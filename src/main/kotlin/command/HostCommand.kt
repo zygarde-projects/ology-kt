@@ -53,13 +53,6 @@ object HostCommand : NoArgCommand("host") {
               socket.sendLifeCycleActions(socket.ologyState.name, InGameLifeCycle.POST_JOIN_GAME)
             }
 
-            CommandMessageType.CLIENT_TP_ENTERED -> {
-              socket.ologyState.inTp = command.arg0().toBoolean()
-              if (socket.ologyState.inTp) {
-                socket.sendLifeCycleActions(socket.ologyState.name, InGameLifeCycle.POST_ENTER_TP)
-              }
-            }
-
             else -> throw IllegalArgumentException("unknown command type: ${command.type()}")
           }
         }
@@ -81,7 +74,6 @@ object HostCommand : NoArgCommand("host") {
             val gamePayload = "$gamePrefix$counter|$pwd"
             wss.clients.kt().forEach { client ->
               client.ologyState.inGame = false
-              client.ologyState.inTp = false
               client.send("${CommandMessageType.NEXT_GAME}|$gamePayload")
             }
             res.status = 200
@@ -110,6 +102,34 @@ object HostCommand : NoArgCommand("host") {
           val clientId = "${req.params.clientId}"
           wss.filterAndSend(clientId) { clientWs ->
             clientWs.send(CommandMessageType.TP.name)
+          }
+          res.status = 200
+          res.send("ok")
+        }
+        get("/api/clients/:clientId/skillCast") { req, res ->
+          val clientId = "${req.params.clientId}"
+          wss.filterAndSend(clientId) { clientWs ->
+            clientWs.sendLifeCycleActions(clientWs.ologyState.name, InGameLifeCycle.SKILL_CAST)
+          }
+
+          res.status = 200
+          res.send("ok")
+        }
+        get("/api/clients/:clientId/skillCast/location") { req, res ->
+          val clientId = "${req.params.clientId}"
+          val x = "${req.query.x}"
+          val y = "${req.query.y}"
+          wss.filterAndSend(clientId) { clientWs ->
+            clientWs.send(CommandMessageType.SKILL_CAST_LOCATION.args(x, y))
+          }
+          res.status = 200
+          res.send("ok")
+        }
+
+        get("/api/clients/:clientId/skillCast/stop") { req, res ->
+          val clientId = "${req.params.clientId}"
+          wss.filterAndSend(clientId) { clientWs ->
+            clientWs.send(CommandMessageType.SKILL_CAST_STOP.name)
           }
           res.status = 200
           res.send("ok")

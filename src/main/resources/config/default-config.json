@@ -11,18 +11,39 @@
       "difficulty": "N"
     },
     "client_actions": {
-      "client1": {
+      "Assassin": {
         "enabled": true,
         "post_join_game": {
-          "Act1WaitTp": true,
-          "Act2WaitTp": false,
-          "Act3WaitTp": false,
-          "Act4WaitTp": false,
-          "Act5WaitTp": false
+          "Act1WaitTp": false
+        },
+        "skill_cast": {
+          "AssassinTrap": true
         }
       },
       "Barb": {
-        "enabled": true
+        "enabled": true,
+        "skill_cast": {
+          "BarbBo": true
+        }
+      },
+      "Necro": {
+        "enabled": true,
+        "skill_cast": {
+          "NecroSummon": true,
+          "NecroCurse": true
+        }
+      },
+      "Sorc": {
+        "enabled": true,
+        "skill_cast": {
+          "SorcBlizzard": true
+        }
+      },
+      "Pala": {
+        "enabled": true,
+        "skill_cast": {
+          "PalaAura1": true
+        }
       }
     }
   },
@@ -41,12 +62,21 @@
       "enable": false,
       "keys": "11|12|13"
     },
+    "skill_cast_location": {
+      "x": 1920,
+      "y": 1080
+    },
     "skill_keys": {
       "BO1": "F1",
       "BO2": "F2",
       "BO3": "F3",
       "Trap1": "F1",
-      "Trap2": "F2"
+      "Trap2": "F2",
+      "Aura1": "F1",
+      "Aura2": "F2",
+      "SummonSkeleton": "F5",
+      "SummonGolem": "F6",
+      "Curse": "F1"
     }
   }
 }

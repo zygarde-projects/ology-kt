@@ -7,8 +7,8 @@ enum class InGameLifeCycle(
   POST_JOIN_GAME(
     "post_join_game"
   ),
-  POST_ENTER_TP(
-    "post_enter_tp"
+  SKILL_CAST(
+    "skill_cast"
   ),
   //
   ;

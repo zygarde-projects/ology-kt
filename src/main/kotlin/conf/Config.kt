@@ -6,6 +6,8 @@ import extension.CoroutineExtensions.launch
 import external.nconf.Provider
 import external.nconf.nconf
 import external.node.process
+import external.nuttree.KeyBtn
+import external.nuttree.getKey
 
 enum class ConfigPrefix(val prefix: String) {
   SYSTEM("system"),
@@ -51,4 +53,8 @@ object SystemConfig : Config(ConfigPrefix.SYSTEM)
 object HostConfig : Config(ConfigPrefix.HOST)
 object ClientConfig : Config(ConfigPrefix.CLIENT)
 
-object SkillConfig : Config(ConfigPrefix.SKILL)
+object SkillConfig : Config(ConfigPrefix.SKILL) {
+  fun getKeyBtn(key: String): KeyBtn {
+    return getKey(get(key))
+  }
+}
