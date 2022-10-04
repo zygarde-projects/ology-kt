@@ -10,9 +10,15 @@ import external.nuttree.keyboard
 import external.nuttree.mouse
 import kotlinx.coroutines.await
 import kotlinx.coroutines.delay
+import types.InGameLifeCycle
 import types.PredefinedPoint
 
-abstract class SkillCastAction : WindowActor {
+abstract class SkillCastAction : WindowActor, InGameAction {
+
+  override fun lifeCycle(): InGameLifeCycle = InGameLifeCycle.SKILL_CAST
+  override suspend fun exec() {
+    start()
+  }
 
   private val fastCast = ClientConfig.get("skill_fast_cast").toBoolean()
   private lateinit var abortController: AbortController

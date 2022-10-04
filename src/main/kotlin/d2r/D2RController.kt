@@ -166,9 +166,12 @@ object D2RController {
   suspend fun execute(actionName: String) = withD2rRunning(true) {
     val action = actionMap[actionName] ?: throw IllegalArgumentException("action $actionName not found")
     if (action is SkillCastAction) {
+      if (runningSkillActions.contains(action)) {
+        println("skill $actionName already running")
+        return@withD2rRunning
+      }
       runningSkillActions.add(action)
     }
-
     action.exec()
   }
 

@@ -3,9 +3,11 @@ package command
 import Buffer
 import __dirname
 import command.base.NoArgCommand
+import conf.ClientConfig
 import conf.HostConfig
 import d2r.CommandMessageType
 import d2r.D2RController
+import d2r.constants.MouseLocations
 import extension.CollectionExtensions.kt
 import extension.CoroutineExtensions.launch
 import extension.arg0
@@ -21,6 +23,7 @@ import http.IncomingMessage
 import types.ClientState
 import types.InGameLifeCycle
 import types.OlogyClient
+import types.PredefinedPoint
 
 object HostCommand : NoArgCommand("host") {
 
@@ -87,6 +90,15 @@ object HostCommand : NoArgCommand("host") {
             wss.clients.kt().map { it.ologyState }
           )
         }
+        get("/api/skillLocation") { _, res ->
+          res.status = 200
+          res.json(
+            PredefinedPoint(
+              x = ClientConfig.get("skill_cast_location:x").toIntOrNull() ?: MouseLocations.InGame.charCenter.x,
+              y = ClientConfig.get("skill_cast_location:y").toIntOrNull() ?: MouseLocations.InGame.charCenter.y
+            ),
+          )
+        }
 
         get("/api/clients/:clientId/actions/:action") { req, res ->
           val clientId = "${req.params.clientId}"
@@ -119,6 +131,8 @@ object HostCommand : NoArgCommand("host") {
           val clientId = "${req.params.clientId}"
           val x = "${req.query.x}"
           val y = "${req.query.y}"
+          ClientConfig.set("skill_cast_location:x", x.toIntOrNull() ?: MouseLocations.InGame.charCenter.x)
+          ClientConfig.set("skill_cast_location:y", y.toIntOrNull() ?: MouseLocations.InGame.charCenter.y)
           wss.filterAndSend(clientId) { clientWs ->
             clientWs.send(CommandMessageType.SKILL_CAST_LOCATION.args(x, y))
           }

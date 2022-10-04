@@ -5,17 +5,13 @@ import clearInterval
 import extension.CoroutineExtensions.launch
 import setInterval
 
-abstract class RepeatableSkillCastAction : SkillCastAction(), PostEnterTpAction {
+abstract class RepeatableSkillCastAction : SkillCastAction() {
 
   protected abstract val castInterval: Int
 
   protected open var castImmediate: Boolean = true
 
   private var timeout: Timeout? = null
-
-  override suspend fun exec() {
-    start()
-  }
 
   override suspend fun start() {
     init()
