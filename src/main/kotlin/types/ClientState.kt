@@ -11,6 +11,5 @@ data class ClientState(
   val id: String,
   var name: String? = null,
   val connectAt: Number = Date().getTime(),
-  var inTp: Boolean = false,
   var inGame: Boolean = false,
 )

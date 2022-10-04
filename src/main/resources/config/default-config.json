@@ -19,17 +19,10 @@
           "Act3WaitTp": false,
           "Act4WaitTp": false,
           "Act5WaitTp": false
-        },
-        "post_enter_tp": {
-          "BO": false,
-          "BallRunSkillCast": false
         }
       },
       "Barb": {
-        "enabled": true,
-        "post_enter_tp": {
-          "BarbBo": true
-        }
+        "enabled": true
       }
     }
   },
