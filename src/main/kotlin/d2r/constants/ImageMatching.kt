@@ -39,12 +39,12 @@ object ImageMatching {
     "in-game/loading.png" to DEFAULT.copy(
       detectInRegion = InGameDetection.loading,
       maxRetry = 0,
-      timeoutMs = 3000
+      timeoutMs = 5000
     ),
     "in-game/loading_blackhd.png" to DEFAULT.copy(
       detectInRegion = InGameDetection.loading,
       maxRetry = 0,
-      timeoutMs = 3000
+      timeoutMs = 5000
     ),
   )
 

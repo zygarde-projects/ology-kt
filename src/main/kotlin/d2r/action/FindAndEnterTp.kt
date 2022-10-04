@@ -26,7 +26,7 @@ object FindAndEnterTp {
       val matchedLoadingScreen = ScreenController.oneOfImagesIn(
         ImageMatching.enteringTp
       )
-      println("loading screen matched")
+      println("FindAndEnterTp: loading screen found: ${matchedLoadingScreen != null}")
       if (matchedLoadingScreen != null) tp else findAndEnterTp(currentRetry + 1, maxRetry)
     } else if (currentRetry < maxRetry) {
       println("FindAndEnterTp: tp not found, try move")
