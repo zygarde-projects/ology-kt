@@ -35,6 +35,19 @@ object ImageMatching {
     ),
   )
 
+  val enteringTp = mapOf(
+    "in-game/loading.png" to DEFAULT.copy(
+      detectInRegion = InGameDetection.loading,
+      maxRetry = 0,
+      timeoutMs = 3000
+    ),
+    "in-game/loading_blackhd.png" to DEFAULT.copy(
+      detectInRegion = InGameDetection.loading,
+      maxRetry = 0,
+      timeoutMs = 3000
+    ),
+  )
+
   val act4tp = mapOf(
     "in-game/act4wp.png" to DEFAULT.copy(
       detectInRegion = Regions.Act4Detection.tp,

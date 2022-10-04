@@ -10,9 +10,8 @@ import kotlinx.coroutines.delay
 
 object FindAndEnterTp {
   suspend fun exec(): Boolean {
-    val tp = findTp()
+    val tp = findAndEnterTp()
     if (tp != null) {
-      MouseController.clickOnRegionCenter(tp)
       delay(ClientConfig.get("enter_tp_loading_delay").toLongOrNull() ?: 3000L)
     } else {
       println("FindAndEnterTp: tp not found")
@@ -20,9 +19,16 @@ object FindAndEnterTp {
     return tp != null
   }
 
-  private suspend fun findTp(currentRetry: Int = 0, maxRetry: Int = 5): Region? {
+  private suspend fun findAndEnterTp(currentRetry: Int = 0, maxRetry: Int = 5): Region? {
     val tp = ScreenController.oneOfImagesIn(ImageMatching.tpLegacy)?.region
-    return if (tp == null && currentRetry < maxRetry) {
+    return if (tp != null) {
+      MouseController.clickOnRegionCenter(tp)
+      val matchedLoadingScreen = ScreenController.oneOfImagesIn(
+        ImageMatching.enteringTp
+      )
+      println("loading screen matched")
+      if (matchedLoadingScreen != null) tp else findAndEnterTp(currentRetry + 1, maxRetry)
+    } else if (currentRetry < maxRetry) {
       println("FindAndEnterTp: tp not found, try move")
       when (currentRetry) {
         0 -> MoveAction.left(2)
@@ -30,9 +36,9 @@ object FindAndEnterTp {
         2 -> MoveAction.up(2)
         3 -> MoveAction.right(2)
       }
-      findTp(currentRetry + 1, maxRetry)
+      findAndEnterTp(currentRetry + 1, maxRetry)
     } else {
-      tp
+      null
     }
   }
 }
