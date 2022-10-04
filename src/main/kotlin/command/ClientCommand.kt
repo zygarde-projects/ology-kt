@@ -20,6 +20,7 @@ object ClientCommand : NoArgCommand("client") {
   var inGame = false
 
   override suspend fun handle() {
+    refreshGameStatus()
     val host = "ws://${ClientConfig.get("server_ip")}:${ClientConfig.get("server_port")}"
     val ws = ReconnectingWebSocket(
       host,
@@ -32,9 +33,6 @@ object ClientCommand : NoArgCommand("client") {
     )
     ws.addEventListener("open") { _: WebSocket.Event ->
       log("Connected to $host")
-      launch {
-        refreshGameStatus()
-      }
     }
     ws.addEventListener("error") { e: WebSocket.ErrorEvent ->
       log("WS Error $e")
@@ -70,7 +68,7 @@ object ClientCommand : NoArgCommand("client") {
     when (command.type()) {
       CommandMessageType.GRETTING -> {
         val clientName = ClientConfig.get("name")
-        send(CommandMessageType.CLIENT_REG.args(clientName))
+        send(CommandMessageType.CLIENT_REG.args(clientName, inGame))
       }
 
       CommandMessageType.NEXT_GAME -> {

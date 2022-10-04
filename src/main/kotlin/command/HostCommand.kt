@@ -9,6 +9,7 @@ import d2r.D2RController
 import extension.CollectionExtensions.kt
 import extension.CoroutineExtensions.launch
 import extension.arg0
+import extension.arg1
 import extension.log
 import extension.type
 import external.cors.cors
@@ -43,6 +44,7 @@ object HostCommand : NoArgCommand("host") {
             CommandMessageType.CLIENT_REG -> {
               val clientName = command.arg0()
               socket.ologyState.name = clientName
+              socket.ologyState.inGame = command.arg1().toBoolean()
               println("client:${clientName}")
             }
 
