@@ -95,7 +95,7 @@ const handleSkillLocationChange = async (e: MouseEvent) => {
 
       </div>
       <div class="w-48 p-4">
-        <direction-pad :can-move="true" client="all"/>
+        <direction-pad :can-move="true" clientId="all"/>
       </div>
       <div id="skill-target-zone"
            @click="handleSkillLocationChange($event)"

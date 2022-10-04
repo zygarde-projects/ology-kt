@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import axios from "axios";
+import {Api} from "../../api";
 
-const props = defineProps<{client:string, canMove: boolean}>()
+const props = defineProps<{ clientId: string, canMove: boolean }>()
 
 const doMove = async (direction: string) => {
-  await axios.get(`/api/clients/${props.client}/move/${direction}`)
+  await Api.move(props.clientId, direction)
 }
 
 </script>

@@ -28,10 +28,22 @@ object ImageMatching {
     "in-game/tp_legacy_1.png" to DEFAULT.copy(
       detectInRegion = InGameDetection.tpLegacy,
       maxRetry = 2,
+      timeoutMs = 1000,
     ),
     "in-game/tp_legacy_2.png" to DEFAULT.copy(
       detectInRegion = InGameDetection.tpLegacy,
       maxRetry = 2,
+      timeoutMs = 1000,
+    ),
+    "in-game/tp_legacy_3.png" to DEFAULT.copy(
+      detectInRegion = InGameDetection.tpLegacy,
+      maxRetry = 2,
+      timeoutMs = 1000,
+    ),
+    "in-game/tp_legacy_4.png" to DEFAULT.copy(
+      detectInRegion = InGameDetection.tpLegacy,
+      maxRetry = 2,
+      timeoutMs = 1000,
     ),
   )
 

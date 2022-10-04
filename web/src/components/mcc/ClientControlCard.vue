@@ -4,6 +4,7 @@ import {computed} from "vue";
 import {formatDuration, intervalToDuration} from "date-fns";
 import axios from "axios";
 import DirectionPad from "./DirectionPad.vue";
+import {Api} from "../../api";
 
 const props = defineProps<{ client: Client }>()
 
@@ -18,14 +19,14 @@ const connectTime = computed(() => {
 
 
 const doTp = async () => {
-  await axios.get(`/api/clients/${props.client.id}/tp`)
+  await Api.doTp(props.client.id)
 }
 
 const startCast = async () => {
-  await axios.get(`/api/clients/${props.client.id}/skillCast`)
+  await Api.startCast(props.client.id)
 }
 const stopCast = async () => {
-  await axios.get(`/api/clients/${props.client.id}/skillCast/stop`)
+  await Api.stopCast(props.client.id)
 }
 
 </script>
@@ -38,14 +39,15 @@ const stopCast = async () => {
             <div class="flex-1 text-l text-blue-500">{{ client.name }}</div>
             <div class="text-gray-600 text-xs text-right">{{ connectTime }}</div>
           </div>
-          <direction-pad :can-move="client.inGame" :client="client.name" />
+          <direction-pad :can-move="client.inGame" :clientId="client.name"/>
           <div class="flex mt-2">
             <button :disabled="!client.inGame" class="bg-blue-700 text-white action-btn" @click="doTp">TP</button>
           </div>
           <hr/>
           <div class="flex mt-2 flex-col">
             <h4>Cast</h4>
-            <button :disabled="!client.inGame" class="bg-green-700 text-white action-btn" @click="startCast">Cast</button>
+            <button :disabled="!client.inGame" class="bg-green-700 text-white action-btn" @click="startCast">Cast
+            </button>
             <button :disabled="!client.inGame" class="bg-gray-400 text-white action-btn" @click="stopCast">Stop</button>
           </div>
         </div>
