@@ -1,6 +1,6 @@
 export interface Client {
   id: string,
-  name?: string,
+  name: string,
   connectAt: number,
   inGame: boolean,
 }

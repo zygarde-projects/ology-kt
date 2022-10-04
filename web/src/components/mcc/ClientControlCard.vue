@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {Client} from "../../types/types";
 import {computed} from "vue";
-import {formatDuration, formatISODuration, intervalToDuration} from "date-fns";
+import {formatDuration, intervalToDuration} from "date-fns";
 import axios from "axios";
 import DirectionPad from "./DirectionPad.vue";
 

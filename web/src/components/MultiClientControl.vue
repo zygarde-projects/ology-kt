@@ -49,7 +49,7 @@ const skillTargetZoneStyle = {
 
 const skillLocation = ref<SkillLocation>({x: 1920, y: 1080})
 
-onMounted(async() => {
+onMounted(async () => {
   const locationRes = await axios.get<SkillLocation>("/api/skillLocation")
   skillLocation.value = locationRes.data
 })
@@ -68,7 +68,7 @@ const getSkillLocationStyle = computed(() => {
   }
 })
 
-const handleSkillLocationChange = async (e: PointerEvent) => {
+const handleSkillLocationChange = async (e: MouseEvent) => {
   let x = e.offsetX * dimensionWidth / skillTargetZoneWidth;
   let y = e.offsetY * dimensionHeight / skillTargetZoneHeight;
   skillLocation.value = {
@@ -98,7 +98,7 @@ const handleSkillLocationChange = async (e: PointerEvent) => {
         <direction-pad :can-move="true" client="all"/>
       </div>
       <div id="skill-target-zone"
-           @click="handleSkillLocationChange"
+           @click="handleSkillLocationChange($event)"
            :style="skillTargetZoneStyle">
         <div id="skill-location" :style="getSkillLocationStyle"></div>
       </div>
