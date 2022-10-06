@@ -61,7 +61,7 @@ object ClientCommand : NoArgCommand("client") {
   }
 
   private suspend fun refreshGameStatus() {
-    inGame = D2RController.detectGameStatus()?.isInGame() == true
+    inGame = kotlin.runCatching { D2RController.detectGameStatus()?.isInGame() }.getOrNull() == true
   }
 
   private suspend fun WebSocket.handleCommand(command: String) {
