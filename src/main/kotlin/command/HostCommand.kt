@@ -87,7 +87,7 @@ object HostCommand : NoArgCommand("host") {
         get("/api/clients") { _, res ->
           res.status = 200
           res.json(
-            wss.clients.kt().map { it.ologyState }
+            wss.clients.kt().map { it.ologyState }.sortedBy { it.name }
           )
         }
         get("/api/skillLocation") { _, res ->
