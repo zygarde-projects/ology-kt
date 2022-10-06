@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {Api} from "../../api";
 
-const props = defineProps<{ clientId: string, canMove: boolean }>()
+const props = defineProps<{ clientId: string, canMove: boolean, centerText?: string }>()
 
 const doMove = async (direction: string) => {
   await Api.move(props.clientId, direction)
@@ -27,7 +27,7 @@ const doMove = async (direction: string) => {
         <button :disabled="!canMove" class="arrow-btn" @click="doMove('LEFT')">
           <img src="/arrow/west_black_24dp.svg"/>
         </button>
-        <div class=" flex-1 m-1 p-2"></div>
+        <div class=" flex-1 m-1 p-2 text-center">{{centerText}}</div>
         <button :disabled="!canMove" class="arrow-btn" @click="doMove('RIGHT')">
           <img src="/arrow/east_black_24dp.svg"/>
         </button>

@@ -31,7 +31,7 @@ const stopCast = async () => {
 
 </script>
 <template>
-  <div class="flex justify-center m-4">
+  <div class="flex justify-center m-2">
     <div class="flex justify-center w-full">
       <div class="flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white shadow-lg">
         <div class="p-2 flex flex-col justify-start">
@@ -45,7 +45,6 @@ const stopCast = async () => {
           </div>
           <hr/>
           <div class="flex mt-2 flex-col">
-            <h4>Cast</h4>
             <button :disabled="!client.inGame" class="bg-green-700 text-white action-btn" @click="startCast">Cast
             </button>
             <button :disabled="!client.inGame" class="bg-gray-400 text-white action-btn" @click="stopCast">Stop</button>
