@@ -138,7 +138,7 @@ object D2RController {
     // click on search input to prevent focus on searched game
     MouseController.clickOn(Lobby.joinGameSearch).wait(300)
 
-    KeyboardController.submitGameForm()
+    MouseController.clickOn(Lobby.joinGameBth)
 
     delay(ClientConfig.get("join_loading_delay").toLongOrNull() ?: 8000L)
 
