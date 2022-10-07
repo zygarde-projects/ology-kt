@@ -31,7 +31,6 @@ object D2RController {
     Act1WaitTp,
     Act2WaitTp,
     Act3WaitTp,
-    Act4WaitTp,
     Act5WaitTp,
     // post enter tp
     BarbBo,
