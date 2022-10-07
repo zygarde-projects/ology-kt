@@ -38,7 +38,8 @@
         "enabled": true,
         "skill_cast": {
           "SorcBlizzard": true,
-          "SorcMeteor": false
+          "SorcMeteor": false,
+          "SorcHydra": false
         }
       },
       "Pala": {
@@ -80,7 +81,8 @@
       "SummonGolem": "F6",
       "Curse": "F1",
       "Blizzard": "F1",
-      "Meteor": "F1"
+      "Meteor": "F1",
+      "Hydra": "F1"
     }
   }
 }
