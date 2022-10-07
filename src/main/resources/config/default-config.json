@@ -29,14 +29,16 @@
       "Necro": {
         "enabled": true,
         "skill_cast": {
-          "NecroSummon": true,
-          "NecroCurse": true
+          "NecroSummonGolem": true,
+          "NecroSummonSkeleton": true,
+          "NecroCurse": false
         }
       },
       "Sorc": {
         "enabled": true,
         "skill_cast": {
-          "SorcBlizzard": true
+          "SorcBlizzard": true,
+          "SorcMeteor": false
         }
       },
       "Pala": {
@@ -76,7 +78,9 @@
       "Aura2": "F2",
       "SummonSkeleton": "F5",
       "SummonGolem": "F6",
-      "Curse": "F1"
+      "Curse": "F1",
+      "Blizzard": "F1",
+      "Meteor": "F1"
     }
   }
 }

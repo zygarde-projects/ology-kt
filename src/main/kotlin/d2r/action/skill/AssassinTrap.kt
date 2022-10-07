@@ -4,7 +4,7 @@ import conf.SkillConfig
 import d2r.action.base.RepeatableSkillCastAction
 
 object AssassinTrap : RepeatableSkillCastAction() {
-  override val castInterval: Int = 8000
+  override val castInterval: Int = 12000
 
   private val key1 = SkillConfig.getKeyBtn("Trap1")
   private val key2 = SkillConfig.getKeyBtn("Trap2")

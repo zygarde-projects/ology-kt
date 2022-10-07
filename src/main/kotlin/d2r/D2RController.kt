@@ -5,10 +5,7 @@ import d2r.action.*
 import d2r.action.base.InGameAction
 import d2r.action.base.MoveAction
 import d2r.action.base.SkillCastAction
-import d2r.action.skill.AssassinTrap
-import d2r.action.skill.BarbBo
-import d2r.action.skill.NecroCurse
-import d2r.action.skill.NecroSummon
+import d2r.action.skill.*
 import d2r.constants.GeneralConstants.gameWindowTitle
 import d2r.constants.ImageMatching
 import d2r.constants.ImageMatching.GAME_STATUS_ALL
@@ -39,8 +36,11 @@ object D2RController {
     // post enter tp
     BarbBo,
     AssassinTrap,
-    NecroSummon,
+    NecroSummonSkeleton,
+    NecroSummonGolem,
     NecroCurse,
+    SorcBlizzard,
+    SorcMeteor,
   ).associateBy { it::class.simpleName.orEmpty() }
 
   fun d2rRunning(switchToForegroundWhenRunning: Boolean = false): Boolean {

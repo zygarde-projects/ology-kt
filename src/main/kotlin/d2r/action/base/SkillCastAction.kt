@@ -1,6 +1,7 @@
 package d2r.action.base
 
 import conf.ClientConfig
+import conf.SkillConfig
 import d2r.WindowActor
 import d2r.constants.MouseLocations
 import external.node.AbortController
@@ -46,6 +47,17 @@ abstract class SkillCastAction : WindowActor, InGameAction {
   }
 
   protected abstract suspend fun doCast()
+
+  protected suspend fun castByConfig(
+    configKey: String,
+    delayMs: Int,
+    pointRandomRange: Int = 0,
+  ) = cast(
+    SkillConfig.getKeyBtn(configKey),
+    delayMs,
+    pointRandomRange
+  )
+
 
   protected suspend fun cast(
     key: KeyBtn,
