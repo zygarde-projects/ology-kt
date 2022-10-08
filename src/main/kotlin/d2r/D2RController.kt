@@ -41,6 +41,7 @@ object D2RController {
     SorcBlizzard,
     SorcMeteor,
     SorcHydra,
+    PalFistOfHeaven,
   ).associateBy { it::class.simpleName.orEmpty() }
 
   fun d2rRunning(switchToForegroundWhenRunning: Boolean = false): Boolean {

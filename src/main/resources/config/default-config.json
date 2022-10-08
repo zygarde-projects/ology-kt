@@ -45,7 +45,7 @@
       "Pala": {
         "enabled": true,
         "skill_cast": {
-          "PalaAura1": true
+          "PalFistOfHeaven": false
         }
       }
     }
@@ -81,6 +81,7 @@
       "SummonSkeleton": "F5",
       "SummonGolem": "F6",
       "Curse": "F1",
+      "FistOfHeaven": "F1",
       "Blizzard": "F1",
       "Meteor": "F1",
       "Hydra": "F1"
