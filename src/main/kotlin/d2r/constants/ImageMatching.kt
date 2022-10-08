@@ -13,9 +13,9 @@ object ImageMatching {
   )
 
   val inGameLegacy = mapOf(
-    "in-game/in_game_menu_bar_legacy.png" to DEFAULT.copy(detectInRegion = InGameDetection.menuLegacy),
-    "in-game/left_blood_ball_legacy.png" to DEFAULT.copy(detectInRegion = InGameDetection.menuLegacy),
-    "in-game/right_mana_ball_legacy.png" to DEFAULT.copy(detectInRegion = InGameDetection.menuLegacy),
+    "in-game/legacy-run-bar.png" to DEFAULT.copy(detectInRegion = InGameDetection.menuLegacy),
+    "in-game/legacy-status-red.png" to DEFAULT.copy(detectInRegion = InGameDetection.menuLegacy),
+    "in-game/legacy-status-gray.png" to DEFAULT.copy(detectInRegion = InGameDetection.menuLegacy),
   )
 
   val inLobby = mapOf(
