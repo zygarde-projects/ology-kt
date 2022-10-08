@@ -19,7 +19,7 @@ object Act1WaitTp : PostJoinGameAction() {
       MoveAction.down(4)
     },
     {
-      MoveAction.upLeft(2)
+      MoveAction.left(3)
       MoveAction.down(2)
       MoveAction.down(2)
       MoveAction.down(2)
