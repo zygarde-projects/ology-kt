@@ -58,7 +58,8 @@
     "join_loading_delay": 8000,
     "enter_tp_loading_delay": 5000,
     "post_join_game": {
-      "switch_to_legacy": true
+      "switch_to_legacy": true,
+      "disable_avatar": true
     },
     "skill_fast_cast": true,
     "bo": {

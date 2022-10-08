@@ -154,6 +154,10 @@ object D2RController {
         KeyboardController.pressAndReleaseKey(Key.G)
         delay(1000)
       }
+      if (ClientConfig.get("post_join_game:disable_avatar") == "true") {
+        KeyboardController.pressAndReleaseKey(Key.Z)
+        delay(1000)
+      }
     } else {
       log("Did not detect in game or not...")
     }
