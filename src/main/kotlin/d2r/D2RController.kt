@@ -76,14 +76,14 @@ object D2RController {
   suspend fun exitGame(currentRetry: Int = 1, maxRetry: Int = 1) {
     stopSkillCast()
 
+    if (SystemConfig.get("joy_stick").toBoolean()) { // switch out joystick ui
+      MouseController.clickOn(btnExitGame).wait(1000)
+    }
+
     val gameStatus = detectGameStatus() ?: throw IllegalStateException("cannot detect game status")
     if (!gameStatus.isInGame()) {
       println("exitGame: not in game")
       return
-    }
-
-    if (SystemConfig.get("joy_stick").toBoolean()) { // switch out joystick ui
-      MouseController.clickOn(btnExitGame).wait(1000)
     }
 
     keyboard.type(Key.Escape).await().wait(1000)
