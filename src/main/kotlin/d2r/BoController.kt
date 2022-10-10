@@ -2,7 +2,6 @@ package d2r
 
 import NodeJS.Timeout
 import conf.ClientConfig
-import d2r.constants.GeneralConstants
 import d2r.constants.ImageMatching
 import d2r.constants.MouseLocations.Lobby.fireRiver
 import d2r.constants.MouseLocations.Lobby.moveWhenInFireRiver
@@ -10,7 +9,6 @@ import extension.CoroutineExtensions.launch
 import extension.log
 import extension.wait
 import extension.waitRandomly
-import external.wincontrol.WinControl
 import timers.clearInterval
 import timers.setInterval
 
@@ -39,11 +37,6 @@ object BoController {
   }
 
   private suspend fun run() {
-    if (WinControl.Window.getForeground()?.getTitle() != GeneralConstants.gameWindowTitle) {
-      log("D2R not active, skipping BO")
-      return
-    }
-
     if (ScreenController.oneOfImagesIn(ImageMatching.wpInFireRiverAct4)?.region == null) {
       val keyboardKeys = ClientConfig.get("bo:keys").split("|")
       keyboardKeys.forEach {
