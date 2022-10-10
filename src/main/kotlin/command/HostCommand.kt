@@ -81,6 +81,7 @@ object HostCommand : NoArgCommand("host") {
             }
             res.status = 200
             res.send(gamePayload)
+            Unit
           }
         }
 

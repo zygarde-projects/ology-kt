@@ -1,6 +1,7 @@
 {
   "system": {
-    "resolution": "hd"
+    "resolution": "hd",
+    "joy_stick": false
   },
   "host": {
     "port": 16667,
@@ -10,6 +11,8 @@
       "counter": 1,
       "difficulty": "N"
     },
+    "make_game_wait_in_game": true,
+    "make_game_loading_delay": 5000,
     "client_actions": {
       "Assassin": {
         "enabled": true,
