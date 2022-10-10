@@ -24,6 +24,7 @@ import kotlinx.coroutines.delay
 import types.GameDifficulty
 import types.InGameStatus
 import types.MoveDirection
+import kotlin.js.Date
 
 object D2RController {
 
@@ -148,8 +149,9 @@ object D2RController {
     MouseController.clickOn(Lobby.joinGameBth)
 
     val joinLoadingDelay = ClientConfig.get("join_loading_delay").toLongOrNull()
-    log("joinLoadingDelay: $joinLoadingDelay")
+    log("joinLoadingDelay: $joinLoadingDelay ${Date.now()}")
     delay(ClientConfig.get("join_loading_delay").toLongOrNull() ?: 8000L)
+    log("joinLoadingDelay finish: ${Date.now()}")
 
     val gameStatusAfterJoinGame = detectGameStatus()
     if (gameStatusAfterJoinGame?.isInGame() == true) {
