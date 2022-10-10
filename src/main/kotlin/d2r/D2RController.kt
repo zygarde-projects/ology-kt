@@ -168,7 +168,8 @@ object D2RController {
     gameStatusAfterJoinGame?.isInGame() == true
   }
 
-  suspend fun startBo() {
+  suspend fun startBo() = withD2rRunning(true) {
+    log("start BO")
     BoController.stop()
     BoController.start()
   }
