@@ -17,7 +17,7 @@ object BoController {
 
   suspend fun start() {
     ScreenController.oneOfImagesIn(ImageMatching.act4tp)?.region?.run {
-      MouseController.clickOnRegionCenter(this).wait(2000)
+      MouseController.clickOnRegionCenter(this).wait(5000)
       ScreenController.oneOfImagesIn(ImageMatching.wpMenuTabAct4)?.region?.run {
         MouseController.clickOn(fireRiver).wait(3000)
         when (ScreenController.oneOfImagesIn(ImageMatching.fireRiver)) {
