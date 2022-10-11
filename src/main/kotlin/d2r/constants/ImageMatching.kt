@@ -61,7 +61,7 @@ object ImageMatching {
       detectInRegion = Regions.Act4Detection.wpMenuTab,
       maxRetry = 3,
       timeoutMs = 5000,
-      baseConfidence = 0.85
+      baseConfidence = 0.82
     )
   )
 
