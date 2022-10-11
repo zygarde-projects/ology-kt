@@ -18,14 +18,16 @@ object BoController {
   suspend fun start() {
     ScreenController.oneOfImagesIn(ImageMatching.act4tp)?.region?.run {
       MouseController.clickOnRegionCenter(this).wait(5000)
-      MouseController.clickOn(fireRiver).wait(3000)
-      when (ScreenController.oneOfImagesIn(ImageMatching.fireRiver)) {
-        null -> log("fireRiverMark not detected, bo won't start")
-        else -> {
-          MouseController.clickOn(moveWhenInFireRiver)
-          boIntervalId = setInterval({ launch { run() } }, 2000)
+      ScreenController.oneOfImagesIn(ImageMatching.wpMenuTabAct4)?.region?.run {
+        MouseController.clickOn(fireRiver).wait(3000)
+        when (ScreenController.oneOfImagesIn(ImageMatching.fireRiver)) {
+          null -> log("fireRiverMark not detected, bo won't start")
+          else -> {
+            MouseController.clickOn(moveWhenInFireRiver)
+            boIntervalId = setInterval({ launch { run() } }, 2000)
+          }
         }
-      }
+      }.takeIf { it == null }.run { log("not found wpMenuTabAct4") }
     }.takeIf { it == null }.run { log("not found act4tp") }
   }
 
