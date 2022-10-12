@@ -10,7 +10,7 @@ object MouseLocations {
 
     val moveWhenInFireRiver = PredefinedPoint(2000, 1050)
     val fireRiver = PredefinedPoint(666, 777)
-    val tpAct4 = PredefinedPoint(1400, 473) // workaround for menu auto been closed sometime
+    val tpAct4 = PredefinedPoint(2078, 918) // workaround for menu auto been closed sometime
 
     val joinGameTab = PredefinedPoint(2938, 156)
     val joinGameInputName = PredefinedPoint(2556, 300)
