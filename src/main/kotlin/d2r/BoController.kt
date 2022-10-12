@@ -9,6 +9,7 @@ import extension.CoroutineExtensions.launch
 import extension.log
 import extension.wait
 import extension.waitRandomly
+import kotlinx.coroutines.delay
 import timers.clearInterval
 import timers.setInterval
 
@@ -19,6 +20,9 @@ object BoController {
     ScreenController.oneOfImagesIn(ImageMatching.act4tp)?.region?.run {
       MouseController.clickOnRegionCenter(this).wait(5000)
       ScreenController.oneOfImagesIn(ImageMatching.wpMenuTabAct4)?.region?.run {
+        log("found wpMenuTabAct4 ")
+        delay(2000)
+        log("go to fireRiver ")
         MouseController.clickOn(fireRiver).wait(3000)
         when (ScreenController.oneOfImagesIn(ImageMatching.fireRiver)) {
           null -> log("fireRiverMark not detected, bo won't start")
