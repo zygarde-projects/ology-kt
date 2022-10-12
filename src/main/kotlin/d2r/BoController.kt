@@ -19,10 +19,9 @@ object BoController {
 
   suspend fun start() {
     ScreenController.oneOfImagesIn(ImageMatching.act4tp)?.region?.run {
-      MouseController.clickOnRegionCenter(this).log("click on act4tpCenter ${Date.now()}")
-      delay(5000)
+      delay(3000)
+      MouseController.clickOnRegionCenter(this).wait(5000)
       ScreenController.oneOfImagesIn(ImageMatching.wpMenuTabAct4)?.region?.run {
-        delay(2000)
         MouseController.clickOn(fireRiver).log("click on fireRiver ${Date.now()}").wait(3000)
         when (ScreenController.oneOfImagesIn(ImageMatching.fireRiver)) {
           null -> log("fireRiverMark not detected, bo won't start")

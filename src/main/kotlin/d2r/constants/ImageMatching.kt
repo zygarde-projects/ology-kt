@@ -76,17 +76,17 @@ object ImageMatching {
   val fireRiver = mapOf(
     "in-game/fire_river_mark_1.png" to DEFAULT.copy(
       detectInRegion = Regions.Act4Detection.fireRiver1,
-      maxRetry = 2,
+      maxRetry = 1,
       baseConfidence = 0.85
     ),
     "in-game/fire_river_mark_2.png" to DEFAULT.copy(
       detectInRegion = Regions.Act4Detection.fireRiver2,
-      maxRetry = 2,
+      maxRetry = 1,
       baseConfidence = 0.85
     ),
     "in-game/fire_river_mark_3.png" to DEFAULT.copy(
       detectInRegion = Regions.Act4Detection.fireRiver3,
-      maxRetry = 2,
+      maxRetry = 1,
       baseConfidence = 0.85
     )
   )
