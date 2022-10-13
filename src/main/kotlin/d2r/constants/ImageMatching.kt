@@ -68,8 +68,8 @@ object ImageMatching {
   val wpInFireRiverAct4 = mapOf(
     "in-game/wp_in_fire_river.png" to DEFAULT.copy(
       detectInRegion = Regions.Act4Detection.wpInFireRiver,
-      maxRetry = 2,
-      baseConfidence = 0.85
+      maxRetry = 1,
+      baseConfidence = 0.9
     )
   )
 
