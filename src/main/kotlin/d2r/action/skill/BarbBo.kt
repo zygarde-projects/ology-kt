@@ -13,14 +13,13 @@ object BarbBo : RepeatableSkillCastAction() {
   private val key3 = SkillConfig.getKeyBtn("BO3")
 
   override suspend fun doCast() {
-    cast(key1, 1000)
-    cast(key1, 1000)
-    cast(key2, 1000)
-    cast(key3, 1000)
-    delay(15000)
-    cast(key1, 1000)
-    cast(key1, 1000)
-    cast(key2, 1000)
-    cast(key3, 1000)
+    cast(key1, 500)
+    cast(key1, 500)
+    cast(key2, 500)
+    cast(key3, 5000)
+    cast(key1, 500)
+    cast(key1, 500)
+    cast(key2, 500)
+    cast(key3, 0)
   }
 }
