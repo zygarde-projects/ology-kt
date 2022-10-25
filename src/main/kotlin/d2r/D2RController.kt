@@ -146,7 +146,9 @@ object D2RController {
     // click on search input to prevent focus on searched game
     MouseController.clickOn(Lobby.joinGameSearch).wait(300)
 
-    MouseController.clickOn(Lobby.joinGameBth)
+    MouseController.clickOn(Lobby.joinGameBtn).wait(300)
+
+    MouseController.clickOn(Lobby.joinGameFailBtn) // click the unable to join game confirm button
 
     val joinLoadingDelay = ClientConfig.get("join_loading_delay").toLongOrNull()
     log("joinLoadingDelay: $joinLoadingDelay ${Date.now()}")
