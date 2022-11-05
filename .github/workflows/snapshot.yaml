@@ -30,6 +30,6 @@ jobs:
       - name: publish
         run: ./scripts/publish-snapshot.sh
         env:
-          NPM_USER: ${{ secrets.NPM_USER }}
-          NPM_PASS: ${{ secrets.NPM_PASS }}
-          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
+          PUNI_NPM_USER: ${{ secrets.PUNI_NPM_USER }}
+          PUNI_NPM_PASS: ${{ secrets.PUNI_NPM_PASS }}
+          PUNI_NPM_EMAIL: ${{ secrets.PUNI_NPM_EMAIL }}
