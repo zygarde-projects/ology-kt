@@ -2,10 +2,10 @@
 VERSION_ARG=$1
 BUILD_TIME=$(date -u +"%Y%m%d%H%M%S")
 BUILD_VERSION=${VERSION_ARG:-"0.0.0-$BUILD_TIME"}
-NPM_USER="$PUNI_NPM_USER" \
-NPM_PASS="$PUNI_NPM_PASS" \
-NPM_EMAIL="$PUNI_NPM_EMAIL" \
-npx --yes npm-cli-login -r https://npm.puni.tw -s @puni
+NPM_USER="$NPM_USER" \
+NPM_PASS="$NPM_PASS" \
+NPM_EMAIL="$NPM_EMAIL" \
+npx --yes npm-cli-login -r https://npm.pkg.github.com -s @zygarde-projects
 
 DIR=$(dirname $0)
 ABS_PATH=$(cd "$DIR" && pwd)
@@ -18,8 +18,8 @@ function publishLib() {
     echo "Skip $package"
     return 0
   fi
-  (cd "$DIST_TARGET/$1" && yarn publish --registry=https://npm.puni.tw --no-git-tag-version --new-version "$BUILD_VERSION")
-  (cd "$DIST_TARGET/$MAJOR_PACKAGE" && yarn add "$package@$BUILD_VERSION" --ignore-scripts --registry=https://npm.puni.tw)
+  (cd "$DIST_TARGET/$1" && yarn publish --registry=https://npm.pkg.github.com --no-git-tag-version --new-version "$BUILD_VERSION")
+  (cd "$DIST_TARGET/$MAJOR_PACKAGE" && yarn add "$package@$BUILD_VERSION" --ignore-scripts --registry=https://npm.pkg.github.com)
 }
 
 #(cd "$DIST_TARGET" && cat package.json | jq -r '.workspaces[] | select(startswith("packages_imported"))' | while read -r package; do publishLib "$package"; done )
@@ -34,4 +34,4 @@ echo "prepare dependencies"
   -f --ignore-scripts --ignore-engines --ignore-platform)
 
 echo "publish major package"
-(cd "$DIST_TARGET/$MAJOR_PACKAGE" && yarn publish --registry=https://npm.puni.tw --no-git-tag-version --new-version "$BUILD_VERSION")
+(cd "$DIST_TARGET/$MAJOR_PACKAGE" && yarn publish --registry=https://npm.pkg.github.com --no-git-tag-version --new-version "$BUILD_VERSION")
