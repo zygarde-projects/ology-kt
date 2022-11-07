@@ -7,9 +7,9 @@ object ImageMatching {
   val DEFAULT = MatchingImageRequest()
 
   val inGame = mapOf(
-    "in-game/in_game_menu_bar.png" to DEFAULT.copy(detectInRegion = InGameDetection.menu),
-    "in-game/left_blood_ball.png" to DEFAULT.copy(detectInRegion = InGameDetection.menu),
-    "in-game/right_mana_ball.png" to DEFAULT.copy(detectInRegion = InGameDetection.menu),
+    "in-game/in_game_menu_bar.png" to DEFAULT.copy(detectInRegion = InGameDetection.menu, timeoutMs = 5000),
+    "in-game/left_blood_ball.png" to DEFAULT.copy(detectInRegion = InGameDetection.menu, timeoutMs = 5000),
+    "in-game/right_mana_ball.png" to DEFAULT.copy(detectInRegion = InGameDetection.menu, timeoutMs = 5000),
   )
 
   val inGameLegacy = mapOf(
